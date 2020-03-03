@@ -40,7 +40,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         onGenerateTitle: (BuildContext context) => APP_NAME,
         debugShowCheckedModeBanner: false,
         android: (BuildContext context) => MaterialAppData(
-          theme: AppTheme.theme(Brightness.dark),
+          theme: AppTheme.theme(Brightness.light),
           themeMode: mediaQuery?.platformBrightness == Brightness.dark
               ? ThemeMode.dark
               : ThemeMode.light,

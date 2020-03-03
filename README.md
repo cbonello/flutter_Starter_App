@@ -14,6 +14,12 @@ For more information about Firestore visit [the docs][firestore-docs].
  1. In the Firebase console, enable Email/Password authentication on your project by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
  1. In the Firebase console, enable Google authentication on your project by doing: **Authentication > SIGN-IN METHOD > Google > Enable > SAVE**
 
+## Current Implementation Status
+
+Sign In Screen | Sign Up Screen
+--- | ---
+![Sign In Screen](/screenshots/signin_light.png?raw=true "Sign In Screen") | ![Sign Up Screen](/screenshots/signup_dark.png?raw=true "Sign Up Screen")
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

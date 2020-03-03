@@ -96,7 +96,9 @@ class SignUpFormState extends State<SignUpForm> {
               .bloc<AuthenticationBloc>()
               .add(SignedInAuthenticationEvent(user: state.user));
           _signingUpFlushbar.dismiss();
-          Navigator.of(context).popUntil((dynamic route) => route.isFirst);
+          try {
+            Navigator.of(context).popUntil((dynamic route) => route.isFirst);
+          } catch (_) {}
         }
       },
       child: BlocBuilder<SignUpBloc, SignUpState>(
