@@ -14,7 +14,7 @@ class AuthenticatedAuthenticationState extends AuthenticationState {
   const AuthenticatedAuthenticationState({@required this.authenticatedUser})
       : assert(authenticatedUser != null);
 
-  final UserModel authenticatedUser;
+  final FirebaseUser authenticatedUser;
 
   @override
   List<Object> get props => <Object>[authenticatedUser];

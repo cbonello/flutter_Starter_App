@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:starter_app/src/blocs/authentication/authentication_bloc.dart';
 import 'package:starter_app/src/blocs/signup/signup_bloc.dart';
+import 'package:starter_app/src/repositories/authentication_repository.dart';
 import 'package:starter_app/src/ui/screens/signin/signin_screen.dart';
 import 'package:starter_app/src/ui/widgets/app_logo.dart';
 import 'package:starter_app/src/ui/widgets/form_fields.dart';
@@ -13,9 +14,15 @@ import 'package:starter_app/src/utils/theme.dart';
 import 'package:starter_app/src/utils/validators.dart';
 
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({Key key, @required this.widthFactor, @required this.logoScaleFactor})
-      : super(key: key);
+  const SignUpForm({
+    Key key,
+    @required AuthenticationRepository authRepository,
+    @required this.widthFactor,
+    @required this.logoScaleFactor,
+  })  : _authRepository = authRepository,
+        super(key: key);
 
+  final AuthenticationRepository _authRepository;
   final double widthFactor, logoScaleFactor;
 
   @override
@@ -26,7 +33,7 @@ class SignUpFormState extends State<SignUpForm> {
   TextEditingController _nameController;
   TextEditingController _emailController;
   TextEditingController _passwordController;
-  FocusNode _nameFocus, _emailFocus, _passwordFocus;
+  FocusNode _emailFocus, _passwordFocus;
   bool _agreedToTOSAndPolicy;
   SignUpBloc _signUpBloc;
   Flushbar<Object> _signingUpFlushbar;
@@ -40,8 +47,6 @@ class SignUpFormState extends State<SignUpForm> {
     ]);
     _agreedToTOSAndPolicy = false;
     _signUpBloc = context.bloc<SignUpBloc>();
-    _nameController = TextEditingController();
-    _nameController.addListener(_onNameChanged);
     _emailController = TextEditingController();
     _emailController.addListener(_onEmailChanged);
     _passwordController = TextEditingController();
@@ -54,7 +59,6 @@ class SignUpFormState extends State<SignUpForm> {
       message: 'Signing up...',
       linearProgressIndicator: const LinearProgressIndicator(),
     );
-    _nameFocus = FocusNode(debugLabel: 'Name');
     _emailFocus = FocusNode(debugLabel: 'Email');
     _passwordFocus = FocusNode(debugLabel: 'Password');
     super.didChangeDependencies();
@@ -64,7 +68,6 @@ class SignUpFormState extends State<SignUpForm> {
   void dispose() {
     _passwordFocus.dispose();
     _emailFocus.dispose();
-    _nameFocus.dispose();
     _passwordController.dispose();
     _emailController.dispose();
     _nameController.dispose();
@@ -109,21 +112,6 @@ class SignUpFormState extends State<SignUpForm> {
                   AppLogo(scaleFactor: widget.logoScaleFactor),
                   const Spacer(),
                   AppTextFormField(
-                    labelText: 'Name',
-                    controller: _nameController,
-                    textInputAction: TextInputAction.next,
-                    focusNode: _nameFocus,
-                    textCapitalization: TextCapitalization.sentences,
-                    onFieldSubmitted: (_) {
-                      fieldFocusChangeCallback(
-                        context,
-                        _nameFocus,
-                        _emailFocus,
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 10.0),
-                  AppTextFormField(
                     labelText: 'Email',
                     textInputAction: TextInputAction.next,
                     focusNode: _emailFocus,
@@ -166,7 +154,9 @@ class SignUpFormState extends State<SignUpForm> {
                   Row(
                     children: <Widget>[
                       Checkbox(
-                        activeColor: _agreedToTOSAndPolicy ? Colors.green : Colors.grey,
+                        activeColor: _agreedToTOSAndPolicy
+                            ? Theme.of(context).primaryColor
+                            : Colors.grey,
                         value: _agreedToTOSAndPolicy,
                         onChanged: _onTOSChanged,
                       ),
@@ -202,7 +192,9 @@ class SignUpFormState extends State<SignUpForm> {
                           context,
                           platformPageRoute<void>(
                             context: context,
-                            builder: (_) => SignInScreen(),
+                            builder: (_) => SignInScreen(
+                              authRepository: widget._authRepository,
+                            ),
                           ),
                         );
                       },
@@ -217,7 +209,7 @@ class SignUpFormState extends State<SignUpForm> {
                           Text(
                             'Sign in',
                             style: TextStyle(
-                              color: const Color(0xFF0DBA46),
+                              color: Theme.of(context).primaryColor,
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                             ),
@@ -237,18 +229,12 @@ class SignUpFormState extends State<SignUpForm> {
   }
 
   bool get isPopulated =>
-      _nameController.text.trim().isNotEmpty &&
       _emailController.text.trim().isNotEmpty &&
       _passwordController.text.trim().isNotEmpty &&
       _agreedToTOSAndPolicy;
 
   bool isSignUpButtonEnabled(SignUpState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
-  }
-
-  void _onNameChanged() {
-    _signUpBloc.add(NameChangedSignUpEvent(name: _nameController.text.trim()));
-    setState(() {});
   }
 
   void _onEmailChanged() {
@@ -270,7 +256,6 @@ class SignUpFormState extends State<SignUpForm> {
   void _onFormSubmitted() {
     _signUpBloc.add(
       SubmittedSignUpEvent(
-        name: _nameController.text,
         email: _emailController.text,
         password: _passwordController.text,
         tosPrivacyAccepted: _agreedToTOSAndPolicy,

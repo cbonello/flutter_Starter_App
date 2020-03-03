@@ -2,7 +2,6 @@ part of 'signup_bloc.dart';
 
 class SignUpState extends Equatable {
   const SignUpState({
-    @required this.isNameValid,
     @required this.isEmailValid,
     @required this.isPasswordValid,
     @required this.isTOSPrivacyAccepted,
@@ -14,7 +13,6 @@ class SignUpState extends Equatable {
 
   factory SignUpState.empty() {
     return const SignUpState(
-      isNameValid: true,
       isEmailValid: true,
       isPasswordValid: true,
       isTOSPrivacyAccepted: true,
@@ -27,7 +25,6 @@ class SignUpState extends Equatable {
 
   factory SignUpState.loading() {
     return const SignUpState(
-      isNameValid: true,
       isEmailValid: true,
       isPasswordValid: true,
       isTOSPrivacyAccepted: true,
@@ -40,7 +37,6 @@ class SignUpState extends Equatable {
 
   factory SignUpState.failure(AppException exception) {
     return SignUpState(
-      isNameValid: true,
       isEmailValid: true,
       isPasswordValid: true,
       isTOSPrivacyAccepted: true,
@@ -51,9 +47,8 @@ class SignUpState extends Equatable {
     );
   }
 
-  factory SignUpState.success(UserModel user) {
+  factory SignUpState.success(FirebaseUser user) {
     return SignUpState(
-      isNameValid: true,
       isEmailValid: true,
       isPasswordValid: true,
       isTOSPrivacyAccepted: true,
@@ -64,14 +59,13 @@ class SignUpState extends Equatable {
     );
   }
 
-  final bool isNameValid, isEmailValid, isPasswordValid;
+  final bool isEmailValid, isPasswordValid;
   final bool isTOSPrivacyAccepted, isSubmitting, isSuccess;
-  final UserModel user;
+  final FirebaseUser user;
   final AppException exceptionRaised;
 
   @override
   List<Object> get props => <Object>[
-        isNameValid,
         isEmailValid,
         isPasswordValid,
         isTOSPrivacyAccepted,
@@ -81,18 +75,16 @@ class SignUpState extends Equatable {
         exceptionRaised,
       ];
 
-  bool get isFormValid => isNameValid && isEmailValid && isPasswordValid;
+  bool get isFormValid => isEmailValid && isPasswordValid;
 
   bool get isFailure => exceptionRaised != null;
 
   SignUpState update({
-    bool isNameValid,
     bool isEmailValid,
     bool isPasswordValid,
     bool isTOSPrivacyAccepted,
   }) {
     return copyWith(
-      isNameValid: isNameValid,
       isEmailValid: isEmailValid,
       isPasswordValid: isPasswordValid,
       isTOSPrivacyAccepted: isTOSPrivacyAccepted,
@@ -104,18 +96,16 @@ class SignUpState extends Equatable {
   }
 
   SignUpState copyWith({
-    bool isNameValid,
     bool isEmailValid,
     bool isPasswordValid,
     bool isTOSPrivacyAccepted,
     bool isSubmitEnabled,
     bool isSubmitting,
-    UserModel user,
+    FirebaseUser user,
     bool isSuccess,
     AppException exceptionRaised,
   }) {
     return SignUpState(
-      isNameValid: isNameValid ?? this.isNameValid,
       isEmailValid: isEmailValid ?? this.isEmailValid,
       isPasswordValid: isPasswordValid ?? this.isPasswordValid,
       isTOSPrivacyAccepted: isTOSPrivacyAccepted ?? this.isTOSPrivacyAccepted,
@@ -128,7 +118,6 @@ class SignUpState extends Equatable {
 
   @override
   String toString() => '''SignUpState {
-      isNameValid: $isNameValid,
       isEmailValid: $isEmailValid,
       isPasswordValid: $isPasswordValid,
       isTOSPrivacyAccepted: $isTOSPrivacyAccepted,

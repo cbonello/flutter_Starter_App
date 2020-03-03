@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:starter_app/src/models/user_model.dart';
 import 'package:starter_app/src/repositories/authentication_repository.dart';
-import 'package:starter_app/src/services/service_locator.dart';
 import 'package:starter_app/src/utils/exceptions.dart';
 import 'package:starter_app/src/utils/validators.dart';
 
@@ -13,8 +12,10 @@ part 'signup_event.dart';
 part 'signup_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  final AuthenticationRepositoryInterface _authenticationRepository =
-      locator<AuthenticationRepositoryInterface>();
+  SignUpBloc({@required AuthenticationRepository authRepository})
+      : _authRepository = authRepository;
+
+  final AuthenticationRepository _authRepository;
 
   @override
   SignUpState get initialState => SignUpState.empty();
@@ -44,23 +45,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   Stream<SignUpState> mapEventToState(
     SignUpEvent event,
   ) async* {
-    if (event is NameChangedSignUpEvent) {
-      yield* _mapNameChangedToState(event.name);
-    } else if (event is EmailChangedSignUpEvent) {
+    if (event is EmailChangedSignUpEvent) {
       yield* _mapEmailChangedToState(event.email);
     } else if (event is PasswordChangedSignUpEvent) {
       yield* _mapPasswordChangedToState(event.password);
     } else if (event is TOSPrivacyChangedSignUpEvent) {
       yield* _mapTOSPrivacyChangedToState(event.tosPrivacyAccepted);
     } else if (event is SubmittedSignUpEvent) {
-      yield* _mapFormSubmittedToState(event.name, event.email, event.password);
+      yield* _mapFormSubmittedToState(event.email, event.password);
     }
-  }
-
-  Stream<SignUpState> _mapNameChangedToState(String name) async* {
-    yield state.update(
-      isNameValid: isValidName(name),
-    );
   }
 
   Stream<SignUpState> _mapEmailChangedToState(String email) async* {
@@ -82,14 +75,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   Stream<SignUpState> _mapFormSubmittedToState(
-    String name,
     String email,
     String password,
   ) async* {
     yield SignUpState.loading();
     try {
-      final UserModel user = await _authenticationRepository.signUp(
-        name: name,
+      final FirebaseUser user = await _authRepository.signUp(
         email: email,
         password: password,
       );

@@ -1,10 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:starter_app/src/models/user_model.dart';
 import 'package:starter_app/src/repositories/authentication_repository.dart';
-import 'package:starter_app/src/services/service_locator.dart';
 import 'package:starter_app/src/utils/exceptions.dart';
 import 'package:starter_app/src/utils/validators.dart';
 
@@ -12,8 +11,10 @@ part 'signin_event.dart';
 part 'signin_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
-  final AuthenticationRepositoryInterface _authenticationRepository =
-      locator<AuthenticationRepositoryInterface>();
+  SignInBloc({@required AuthenticationRepository authRepository})
+      : _authRepository = authRepository;
+
+  final AuthenticationRepository _authRepository;
 
   @override
   SignInState get initialState => SignInState.empty();
@@ -66,7 +67,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   }) async* {
     yield SignInState.signingIn();
     try {
-      final UserModel user = await _authenticationRepository.signInWithEmailAndPassword(
+      final FirebaseUser user = await _authRepository.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -79,7 +80,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   Stream<SignInState> _mapSignInWithGooglePressedToState() async* {
     try {
-      final UserModel user = await _authenticationRepository.signInWithGoogle();
+      final FirebaseUser user = await _authRepository.signInWithGoogle();
       yield SignInState.success(user);
     } catch (exception, stacktrace) {
       print(stacktrace);

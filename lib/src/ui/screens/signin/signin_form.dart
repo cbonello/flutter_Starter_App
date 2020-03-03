@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:starter_app/src/blocs/authentication/authentication_bloc.dart';
 import 'package:starter_app/src/blocs/signin/signin_bloc.dart';
+import 'package:starter_app/src/repositories/authentication_repository.dart';
 import 'package:starter_app/src/ui/screens/signup/signup_screen.dart';
 import 'package:starter_app/src/ui/widgets/app_logo.dart';
 import 'package:starter_app/src/ui/widgets/form_fields.dart';
@@ -14,9 +15,15 @@ import 'package:starter_app/src/ui/widgets/horizontal_line.dart';
 import 'package:starter_app/src/utils/theme.dart';
 
 class SignInForm extends StatefulWidget {
-  const SignInForm({Key key, @required this.widthFactor, @required this.logoScaleFactor})
-      : super(key: key);
+  const SignInForm({
+    Key key,
+    @required AuthenticationRepository authRepository,
+    @required this.widthFactor,
+    @required this.logoScaleFactor,
+  })  : _authRepository = authRepository,
+        super(key: key);
 
+  final AuthenticationRepository _authRepository;
   final double widthFactor, logoScaleFactor;
 
   @override
@@ -87,7 +94,9 @@ class SignInFormState extends State<SignInForm> {
               .bloc<AuthenticationBloc>()
               .add(SignedInAuthenticationEvent(user: state.user));
           await _signingInFlushbar.dismiss();
-          Navigator.of(context).popUntil((dynamic route) => route.isFirst);
+          try {
+            Navigator.of(context).popUntil((dynamic route) => route.isFirst);
+          } catch (_) {}
         }
       },
       child: BlocBuilder<SignInBloc, SignInState>(
@@ -132,7 +141,7 @@ class SignInFormState extends State<SignInForm> {
                     gradient: AppTheme.widgetGradient,
                     onPressed: isSignInButtonEnabled(state) ? _onFormSubmitted : null,
                     child: Text(
-                      'Signing in...',
+                      'Sign in',
                       style: isSignInButtonEnabled(state)
                           ? AppTheme.buttonEnabledTextStyle
                           : AppTheme.buttonDisabledTextStyle,
@@ -195,7 +204,8 @@ class SignInFormState extends State<SignInForm> {
                           context,
                           platformPageRoute<void>(
                             context: context,
-                            builder: (_) => SignUpScreen(),
+                            builder: (_) =>
+                                SignUpScreen(authRepository: widget._authRepository),
                           ),
                         );
                       },
@@ -210,7 +220,7 @@ class SignInFormState extends State<SignInForm> {
                           Text(
                             'Sign up',
                             style: TextStyle(
-                              color: const Color(0xFF0DBA46),
+                              color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.w600,
                             ),
                           )

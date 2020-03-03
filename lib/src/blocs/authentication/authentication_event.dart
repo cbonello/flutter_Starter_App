@@ -13,7 +13,7 @@ class AppStartedAuthenticationEvent extends AuthenticationEvent {}
 class SignedInAuthenticationEvent extends AuthenticationEvent {
   const SignedInAuthenticationEvent({@required this.user}) : assert(user != null);
 
-  final UserModel user;
+  final FirebaseUser user;
 
   @override
   List<Object> get props => <Object>[user];

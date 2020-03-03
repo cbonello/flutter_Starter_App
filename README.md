@@ -1,6 +1,6 @@
 # starter_app
 
-A Flutter starter project.
+A Flutter starter project (tested on Android only).
 
 ## Setup
 
@@ -10,15 +10,9 @@ For more information about Firestore visit [the docs][firestore-docs].
 
 [firestore-docs]: https://firebase.google.com/docs/firestore/
 
- 1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com).
+ 1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com) and add and Android app to the project.
  1. In the Firebase console, enable Email/Password authentication on your project by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
  1. In the Firebase console, enable Google authentication on your project by doing: **Authentication > SIGN-IN METHOD > Google > Enable > SAVE**
- 1. In the Firebase console, enable Cloud Firestore on your project by doing: **Database > Create Database**
- 1. Select testing mode for the security rules
- 1. Run following script to update the app icon:
-```bash
-flutter pub run flutter_launcher_icons:main
-```
 
 ## Getting Started
 

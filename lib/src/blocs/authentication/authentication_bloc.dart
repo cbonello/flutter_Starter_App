@@ -2,23 +2,26 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
-import 'package:starter_app/src/models/user_model.dart';
 import 'package:starter_app/src/repositories/authentication_repository.dart';
 import 'package:starter_app/src/services/local_storage.dart';
-import 'package:starter_app/src/services/service_locator.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc({FirebaseAnalytics firebaseAnalytics})
-      : _firebaseAnalytics = firebaseAnalytics ?? FirebaseAnalytics();
+  AuthenticationBloc({
+    @required LocalStorageService localStorageService,
+    @required AuthenticationRepository authRepository,
+    FirebaseAnalytics firebaseAnalytics,
+  })  : _localStorageService = localStorageService,
+        _authRepository = authRepository,
+        _firebaseAnalytics = firebaseAnalytics ?? FirebaseAnalytics();
 
+  final LocalStorageService _localStorageService;
+  final AuthenticationRepository _authRepository;
   final FirebaseAnalytics _firebaseAnalytics;
-  final LocalStorageServiceInterface _prefs = locator<LocalStorageServiceInterface>();
-  final AuthenticationRepositoryInterface _authenticationRepository =
-      locator<AuthenticationRepositoryInterface>();
 
   @override
   AuthenticationState get initialState => UninitializedAuthenticationState();
@@ -38,31 +41,31 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   Stream<AuthenticationState> _mapAppStartedToState() async* {
     try {
-      final UserModel user = await _authenticationRepository.signInWithCurrentUser();
+      final FirebaseUser user = await _authRepository.signInWithCurrentUser();
       if (user != null) {
-        await _prefs.setAuthenticatedUserID(user.userID);
+        await _localStorageService.setAuthenticatedUserID(user.uid);
         yield AuthenticatedAuthenticationState(authenticatedUser: user);
         await _firebaseAnalytics.logLogin();
       } else {
-        await _prefs.deleteAuthenticatedUserID();
+        await _localStorageService.deleteAuthenticatedUserID();
         yield UnauthenticatedAuthenticationState();
       }
     } catch (_, stacktrace) {
       print(stacktrace);
-      await _prefs.deleteAuthenticatedUserID();
+      await _localStorageService.deleteAuthenticatedUserID();
       yield UnauthenticatedAuthenticationState();
     }
   }
 
-  Stream<AuthenticationState> _mapSignedInToState(UserModel user) async* {
-    await _prefs.setAuthenticatedUserID(user.userID);
+  Stream<AuthenticationState> _mapSignedInToState(FirebaseUser user) async* {
+    await _localStorageService.setAuthenticatedUserID(user.uid);
     yield AuthenticatedAuthenticationState(authenticatedUser: user);
     await _firebaseAnalytics.logLogin();
   }
 
   Stream<AuthenticationState> _mapSignedOutToState() async* {
-    await _prefs.deleteAuthenticatedUserID();
+    await _localStorageService.deleteAuthenticatedUserID();
     yield UnauthenticatedAuthenticationState();
-    await _authenticationRepository.signOut();
+    await _authRepository.signOut();
   }
 }

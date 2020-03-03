@@ -44,7 +44,7 @@ class SignInState extends Equatable {
     );
   }
 
-  factory SignInState.success(UserModel user) {
+  factory SignInState.success(FirebaseUser user) {
     return SignInState(
       isEmailValid: true,
       isPasswordValid: true,
@@ -56,7 +56,7 @@ class SignInState extends Equatable {
   }
 
   final bool isEmailValid, isPasswordValid, isSubmitting, isSuccess;
-  final UserModel user;
+  final FirebaseUser user;
   final AppException exceptionRaised;
 
   @override
@@ -93,7 +93,7 @@ class SignInState extends Equatable {
     bool isSubmitEnabled,
     bool isSubmitting,
     bool isSuccess,
-    UserModel user,
+    FirebaseUser user,
     AppException exceptionRaised,
   }) {
     return SignInState(

@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         android: (BuildContext context) {
           return MaterialScaffoldData(
             floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.green,
+              backgroundColor: Theme.of(context).primaryColor,
               onPressed: _incrementCounter,
               tooltip: 'Increment',
               child: Icon(Icons.add),

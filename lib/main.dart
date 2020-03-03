@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:starter_app/src/app.dart';
 import 'package:starter_app/src/blocs/authentication/authentication_bloc.dart';
 import 'package:starter_app/src/blocs/simple_bloc_delegate.dart';
-import 'package:starter_app/src/services/service_locator.dart';
+import 'package:starter_app/src/repositories/authentication_repository.dart';
+import 'package:starter_app/src/services/local_storage.dart';
 
 bool get isInDebugMode {
   bool inDebugMode = false;
@@ -14,7 +15,9 @@ bool get isInDebugMode {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await setupLocator();
+
+  final LocalStorageService localStorageService = await LocalStorageService.getInstance();
+  final AuthenticationRepository authRepository = AuthenticationRepository();
 
   BlocSupervisor.delegate = SimpleBlocDelegate();
   final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
@@ -25,12 +28,14 @@ Future<void> main() async {
         BlocProvider<AuthenticationBloc>(
           create: (BuildContext _) {
             return AuthenticationBloc(
+              localStorageService: localStorageService,
+              authRepository: authRepository,
               firebaseAnalytics: firebaseAnalytics,
             )..add(AppStartedAuthenticationEvent());
           },
         ),
       ],
-      child: App(),
+      child: App(authRepository: authRepository),
     ),
   );
 }

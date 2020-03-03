@@ -8,18 +8,6 @@ abstract class SignUpEvent extends Equatable {
   List<Object> get props => <Object>[];
 }
 
-class NameChangedSignUpEvent extends SignUpEvent {
-  const NameChangedSignUpEvent({@required this.name});
-
-  final String name;
-
-  @override
-  List<Object> get props => <Object>[name];
-
-  @override
-  String toString() => 'NameChangedSignUpEvent { name :$name }';
-}
-
 class EmailChangedSignUpEvent extends SignUpEvent {
   const EmailChangedSignUpEvent({@required this.email});
 
@@ -59,27 +47,20 @@ class TOSPrivacyChangedSignUpEvent extends SignUpEvent {
 
 class SubmittedSignUpEvent extends SignUpEvent {
   const SubmittedSignUpEvent({
-    @required this.name,
     @required this.email,
     @required this.password,
     @required this.tosPrivacyAccepted,
   });
 
-  final String name, email, password;
+  final String email, password;
   final bool tosPrivacyAccepted;
 
   @override
-  List<Object> get props => <Object>[
-        name,
-        email,
-        password,
-        tosPrivacyAccepted,
-      ];
+  List<Object> get props => <Object>[email, password, tosPrivacyAccepted];
 
   @override
   String toString() {
     return '''SubmittedSignUpEvent {
-      Name: "$name",
       email: "$email",
       password: "$password",
       TOS/Privacy Accepted: $tosPrivacyAccepted

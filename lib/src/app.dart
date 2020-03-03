@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:starter_app/src/blocs/authentication/authentication_bloc.dart';
+import 'package:starter_app/src/repositories/authentication_repository.dart';
 import 'package:starter_app/src/ui/screens/home.dart';
 import 'package:starter_app/src/ui/screens/signin/signin_screen.dart';
 import 'package:starter_app/src/ui/screens/splash_screen.dart';
@@ -9,6 +10,14 @@ import 'package:starter_app/src/utils/constants.dart';
 import 'package:starter_app/src/utils/theme.dart';
 
 class App extends StatefulWidget {
+  const App({
+    Key key,
+    @required AuthenticationRepository authRepository,
+  })  : _authRepository = authRepository,
+        super(key: key);
+
+  final AuthenticationRepository _authRepository;
+
   @override
   _AppState createState() => _AppState();
 }
@@ -31,7 +40,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         onGenerateTitle: (BuildContext context) => APP_NAME,
         debugShowCheckedModeBanner: false,
         android: (BuildContext context) => MaterialAppData(
-          theme: AppTheme.theme(Brightness.light),
+          theme: AppTheme.theme(Brightness.dark),
           themeMode: mediaQuery?.platformBrightness == Brightness.dark
               ? ThemeMode.dark
               : ThemeMode.light,
@@ -42,7 +51,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               return HomeScreen();
             }
             if (state is UnauthenticatedAuthenticationState) {
-              return SignInScreen();
+              return SignInScreen(authRepository: widget._authRepository);
             }
             return SplashScreen();
           },

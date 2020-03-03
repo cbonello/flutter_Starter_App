@@ -11,7 +11,7 @@ class AppTheme {
         ),
         // See https://github.com/flutter/flutter/issues/35826.
         buttonTheme: const ButtonThemeData(minWidth: 5),
-        iconTheme: const IconThemeData(color: Colors.green),
+        iconTheme: const IconThemeData(color: Colors.blue),
         canvasColor: const Color(0xFFF3F3F3),
         inputDecorationTheme: InputDecorationTheme(
           labelStyle: const TextStyle(color: Colors.black),
@@ -32,7 +32,8 @@ class AppTheme {
             borderSide: BorderSide(color: Colors.black),
           ),
         ),
-        primaryColor: Colors.green,
+        primaryColor: Colors.blue,
+        accentColor: Colors.blue,
       );
     }
 
@@ -44,7 +45,7 @@ class AppTheme {
       ),
       // See https://github.com/flutter/flutter/issues/35826.
       buttonTheme: const ButtonThemeData(minWidth: 5),
-      iconTheme: const IconThemeData(color: Colors.green),
+      iconTheme: const IconThemeData(color: Colors.blue),
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: const TextStyle(color: Colors.white),
         errorStyle: const TextStyle(color: Color(0xFFEB3A37)),
@@ -64,7 +65,8 @@ class AppTheme {
           borderSide: BorderSide(color: Colors.grey),
         ),
       ),
-      primaryColor: Colors.green,
+      primaryColor: Colors.blue,
+      accentColor: Colors.blue,
     );
   }
 
@@ -72,8 +74,8 @@ class AppTheme {
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
         colors: <Color>[
-          Colors.green.withGreen(0xF0),
-          Colors.green,
+          Colors.blue.withBlue(0xF0),
+          Colors.blue,
         ],
       );
 
