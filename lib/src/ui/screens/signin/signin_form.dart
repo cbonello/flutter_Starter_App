@@ -8,6 +8,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:starter_app/src/blocs/authentication/authentication_bloc.dart';
 import 'package:starter_app/src/blocs/signin/signin_bloc.dart';
 import 'package:starter_app/src/repositories/authentication_repository.dart';
+import 'package:starter_app/src/ui/screens/reset_password/reset_password_screen.dart';
 import 'package:starter_app/src/ui/screens/signup/signup_screen.dart';
 import 'package:starter_app/src/ui/widgets/app_logo.dart';
 import 'package:starter_app/src/ui/widgets/form_fields.dart';
@@ -102,134 +103,154 @@ class SignInFormState extends State<SignInForm> {
       child: BlocBuilder<SignInBloc, SignInState>(
         builder: (BuildContext context, SignInState state) {
           return Center(
-            child: FractionallySizedBox(
-              widthFactor: widget.widthFactor,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Spacer(),
-                  AppLogo(scaleFactor: widget.logoScaleFactor),
-                  const Spacer(),
-                  AppTextFormField(
-                    labelText: 'Email',
-                    textInputAction: TextInputAction.next,
-                    focusNode: _emailFocus,
-                    onFieldSubmitted: (_) {
-                      fieldFocusChangeCallback(
-                        context,
-                        _emailFocus,
-                        _passwordFocus,
-                      );
-                    },
-                    keyboardType: TextInputType.emailAddress,
-                    controller: _emailController,
-                    validator: (_) =>
-                        _emailController.text.isNotEmpty && !state.isEmailValid
-                            ? 'Enter a valid email address'
-                            : null,
-                  ),
-                  const SizedBox(height: 10.0),
-                  AppPassworFormField(
-                    labelText: 'Password',
-                    controller: _passwordController,
-                    textInputAction: TextInputAction.done,
-                    focusNode: _passwordFocus,
-                  ),
-                  const SizedBox(height: 15.0),
-                  GradientButton(
-                    gradient: AppTheme.widgetGradient,
-                    onPressed: isSignInButtonEnabled(state) ? _onFormSubmitted : null,
-                    child: Text(
-                      'Sign in',
-                      style: isSignInButtonEnabled(state)
-                          ? AppTheme.buttonEnabledTextStyle
-                          : AppTheme.buttonDisabledTextStyle,
-                    ),
-                  ),
-                  // const SizedBox(height: 10.0),
-                  // Container(
-                  //   alignment: Alignment.centerRight,
-                  //   child: Text(
-                  //     'Forgot Password?',
-                  //     style: TextStyle(
-                  //       color: const Color(0xFF0DBA46),
-                  //       fontWeight: FontWeight.w600,
-                  //     ),
-                  //   ),
-                  // ),
-                  const SizedBox(height: 20.0),
-                  Container(
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
+            child: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                child: FractionallySizedBox(
+                  widthFactor: widget.widthFactor,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Spacer(),
+                      AppLogo(scaleFactor: widget.logoScaleFactor),
+                      const Spacer(),
+                      AppTextFormField(
+                        labelText: 'Email',
+                        textInputAction: TextInputAction.next,
+                        focusNode: _emailFocus,
+                        onFieldSubmitted: (_) {
+                          fieldFocusChangeCallback(
+                            context,
+                            _emailFocus,
+                            _passwordFocus,
+                          );
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        controller: _emailController,
+                        validator: (_) =>
+                            _emailController.text.isNotEmpty && !state.isEmailValid
+                                ? 'Enter a valid email address'
+                                : null,
+                      ),
+                      const SizedBox(height: 10.0),
+                      AppPassworFormField(
+                        labelText: 'Password',
+                        controller: _passwordController,
+                        textInputAction: TextInputAction.done,
+                        focusNode: _passwordFocus,
+                      ),
+                      const SizedBox(height: 15.0),
+                      GradientButton(
+                        gradient: AppTheme.widgetGradient,
+                        onPressed: isSignInButtonEnabled(state) ? _onFormSubmitted : null,
+                        child: Text(
+                          'Sign in',
+                          style: isSignInButtonEnabled(state)
+                              ? AppTheme.buttonEnabledTextStyle
+                              : AppTheme.buttonDisabledTextStyle,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          Expanded(
-                            child: HorizontalLine(
-                              color: AppTheme.horizontalLineColor(
-                                  Theme.of(context).brightness),
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Text('OR'),
-                          ),
-                          Expanded(
-                            child: HorizontalLine(
-                              color: AppTheme.horizontalLineColor(
-                                  Theme.of(context).brightness),
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                platformPageRoute<void>(
+                                  context: context,
+                                  builder: (_) => ResetPasswordScreen(
+                                    authRepository: widget._authRepository,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Forgot Password?',
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 15.0),
-                  Container(
-                    width: double.infinity,
-                    child: GoogleSignInButton(
-                      borderRadius: 6.0,
-                      darkMode: Theme.of(context).brightness == Brightness.dark,
-                      onPressed: () {
-                        context.bloc<SignInBloc>().add(GooglePressedSignInEvent());
-                      },
-                    ),
-                  ),
-                  const Spacer(),
-                  Center(
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.push<void>(
-                          context,
-                          platformPageRoute<void>(
-                            context: context,
-                            builder: (_) =>
-                                SignUpScreen(authRepository: widget._authRepository),
+                      Container(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: HorizontalLine(
+                                  color: AppTheme.horizontalLineColor(
+                                      Theme.of(context).brightness),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                                child: Text('OR'),
+                              ),
+                              Expanded(
+                                child: HorizontalLine(
+                                  color: AppTheme.horizontalLineColor(
+                                      Theme.of(context).brightness),
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Don\'t have an account?',
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            'Sign up',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )
-                        ],
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 15.0),
+                      Container(
+                        width: double.infinity,
+                        child: GoogleSignInButton(
+                          borderRadius: 6.0,
+                          darkMode: Theme.of(context).brightness == Brightness.dark,
+                          onPressed: () {
+                            context.bloc<SignInBloc>().add(GooglePressedSignInEvent());
+                          },
+                        ),
+                      ),
+                      const Spacer(),
+                      Center(
+                        child: FlatButton(
+                          onPressed: () {
+                            Navigator.push<void>(
+                              context,
+                              platformPageRoute<void>(
+                                context: context,
+                                builder: (_) =>
+                                    SignUpScreen(authRepository: widget._authRepository),
+                              ),
+                            );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Don\'t have an account?',
+                                style:
+                                    TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                'Sign up',
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                    ],
                   ),
-                  SizedBox(height: 20.0 / widget.widthFactor),
-                ],
+                ),
               ),
             ),
           );

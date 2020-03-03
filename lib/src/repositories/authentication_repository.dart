@@ -8,6 +8,7 @@ abstract class AuthenticationRepositoryInterface {
   Future<FirebaseUser> signInWithGoogle({Function newUserHandler});
   Future<FirebaseUser> signUp({String email, String password});
   Future<void> signOut();
+  Future<void> resetPassword(String email);
 }
 
 class AuthenticationRepository implements AuthenticationRepositoryInterface {
@@ -85,6 +86,16 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
     } catch (_, stacktrace) {
       // TODO(cbonello): handle exception.
       print(stacktrace);
+    }
+  }
+
+  @override
+  Future<void> resetPassword(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (exception, stacktrace) {
+      print(stacktrace);
+      throw AppException.from(exception);
     }
   }
 }

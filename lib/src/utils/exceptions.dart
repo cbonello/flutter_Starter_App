@@ -20,7 +20,7 @@ class AppException implements Exception {
       // Internal.
       case 'ERROR_SiGN_IN_CANCEL':
         return const AppException('Cancelled');
-      // Firebase Authentication: signInWithEmailAndPassword().
+      // Firebase Authentication: signInWithEmailAndPassword(), sendPasswordResetEmail().
       case 'ERROR_EMAIL_ALREADY_IN_USE':
         return const AppException('Email is already registered');
       case 'ERROR_INVALID_EMAIL':

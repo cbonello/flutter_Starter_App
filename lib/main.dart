@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,19 +24,24 @@ Future<void> main() async {
   final FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics();
 
   runApp(
-    MultiBlocProvider(
-      providers: <BlocProvider<dynamic>>[
-        BlocProvider<AuthenticationBloc>(
-          create: (BuildContext _) {
-            return AuthenticationBloc(
-              localStorageService: localStorageService,
-              authRepository: authRepository,
-              firebaseAnalytics: firebaseAnalytics,
-            )..add(AppStartedAuthenticationEvent());
-          },
-        ),
-      ],
-      child: App(authRepository: authRepository),
+    DevicePreview(
+      enabled: false, //isInDebugMode,
+      builder: (BuildContext context) {
+        return MultiBlocProvider(
+          providers: <BlocProvider<dynamic>>[
+            BlocProvider<AuthenticationBloc>(
+              create: (BuildContext _) {
+                return AuthenticationBloc(
+                  localStorageService: localStorageService,
+                  authRepository: authRepository,
+                  firebaseAnalytics: firebaseAnalytics,
+                )..add(AppStartedAuthenticationEvent());
+              },
+            ),
+          ],
+          child: App(authRepository: authRepository),
+        );
+      },
     ),
   );
 }

@@ -17,7 +17,7 @@ class EmailChangedSignUpEvent extends SignUpEvent {
   List<Object> get props => <Object>[email];
 
   @override
-  String toString() => 'EmailChangedSignUpEvent { email :$email }';
+  String toString() => 'EmailChangedSignUpEvent { email: "$email" }';
 }
 
 class PasswordChangedSignUpEvent extends SignUpEvent {
@@ -29,7 +29,7 @@ class PasswordChangedSignUpEvent extends SignUpEvent {
   List<Object> get props => <Object>[password];
 
   @override
-  String toString() => 'PasswordChangedSignUpEvent { password: $password }';
+  String toString() => 'PasswordChangedSignUpEvent { password: "$password" }';
 }
 
 class TOSPrivacyChangedSignUpEvent extends SignUpEvent {

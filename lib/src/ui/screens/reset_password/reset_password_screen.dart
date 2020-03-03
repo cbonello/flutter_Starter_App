@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:starter_app/src/blocs/signup/signup_bloc.dart';
+import 'package:starter_app/src/blocs/reset_password/reset_password_bloc.dart';
 import 'package:starter_app/src/repositories/authentication_repository.dart';
-import 'package:starter_app/src/ui/screens/signup/signup_form.dart';
+import 'package:starter_app/src/ui/screens/reset_password/reset_password_form.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({@required AuthenticationRepository authRepository})
+class ResetPasswordScreen extends StatelessWidget {
+  const ResetPasswordScreen({@required AuthenticationRepository authRepository})
       : _authRepository = authRepository;
 
   final AuthenticationRepository _authRepository;
@@ -15,6 +15,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: PlatformScaffold(
+        appBar: PlatformAppBar(title: const Text('Reset Password')),
         android: (BuildContext context) => MaterialScaffoldData(
           resizeToAvoidBottomInset: true,
         ),
@@ -23,13 +24,11 @@ class SignUpScreen extends StatelessWidget {
             overscroll.disallowGlow();
             return true;
           },
-          child: BlocProvider<SignUpBloc>(
-            create: (BuildContext _) => SignUpBloc(authRepository: _authRepository),
-            child: SignUpForm(
+          child: BlocProvider<ResetPasswordBloc>(
+            create: (BuildContext context) => ResetPasswordBloc(
               authRepository: _authRepository,
-              widthFactor: 0.9,
-              logoScaleFactor: 1.0,
             ),
+            child: const ResetPasswordForm(widthFactor: 0.9, logoScaleFactor: 1.0),
           ),
         ),
       ),

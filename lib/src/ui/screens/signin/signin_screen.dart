@@ -16,7 +16,7 @@ class SignInScreen extends StatelessWidget {
     return SafeArea(
       child: PlatformScaffold(
         android: (BuildContext context) => MaterialScaffoldData(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
         ),
         body: NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (OverscrollIndicatorNotification overscroll) {

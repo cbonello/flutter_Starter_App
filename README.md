@@ -13,6 +13,7 @@ For more information about Firestore visit [the docs][firestore-docs].
  1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com) and add and Android app to the project.
  1. In the Firebase console, enable Email/Password authentication on your project by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
  1. In the Firebase console, enable Google authentication on your project by doing: **Authentication > SIGN-IN METHOD > Google > Enable > SAVE**
+ 1. In the Firebase console, update the passwor reset template by doing: **Authentication > TEMPLATES > Password reset**
 
 ## Current Implementation Status
 

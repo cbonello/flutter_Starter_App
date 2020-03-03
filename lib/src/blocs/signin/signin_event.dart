@@ -16,7 +16,7 @@ class EmailChangedSignInEvent extends SignInEvent {
   List<Object> get props => <Object>[email];
 
   @override
-  String toString() => 'EmailChangedSignInEvent { email :$email }';
+  String toString() => 'EmailChangedSignInEvent { email: "$email" }';
 }
 
 class PasswordChangedSignInEvent extends SignInEvent {
@@ -28,7 +28,7 @@ class PasswordChangedSignInEvent extends SignInEvent {
   List<Object> get props => <Object>[password];
 
   @override
-  String toString() => 'PasswordChangedSignInEvent { password: $password }';
+  String toString() => 'PasswordChangedSignInEvent { password: "$password" }';
 }
 
 class EmailAndPasswordPressedSignInEvent extends SignInEvent {
