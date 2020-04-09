@@ -1,29 +1,29 @@
 name: starter_app
 description: A new Flutter project.
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  cupertino_icons: ^0.1.3
-  device_preview: ^0.3.0+1
+  device_preview: ^0.4.4
   email_validator: ^1.0.4
-  equatable: ^1.1.0
+  equatable: ^1.1.1
   firebase_analytics: ^5.0.11
-  firebase_auth: ^0.15.5+2
+  firebase_auth: ^0.15.5+3
   flutter:
     sdk: flutter
   flushbar: ^1.9.1
-  flutter_auth_buttons: ^0.6.0
+  flutter_auth_buttons: ^0.8.0
   flutter_bloc: ^3.2.0
+  flutter_platform_widgets: ^0.32.5
   flutter_launcher_icons: ^0.7.4
   flutter_platform_widgets: ^0.32.4
   google_sign_in: ^4.1.4
   meta: ^1.1.8
   password_strength: ^0.1.2
   pedantic: ^1.8.0
-  shared_preferences: ^0.5.6+2
+  shared_preferences: ^0.5.6+3
 
 dev_dependencies:
   bloc_test: ^4.0.0
