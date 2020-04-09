@@ -46,15 +46,11 @@ class _AppState extends State<App> with WidgetsBindingObserver {
               : ThemeMode.light,
         ),
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (BuildContext context, AuthenticationState state) {
-            if (state is AuthenticatedAuthenticationState) {
-              return HomeScreen();
-            }
-            if (state is UnauthenticatedAuthenticationState) {
-              return SignInScreen(authRepository: widget._authRepository);
-            }
-            return SplashScreen();
-          },
+          builder: (BuildContext context, AuthenticationState state) => state.when(
+            uninitialized: () => SplashScreen(),
+            authenticated: (_) => HomeScreen(),
+            unauthenticated: () => SignInScreen(authRepository: widget._authRepository),
+          ),
         ),
       ),
     );

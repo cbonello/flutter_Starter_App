@@ -33,7 +33,7 @@ void main() {
               localStorageService: localStorageService,
               authRepository: authRepository,
               firebaseAnalytics: firebaseAnalytics,
-            )..add(AppStartedAuthenticationEvent());
+            )..add(const AuthenticationEvent.appStarted());
           },
         ),
       ],

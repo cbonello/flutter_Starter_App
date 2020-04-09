@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: Icon(Icons.exit_to_app),
                   onPressed: () {
                     BlocProvider.of<AuthenticationBloc>(context).add(
-                      SignedOutAuthenticationEvent(),
+                      const AuthenticationEvent.signedOut(),
                     );
                   },
                 )

@@ -17,18 +17,19 @@ dependencies:
   flutter_auth_buttons: ^0.8.0
   flutter_bloc: ^3.2.0
   flutter_platform_widgets: ^0.32.5
-  flutter_launcher_icons: ^0.7.4
-  flutter_platform_widgets: ^0.32.4
-  google_sign_in: ^4.1.4
-  meta: ^1.1.8
+  freezed_annotation: ^0.7.1
+  google_sign_in: ^4.4.1
   password_strength: ^0.1.2
   pedantic: ^1.8.0
   shared_preferences: ^0.5.6+3
 
 dev_dependencies:
   bloc_test: ^4.0.0
+  build_runner: ^1.8.1
+  flutter_launcher_icons: ^0.7.4
   flutter_test:
     sdk: flutter
+  freezed: ^0.10.5
 
 flutter_icons:
   android: "launcher_icon" 

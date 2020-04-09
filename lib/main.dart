@@ -35,7 +35,7 @@ Future<void> main() async {
                   localStorageService: localStorageService,
                   authRepository: authRepository,
                   firebaseAnalytics: firebaseAnalytics,
-                )..add(AppStartedAuthenticationEvent());
+                )..add(const AuthenticationEvent.appStarted());
               },
             ),
           ],

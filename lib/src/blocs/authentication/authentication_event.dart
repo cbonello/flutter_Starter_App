@@ -1,25 +1,8 @@
 part of 'authentication_bloc.dart';
 
-@immutable
-abstract class AuthenticationEvent extends Equatable {
-  const AuthenticationEvent();
-
-  @override
-  List<Object> get props => <Object>[];
+@freezed
+abstract class AuthenticationEvent with _$AuthenticationEvent {
+  const factory AuthenticationEvent.appStarted() = _AppStarted;
+  const factory AuthenticationEvent.signedIn({@required FirebaseUser user}) = _SignedIn;
+  const factory AuthenticationEvent.signedOut() = _SignedOut;
 }
-
-class AppStartedAuthenticationEvent extends AuthenticationEvent {}
-
-class SignedInAuthenticationEvent extends AuthenticationEvent {
-  const SignedInAuthenticationEvent({@required this.user}) : assert(user != null);
-
-  final FirebaseUser user;
-
-  @override
-  List<Object> get props => <Object>[user];
-
-  @override
-  String toString() => 'SignedInAuthenticationEvent { user: $user }';
-}
-
-class SignedOutAuthenticationEvent extends AuthenticationEvent {}

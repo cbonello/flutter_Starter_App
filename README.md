@@ -31,6 +31,10 @@ Here are a few resources to get you started if you are new to Flutter:
 - [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
 
+## Resources
+
+- [Dash Tips: Using Bloc with Freezed](https://chimon.hashnode.dev/dash-tips-using-bloc-with-freezed-ck8s5s89000mnhps1zf62m14n)
+
 ## Created & Maintained by
 
 [Christophe Bonello](https://github.com/cbonello)

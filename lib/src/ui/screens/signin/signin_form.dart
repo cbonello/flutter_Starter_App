@@ -93,7 +93,7 @@ class SignInFormState extends State<SignInForm> {
           assert(state.user != null);
           context
               .bloc<AuthenticationBloc>()
-              .add(SignedInAuthenticationEvent(user: state.user));
+              .add(AuthenticationEvent.signedIn(user: state.user));
           await _signingInFlushbar.dismiss();
           try {
             Navigator.of(context).popUntil((dynamic route) => route.isFirst);

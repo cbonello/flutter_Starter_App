@@ -94,7 +94,7 @@ class SignUpFormState extends State<SignUpForm> {
         } else if (state.isSuccess) {
           context
               .bloc<AuthenticationBloc>()
-              .add(SignedInAuthenticationEvent(user: state.user));
+              .add(AuthenticationEvent.signedIn(user: state.user));
           _signingUpFlushbar.dismiss();
           try {
             Navigator.of(context).popUntil((dynamic route) => route.isFirst);

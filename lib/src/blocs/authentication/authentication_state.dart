@@ -1,27 +1,36 @@
 part of 'authentication_bloc.dart';
 
-@immutable
-abstract class AuthenticationState extends Equatable {
-  const AuthenticationState();
-
-  @override
-  List<Object> get props => <Object>[];
+@freezed
+abstract class AuthenticationState with _$AuthenticationState {
+  const factory AuthenticationState.uninitialized() = _Uninitialized;
+  const factory AuthenticationState.authenticated({
+    @required FirebaseUser authenticatedUser,
+  }) = _Authenticated;
+  const factory AuthenticationState.unauthenticated() = _Unauthenticated;
 }
 
-class UninitializedAuthenticationState extends AuthenticationState {}
+// @immutable
+// abstract class AuthenticationState extends Equatable {
+//   const AuthenticationState();
 
-class AuthenticatedAuthenticationState extends AuthenticationState {
-  const AuthenticatedAuthenticationState({@required this.authenticatedUser})
-      : assert(authenticatedUser != null);
+//   @override
+//   List<Object> get props => <Object>[];
+// }
 
-  final FirebaseUser authenticatedUser;
+// class UninitializedAuthenticationState extends AuthenticationState {}
 
-  @override
-  List<Object> get props => <Object>[authenticatedUser];
+// class AuthenticatedAuthenticationState extends AuthenticationState {
+//   const AuthenticatedAuthenticationState({@required this.authenticatedUser})
+//       : assert(authenticatedUser != null);
 
-  @override
-  String toString() =>
-      'AuthenticatedAuthenticationState { authenticatedUser: $authenticatedUser }';
-}
+//   final FirebaseUser authenticatedUser;
 
-class UnauthenticatedAuthenticationState extends AuthenticationState {}
+//   @override
+//   List<Object> get props => <Object>[authenticatedUser];
+
+//   @override
+//   String toString() =>
+//       'AuthenticatedAuthenticationState { authenticatedUser: $authenticatedUser }';
+// }
+
+// class UnauthenticatedAuthenticationState extends AuthenticationState {}
