@@ -92,6 +92,13 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   @override
   Future<void> resetPassword(String email) async {
     try {
+      final List<String> methods = await _firebaseAuth.fetchSignInMethodsForEmail(
+        email: email,
+      );
+      // Is email registered?
+      if (methods.isEmpty) {
+        throw AppException.fromCode('ERROR_INVALID_CREDENTIAL');
+      }
       await _firebaseAuth.sendPasswordResetEmail(email: email);
     } catch (exception, stacktrace) {
       print(stacktrace);
