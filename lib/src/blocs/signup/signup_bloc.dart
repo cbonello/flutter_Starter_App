@@ -3,11 +3,13 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:starter_app/src/repositories/authentication_repository.dart';
 import 'package:starter_app/src/utils/exceptions.dart';
 import 'package:starter_app/src/utils/validators.dart';
 
+part 'signup_bloc.freezed.dart';
 part 'signup_event.dart';
 part 'signup_state.dart';
 
@@ -29,11 +31,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     final Stream<SignUpEvent> nonDebounceStream =
         observableStream.where((SignUpEvent event) {
-      return event is! EmailChangedSignUpEvent && event is! PasswordChangedSignUpEvent;
+      return event is! _EmailChanged && event is! _PasswordChanged;
     });
     final Stream<SignUpEvent> debounceStream =
         observableStream.where((SignUpEvent event) {
-      return event is EmailChangedSignUpEvent || event is PasswordChangedSignUpEvent;
+      return event is _EmailChanged || event is _PasswordChanged;
     }).debounceTime(const Duration(milliseconds: 300));
     return super.transformEvents(
       nonDebounceStream.mergeWith(<Stream<SignUpEvent>>[debounceStream]),
@@ -45,32 +47,27 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   Stream<SignUpState> mapEventToState(
     SignUpEvent event,
   ) async* {
-    if (event is EmailChangedSignUpEvent) {
-      yield* _mapEmailChangedToState(event.email);
-    } else if (event is PasswordChangedSignUpEvent) {
-      yield* _mapPasswordChangedToState(event.password);
-    } else if (event is TOSPrivacyChangedSignUpEvent) {
-      yield* _mapTOSPrivacyChangedToState(event.tosPrivacyAccepted);
-    } else if (event is SubmittedSignUpEvent) {
-      yield* _mapFormSubmittedToState(event.email, event.password);
-    }
+    yield* event.when(
+      emailChanged: (String email) => _mapEmailChangedToState(email),
+      passwordChanged: (String password) => _mapPasswordChangedToState(password),
+      submitted: (String email, String password) =>
+          _mapFormSubmittedToState(email, password),
+    );
   }
 
   Stream<SignUpState> _mapEmailChangedToState(String email) async* {
     yield state.update(
       isEmailValid: isValidEmail(email),
+      isPasswordValid: state.isPasswordValid,
+      user: state.user,
     );
   }
 
   Stream<SignUpState> _mapPasswordChangedToState(String password) async* {
     yield state.update(
+      isEmailValid: state.isEmailValid,
       isPasswordValid: isValidPassword(password),
-    );
-  }
-
-  Stream<SignUpState> _mapTOSPrivacyChangedToState(bool tosPrivacyAccepted) async* {
-    yield state.update(
-      isTOSPrivacyAccepted: tosPrivacyAccepted,
+      user: state.user,
     );
   }
 
@@ -84,10 +81,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         email: email,
         password: password,
       );
-      yield SignUpState.success(user);
+      yield SignUpState.success(user: user);
     } catch (exception, stacktrace) {
       print(stacktrace);
-      yield SignUpState.failure(AppException.from(exception));
+      yield SignUpState.failure(exceptionRaised: AppException.from(exception));
     }
   }
 }

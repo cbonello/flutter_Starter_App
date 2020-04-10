@@ -171,7 +171,8 @@ class SignUpFormState extends State<SignUpForm> {
                               child: GestureDetector(
                                 onTap: () => _onTOSChanged(!_agreedToTOSAndPolicy),
                                 child: const Text(
-                                    'I agree to the Terms of Services and Privacy Policy'),
+                                  'I agree to the Terms of Services and Privacy Policy',
+                                ),
                               ),
                             ),
                           ),
@@ -247,27 +248,25 @@ class SignUpFormState extends State<SignUpForm> {
   }
 
   void _onEmailChanged() {
-    _signUpBloc.add(EmailChangedSignUpEvent(email: _emailController.text.trim()));
+    _signUpBloc.add(SignUpEvent.emailChanged(email: _emailController.text.trim()));
     setState(() {});
   }
 
   void _onPasswordChanged() {
     _signUpBloc
-        .add(PasswordChangedSignUpEvent(password: _passwordController.text.trim()));
+        .add(SignUpEvent.passwordChanged(password: _passwordController.text.trim()));
     setState(() {});
   }
 
   void _onTOSChanged(bool newValue) {
     setState(() => _agreedToTOSAndPolicy = newValue);
-    setState(() {});
   }
 
   void _onFormSubmitted() {
     _signUpBloc.add(
-      SubmittedSignUpEvent(
+      SignUpEvent.submitted(
         email: _emailController.text,
         password: _passwordController.text,
-        tosPrivacyAccepted: _agreedToTOSAndPolicy,
       ),
     );
   }

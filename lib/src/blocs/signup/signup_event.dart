@@ -1,69 +1,87 @@
 part of 'signup_bloc.dart';
 
-@immutable
-abstract class SignUpEvent extends Equatable {
-  const SignUpEvent();
+@freezed
+abstract class SignUpEvent with _$SignUpEvent {
+  const factory SignUpEvent.emailChanged({@required String email}) = _EmailChanged;
 
-  @override
-  List<Object> get props => <Object>[];
+  const factory SignUpEvent.passwordChanged({
+    @required String password,
+  }) = _PasswordChanged;
+
+  // const factory SignUpEvent.tosPrivacyChanged({
+  //   @required bool tosPrivacyAccepted,
+  // }) = _TOSPrivacyChanged;
+
+  const factory SignUpEvent.submitted({
+    @required String email,
+    @required String password,
+  }) = _Submitted;
 }
 
-class EmailChangedSignUpEvent extends SignUpEvent {
-  const EmailChangedSignUpEvent({@required this.email});
+// @immutable
+// abstract class SignUpEvent extends Equatable {
+//   const SignUpEvent();
 
-  final String email;
+//   @override
+//   List<Object> get props => <Object>[];
+// }
 
-  @override
-  List<Object> get props => <Object>[email];
+// class EmailChangedSignUpEvent extends SignUpEvent {
+//   const EmailChangedSignUpEvent({@required this.email});
 
-  @override
-  String toString() => 'EmailChangedSignUpEvent { email: "$email" }';
-}
+//   final String email;
 
-class PasswordChangedSignUpEvent extends SignUpEvent {
-  const PasswordChangedSignUpEvent({@required this.password});
+//   @override
+//   List<Object> get props => <Object>[email];
 
-  final String password;
+//   @override
+//   String toString() => 'EmailChangedSignUpEvent { email: "$email" }';
+// }
 
-  @override
-  List<Object> get props => <Object>[password];
+// class PasswordChangedSignUpEvent extends SignUpEvent {
+//   const PasswordChangedSignUpEvent({@required this.password});
 
-  @override
-  String toString() => 'PasswordChangedSignUpEvent { password: "$password" }';
-}
+//   final String password;
 
-class TOSPrivacyChangedSignUpEvent extends SignUpEvent {
-  const TOSPrivacyChangedSignUpEvent({@required this.tosPrivacyAccepted});
+//   @override
+//   List<Object> get props => <Object>[password];
 
-  final bool tosPrivacyAccepted;
+//   @override
+//   String toString() => 'PasswordChangedSignUpEvent { password: "$password" }';
+// }
 
-  @override
-  List<Object> get props => <Object>[tosPrivacyAccepted];
+// class TOSPrivacyChangedSignUpEvent extends SignUpEvent {
+//   const TOSPrivacyChangedSignUpEvent({@required this.tosPrivacyAccepted});
 
-  @override
-  String toString() =>
-      'TOSPrivacyChangedSignUpEvent { TOS/Privacy Accepted: $tosPrivacyAccepted }';
-}
+//   final bool tosPrivacyAccepted;
 
-class SubmittedSignUpEvent extends SignUpEvent {
-  const SubmittedSignUpEvent({
-    @required this.email,
-    @required this.password,
-    @required this.tosPrivacyAccepted,
-  });
+//   @override
+//   List<Object> get props => <Object>[tosPrivacyAccepted];
 
-  final String email, password;
-  final bool tosPrivacyAccepted;
+//   @override
+//   String toString() =>
+//       'TOSPrivacyChangedSignUpEvent { TOS/Privacy Accepted: $tosPrivacyAccepted }';
+// }
 
-  @override
-  List<Object> get props => <Object>[email, password, tosPrivacyAccepted];
+// class SubmittedSignUpEvent extends SignUpEvent {
+//   const SubmittedSignUpEvent({
+//     @required this.email,
+//     @required this.password,
+//     @required this.tosPrivacyAccepted,
+//   });
 
-  @override
-  String toString() {
-    return '''SubmittedSignUpEvent {
-      email: "$email",
-      password: "$password",
-      TOS/Privacy Accepted: $tosPrivacyAccepted
-    }''';
-  }
-}
+//   final String email, password;
+//   final bool tosPrivacyAccepted;
+
+//   @override
+//   List<Object> get props => <Object>[email, password, tosPrivacyAccepted];
+
+//   @override
+//   String toString() {
+//     return '''SubmittedSignUpEvent {
+//       email: "$email",
+//       password: "$password",
+//       TOS/Privacy Accepted: $tosPrivacyAccepted
+//     }''';
+//   }
+// }
