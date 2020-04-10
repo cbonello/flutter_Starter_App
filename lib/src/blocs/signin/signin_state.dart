@@ -49,13 +49,14 @@ abstract class SignInState implements _$SignInState {
   SignInState update({
     bool isEmailValid,
     bool isPasswordValid,
+    FirebaseUser user,
   }) {
     return copyWith(
       isEmailValid: isEmailValid,
       isPasswordValid: isPasswordValid,
       isSubmitting: false,
       isSuccess: false,
-      user: null,
+      user: user,
       exceptionRaised: null,
     );
   }

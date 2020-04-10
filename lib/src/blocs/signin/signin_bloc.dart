@@ -55,6 +55,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     yield state.update(
       isEmailValid: isValidEmail(email),
       isPasswordValid: state.isPasswordValid,
+      user: state.user,
     );
   }
 
@@ -63,6 +64,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     yield state.update(
       isEmailValid: state.isPasswordValid,
       isPasswordValid: password.isNotEmpty,
+      user: state.user,
     );
   }
 
