@@ -1,107 +1,54 @@
 part of 'reset_password_bloc.dart';
 
-@immutable
-class ResetPasswordState extends Equatable {
-  const ResetPasswordState({
-    @required this.isEmailValid,
-    @required this.isSubmitting,
-    @required this.isSuccess,
-    this.email,
-    this.exceptionRaised,
-  });
+@freezed
+abstract class ResetPasswordState implements _$ResetPasswordState {
+  ResetPasswordState._();
 
-  factory ResetPasswordState.empty() {
-    return const ResetPasswordState(
-      isEmailValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      email: null,
-      exceptionRaised: null,
-    );
-  }
+  factory ResetPasswordState.empty({
+    @Default(true) bool isEmailValid,
+    @Default(false) bool isSubmitting,
+    @Default(false) bool isSuccess,
+    @nullable String email,
+    @nullable AppException exceptionRaised,
+  }) = _Empty;
 
-  factory ResetPasswordState.resetting() {
-    return const ResetPasswordState(
-      isEmailValid: true,
-      isSubmitting: true,
-      isSuccess: false,
-      email: null,
-      exceptionRaised: null,
-    );
-  }
+  factory ResetPasswordState.resetting({
+    @Default(true) bool isEmailValid,
+    @Default(true) bool isSubmitting,
+    @Default(false) bool isSuccess,
+    @nullable String email,
+    @nullable AppException exceptionRaised,
+  }) = _Resetting;
 
-  factory ResetPasswordState.failure(AppException exception) {
-    return ResetPasswordState(
-      isEmailValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      email: null,
-      exceptionRaised: exception,
-    );
-  }
+  factory ResetPasswordState.failure({
+    @Default(true) bool isEmailValid,
+    @Default(false) bool isSubmitting,
+    @Default(false) bool isSuccess,
+    @nullable String email,
+    @required AppException exceptionRaised,
+  }) = _Failure;
 
-  factory ResetPasswordState.success(String email) {
-    return ResetPasswordState(
-      isEmailValid: true,
-      isSubmitting: false,
-      isSuccess: true,
-      email: email,
-      exceptionRaised: null,
-    );
-  }
+  factory ResetPasswordState.success({
+    @Default(true) bool isEmailValid,
+    @Default(false) bool isSubmitting,
+    @Default(true) bool isSuccess,
+    @required String email,
+    @nullable AppException exceptionRaised,
+  }) = _Success;
 
-  final bool isEmailValid, isSubmitting, isSuccess;
-  final String email;
-  final AppException exceptionRaised;
-
-  @override
-  List<Object> get props => <Object>[
-        isEmailValid,
-        isSubmitting,
-        isSuccess,
-        email,
-        exceptionRaised,
-      ];
-
+  @late
   bool get isFormValid => isEmailValid;
 
+  @late
   bool get isFailure => exceptionRaised != null;
 
-  ResetPasswordState update({bool isEmailValid}) {
+  ResetPasswordState update({@required bool isEmailValid, @required String email}) {
     return copyWith(
       isEmailValid: isEmailValid,
       isSubmitting: false,
       isSuccess: false,
-      email: null,
+      email: email,
       exceptionRaised: null,
     );
-  }
-
-  ResetPasswordState copyWith({
-    bool isEmailValid,
-    bool isSubmitEnabled,
-    bool isSubmitting,
-    bool isSuccess,
-    String email,
-    AppException exceptionRaised,
-  }) {
-    return ResetPasswordState(
-      isEmailValid: isEmailValid ?? this.isEmailValid,
-      isSubmitting: isSubmitting ?? this.isSubmitting,
-      isSuccess: isSuccess ?? this.isSuccess,
-      email: email ?? this.email,
-      exceptionRaised: exceptionRaised,
-    );
-  }
-
-  @override
-  String toString() {
-    return '''ResetPasswordState {
-      isEmailValid: $isEmailValid,
-      isSubmitting: $isSubmitting,
-      isSuccess: $isSuccess,
-      email: "$email",
-      isFailure: $isFailure - "${exceptionRaised.toString()}",
-    }''';
   }
 }

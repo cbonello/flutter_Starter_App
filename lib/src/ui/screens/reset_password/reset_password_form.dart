@@ -134,15 +134,13 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
 
   void _onEmailChanged() {
     _resetPasswordBloc
-        .add(EmailChangedResetPasswordEvent(email: _emailController.text.trim()));
+        .add(ResetPasswordEvent.emailChanged(email: _emailController.text.trim()));
     setState(() {});
   }
 
   void _onFormSubmitted() {
     _resetPasswordBloc.add(
-      ResetPressedResetPasswordEvent(
-        email: _emailController.text.trim(),
-      ),
+      ResetPasswordEvent.resetPressed(email: _emailController.text.trim()),
     );
   }
 }
