@@ -8,7 +8,7 @@ abstract class AuthenticationRepositoryInterface {
   Future<FirebaseUser> signInWithGoogle({Function newUserHandler});
   Future<FirebaseUser> signUp({String email, String password});
   Future<void> signOut();
-  Future<void> resetPassword(String email);
+  Future<void> resetPassword({String email});
 }
 
 class AuthenticationRepository implements AuthenticationRepositoryInterface {
@@ -90,7 +90,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   }
 
   @override
-  Future<void> resetPassword(String email) async {
+  Future<void> resetPassword({String email}) async {
     try {
       final List<String> methods = await _firebaseAuth.fetchSignInMethodsForEmail(
         email: email,
