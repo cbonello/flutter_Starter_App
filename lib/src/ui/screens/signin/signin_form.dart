@@ -210,7 +210,9 @@ class SignInFormState extends State<SignInForm> {
                           borderRadius: 6.0,
                           darkMode: Theme.of(context).brightness == Brightness.dark,
                           onPressed: () {
-                            context.bloc<SignInBloc>().add(GooglePressedSignInEvent());
+                            context.bloc<SignInBloc>().add(
+                                  const SignInEvent.googlePressed(),
+                                );
                           },
                         ),
                       ),
@@ -268,19 +270,19 @@ class SignInFormState extends State<SignInForm> {
   }
 
   void _onEmailChanged() {
-    _signInBloc.add(EmailChangedSignInEvent(email: _emailController.text.trim()));
+    _signInBloc.add(SignInEvent.emailChanged(email: _emailController.text.trim()));
     setState(() {});
   }
 
   void _onPasswordChanged() {
     _signInBloc
-        .add(PasswordChangedSignInEvent(password: _passwordController.text.trim()));
+        .add(SignInEvent.passwordChanged(password: _passwordController.text.trim()));
     setState(() {});
   }
 
   void _onFormSubmitted() {
     _signInBloc.add(
-      EmailAndPasswordPressedSignInEvent(
+      SignInEvent.emailAndPasswordPressed(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       ),

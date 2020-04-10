@@ -1,52 +1,17 @@
 part of 'signin_bloc.dart';
 
-abstract class SignInEvent extends Equatable {
-  const SignInEvent();
+@freezed
+abstract class SignInEvent with _$SignInEvent {
+  const factory SignInEvent.emailChanged({@required String email}) = _EmailChanged;
 
-  @override
-  List<Object> get props => <Object>[];
+  const factory SignInEvent.passwordChanged({
+    @required String password,
+  }) = _PasswordChanged;
+
+  const factory SignInEvent.emailAndPasswordPressed({
+    @required String email,
+    @required String password,
+  }) = _EmailAndPasswordPressed;
+
+  const factory SignInEvent.googlePressed() = _GooglePressed;
 }
-
-class EmailChangedSignInEvent extends SignInEvent {
-  const EmailChangedSignInEvent({@required this.email});
-
-  final String email;
-
-  @override
-  List<Object> get props => <Object>[email];
-
-  @override
-  String toString() => 'EmailChangedSignInEvent { email: "$email" }';
-}
-
-class PasswordChangedSignInEvent extends SignInEvent {
-  const PasswordChangedSignInEvent({@required this.password});
-
-  final String password;
-
-  @override
-  List<Object> get props => <Object>[password];
-
-  @override
-  String toString() => 'PasswordChangedSignInEvent { password: "$password" }';
-}
-
-class EmailAndPasswordPressedSignInEvent extends SignInEvent {
-  const EmailAndPasswordPressedSignInEvent({
-    @required this.email,
-    @required this.password,
-  });
-
-  final String email;
-  final String password;
-
-  @override
-  List<Object> get props => <Object>[email, password];
-
-  @override
-  String toString() {
-    return 'EmailAndPasswordPressedSignInEvent { email: "$email", password: "$password" }';
-  }
-}
-
-class GooglePressedSignInEvent extends SignInEvent {}

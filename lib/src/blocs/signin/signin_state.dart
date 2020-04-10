@@ -1,76 +1,49 @@
 part of 'signin_bloc.dart';
 
-@immutable
-class SignInState extends Equatable {
-  const SignInState({
-    @required this.isEmailValid,
-    @required this.isPasswordValid,
-    @required this.isSubmitting,
-    @required this.isSuccess,
-    @required this.user,
-    @required this.exceptionRaised,
-  });
+@freezed
+abstract class SignInState implements _$SignInState {
+  SignInState._();
 
-  factory SignInState.empty() {
-    return const SignInState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      user: null,
-      exceptionRaised: null,
-    );
-  }
+  factory SignInState.empty({
+    @Default(true) bool isEmailValid,
+    @Default(true) bool isPasswordValid,
+    @Default(false) bool isSubmitting,
+    @Default(false) bool isSuccess,
+    @nullable FirebaseUser user,
+    @nullable AppException exceptionRaised,
+  }) = _Empty;
 
-  factory SignInState.signingIn() {
-    return const SignInState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: true,
-      isSuccess: false,
-      user: null,
-      exceptionRaised: null,
-    );
-  }
+  factory SignInState.signingIn({
+    @Default(true) bool isEmailValid,
+    @Default(true) bool isPasswordValid,
+    @Default(true) bool isSubmitting,
+    @Default(false) bool isSuccess,
+    @nullable FirebaseUser user,
+    @nullable AppException exceptionRaised,
+  }) = _SigningIn;
 
-  factory SignInState.failure(AppException exception) {
-    return SignInState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: false,
-      user: null,
-      exceptionRaised: exception,
-    );
-  }
+  factory SignInState.failure({
+    @Default(true) bool isEmailValid,
+    @Default(true) bool isPasswordValid,
+    @Default(false) bool isSubmitting,
+    @Default(false) bool isSuccess,
+    @nullable FirebaseUser user,
+    @required AppException exceptionRaised,
+  }) = _Failure;
 
-  factory SignInState.success(FirebaseUser user) {
-    return SignInState(
-      isEmailValid: true,
-      isPasswordValid: true,
-      isSubmitting: false,
-      isSuccess: true,
-      user: user,
-      exceptionRaised: null,
-    );
-  }
+  factory SignInState.success({
+    @Default(true) bool isEmailValid,
+    @Default(true) bool isPasswordValid,
+    @Default(false) bool isSubmitting,
+    @Default(true) bool isSuccess,
+    @required FirebaseUser user,
+    @nullable AppException exceptionRaised,
+  }) = _Success;
 
-  final bool isEmailValid, isPasswordValid, isSubmitting, isSuccess;
-  final FirebaseUser user;
-  final AppException exceptionRaised;
-
-  @override
-  List<Object> get props => <Object>[
-        isEmailValid,
-        isPasswordValid,
-        isSubmitting,
-        isSuccess,
-        user,
-        exceptionRaised,
-      ];
-
+  @late
   bool get isFormValid => isEmailValid && isPasswordValid;
 
+  @late
   bool get isFailure => exceptionRaised != null;
 
   SignInState update({
@@ -85,36 +58,5 @@ class SignInState extends Equatable {
       user: null,
       exceptionRaised: null,
     );
-  }
-
-  SignInState copyWith({
-    bool isEmailValid,
-    bool isPasswordValid,
-    bool isSubmitEnabled,
-    bool isSubmitting,
-    bool isSuccess,
-    FirebaseUser user,
-    AppException exceptionRaised,
-  }) {
-    return SignInState(
-      isEmailValid: isEmailValid ?? this.isEmailValid,
-      isPasswordValid: isPasswordValid ?? this.isPasswordValid,
-      isSubmitting: isSubmitting ?? this.isSubmitting,
-      isSuccess: isSuccess ?? this.isSuccess,
-      user: user,
-      exceptionRaised: exceptionRaised,
-    );
-  }
-
-  @override
-  String toString() {
-    return '''SigninState {
-      isEmailValid: $isEmailValid,
-      isPasswordValid: $isPasswordValid,
-      isSubmitting: $isSubmitting,
-      isSuccess: $isSuccess,
-      user: $user,
-      isFailure: $isFailure - "${exceptionRaised.toString()}",
-    }''';
   }
 }
