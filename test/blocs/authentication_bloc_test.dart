@@ -13,8 +13,6 @@ import '../mock/repositories.dart';
 import '../mock/services.dart';
 
 Future<void> main() async {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   group('Authentication Bloc:', () {
     final LocalStorageService localStorageServiceMock = MockLocalStorageService();
     final AuthenticationRepository authRepositoryMock = MockAuthenticationRepository();
