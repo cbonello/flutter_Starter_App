@@ -59,7 +59,10 @@ Future<void> main() async {
         build: () async => ResetPasswordBloc(authRepository: authRepositoryMock),
         act: (ResetPasswordBloc bloc) async =>
             bloc.add(const ResetPasswordEvent.resetPressed(email: kMockEmail)),
-        expect: <ResetPasswordState>[ResetPasswordState.success(email: kMockEmail)],
+        expect: <ResetPasswordState>[
+          ResetPasswordState.resetting(),
+          ResetPasswordState.success(email: kMockEmail),
+        ],
       );
 
       blocTest<ResetPasswordBloc, ResetPasswordEvent, ResetPasswordState>(
@@ -72,6 +75,7 @@ Future<void> main() async {
         act: (ResetPasswordBloc bloc) async =>
             bloc.add(const ResetPasswordEvent.resetPressed(email: kMockEmail)),
         expect: <ResetPasswordState>[
+          ResetPasswordState.resetting(),
           ResetPasswordState.failure(exceptionRaised: exception)
         ],
       );

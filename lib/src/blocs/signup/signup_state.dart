@@ -8,16 +8,16 @@ abstract class SignUpState implements _$SignUpState {
     @Default(true) bool isEmailValid,
     @Default(true) bool isPasswordValid,
     @Default(false) bool isSubmitting,
-    @Default(false) bool isSuccess,
+    @Default(false) bool isVerificationEmailSent,
     @nullable FirebaseUser user,
     @nullable AppException exceptionRaised,
   }) = _Empty;
 
-  factory SignUpState.loading({
+  factory SignUpState.signingUp({
     @Default(true) bool isEmailValid,
     @Default(true) bool isPasswordValid,
     @Default(true) bool isSubmitting,
-    @Default(false) bool isSuccess,
+    @Default(false) bool isVerificationEmailSent,
     @nullable FirebaseUser user,
     @nullable AppException exceptionRaised,
   }) = _Loading;
@@ -26,7 +26,7 @@ abstract class SignUpState implements _$SignUpState {
     @Default(true) bool isEmailValid,
     @Default(true) bool isPasswordValid,
     @Default(false) bool isSubmitting,
-    @Default(false) bool isSuccess,
+    @Default(false) bool isVerificationEmailSent,
     @nullable FirebaseUser user,
     AppException exceptionRaised,
   }) = _Failure;
@@ -35,7 +35,7 @@ abstract class SignUpState implements _$SignUpState {
     @Default(true) bool isEmailValid,
     @Default(true) bool isPasswordValid,
     @Default(false) bool isSubmitting,
-    @Default(true) bool isSuccess,
+    @Default(true) bool isVerificationEmailSent,
     FirebaseUser user,
     @nullable AppException exceptionRaised,
   }) = _Success;
@@ -55,7 +55,7 @@ abstract class SignUpState implements _$SignUpState {
       isEmailValid: isEmailValid,
       isPasswordValid: isPasswordValid,
       isSubmitting: false,
-      isSuccess: false,
+      isVerificationEmailSent: false,
       user: user,
       exceptionRaised: null,
     );

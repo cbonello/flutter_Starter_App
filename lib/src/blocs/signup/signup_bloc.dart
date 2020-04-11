@@ -74,7 +74,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     String email,
     String password,
   ) async* {
-    yield SignUpState.loading();
+    yield SignUpState.signingUp();
     try {
       final FirebaseUser user = await _authRepository.signUp(
         email: email,

@@ -97,7 +97,7 @@ Future<void> main() async {
           );
         },
         expect: <SignUpState>[
-          SignUpState.loading(),
+          SignUpState.signingUp(),
           SignUpState.emailSent(user: authenticatedUser)
         ],
       );
@@ -117,7 +117,7 @@ Future<void> main() async {
           );
         },
         expect: <SignUpState>[
-          SignUpState.loading(),
+          SignUpState.signingUp(),
           SignUpState.failure(exceptionRaised: exception)
         ],
       );

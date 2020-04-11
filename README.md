@@ -1,16 +1,17 @@
 # Flutter Starter App (BLoC pattern)
 
 A Flutter starter project (tested on Android only). Project contains splash, sign in, sign up, password reset and home screens.
-it uses Firebare for authentication and the BLoC pattern ([flutter_bloc](https://pub.dev/packages/flutter_bloc) library) for state management.
+it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https://pub.dev/packages/flutter_bloc) library) for state management.
 
 ## Setup
 
 Follow these steps to setup the app:
 
- 1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com) and add and Android app to the project.
- 1. In the Firebase console, enable Email/Password authentication on your project by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
- 1. In the Firebase console, enable Google authentication on your project by doing: **Authentication > SIGN-IN METHOD > Google > Enable > SAVE**
- 1. In the Firebase console, update the password reset template by doing: **Authentication > TEMPLATES > Password reset**
+1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com) and add and Android app to the project.
+1. In the Firebase console, enable Email/Password authentication on your project by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
+1. In the Firebase console, enable Google authentication on your project by doing: **Authentication > SIGN-IN METHOD > Google > Enable > SAVE**
+1. In the Firebase console, update the email address verification template by doing: **Authentication > TEMPLATES > Email address verification**
+1. In the Firebase console, update the password reset template by doing: **Authentication > TEMPLATES > Password reset**
 
 ## Screenshots
 

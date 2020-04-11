@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:starter_app/src/blocs/authentication/authentication_bloc.dart';
 import 'package:starter_app/src/blocs/signup/signup_bloc.dart';
 import 'package:starter_app/src/repositories/authentication_repository.dart';
 import 'package:starter_app/src/ui/screens/signin/signin_screen.dart';
@@ -66,11 +65,11 @@ class SignUpFormState extends State<SignUpForm> {
 
   @override
   void dispose() {
-    _passwordFocus.dispose();
-    _emailFocus.dispose();
-    _passwordController.dispose();
-    _emailController.dispose();
-    _nameController.dispose();
+    _passwordFocus?.dispose();
+    _emailFocus?.dispose();
+    _passwordController?.dispose();
+    _emailController?.dispose();
+    _nameController?.dispose();
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -83,7 +82,7 @@ class SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpBloc, SignUpState>(
-      listener: (BuildContext context, SignUpState state) {
+      listener: (BuildContext context, SignUpState state) async {
         if (state.isFailure) {
           final Flushbar<Object> flushbar = FlushbarHelper.createError(
             title: 'Sign up failure',
@@ -92,14 +91,31 @@ class SignUpFormState extends State<SignUpForm> {
           flushbar.show(context);
         } else if (state.isSubmitting) {
           _signingUpFlushbar.show(context);
-        } else if (state.isSuccess) {
-          context
-              .bloc<AuthenticationBloc>()
-              .add(AuthenticationEvent.signedIn(user: state.user));
+        } else if (state.isVerificationEmailSent) {
+          // context
+          //     .bloc<AuthenticationBloc>()
+          //     .add(AuthenticationEvent.signedIn(user: state.user));
           _signingUpFlushbar.dismiss();
-          try {
-            Navigator.of(context).popUntil((dynamic route) => route.isFirst as bool);
-          } catch (_) {}
+          await showPlatformDialog<void>(
+            context: context,
+            builder: (_) => PlatformAlertDialog(
+              title: const Text('Account Verification'),
+              content: Text(
+                'An account verification email was sent to ${state.user.email} with instructions on how to verify your address.',
+              ),
+              actions: <Widget>[
+                PlatformDialogAction(
+                  onPressed: () {
+                    try {
+                      Navigator.of(context)
+                          .popUntil((dynamic route) => route.isFirst as bool);
+                    } catch (_) {}
+                  },
+                  child: PlatformText('OK'),
+                ),
+              ],
+            ),
+          );
         }
       },
       child: BlocBuilder<SignUpBloc, SignUpState>(

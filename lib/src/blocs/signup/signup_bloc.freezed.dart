@@ -474,31 +474,31 @@ class _$SignUpStateTearOff {
       {bool isEmailValid = true,
       bool isPasswordValid = true,
       bool isSubmitting = false,
-      bool isSuccess = false,
+      bool isVerificationEmailSent = false,
       @nullable FirebaseUser user,
       @nullable AppException exceptionRaised}) {
     return _Empty(
       isEmailValid: isEmailValid,
       isPasswordValid: isPasswordValid,
       isSubmitting: isSubmitting,
-      isSuccess: isSuccess,
+      isVerificationEmailSent: isVerificationEmailSent,
       user: user,
       exceptionRaised: exceptionRaised,
     );
   }
 
-  _Loading loading(
+  _Loading signingUp(
       {bool isEmailValid = true,
       bool isPasswordValid = true,
       bool isSubmitting = true,
-      bool isSuccess = false,
+      bool isVerificationEmailSent = false,
       @nullable FirebaseUser user,
       @nullable AppException exceptionRaised}) {
     return _Loading(
       isEmailValid: isEmailValid,
       isPasswordValid: isPasswordValid,
       isSubmitting: isSubmitting,
-      isSuccess: isSuccess,
+      isVerificationEmailSent: isVerificationEmailSent,
       user: user,
       exceptionRaised: exceptionRaised,
     );
@@ -508,14 +508,14 @@ class _$SignUpStateTearOff {
       {bool isEmailValid = true,
       bool isPasswordValid = true,
       bool isSubmitting = false,
-      bool isSuccess = false,
+      bool isVerificationEmailSent = false,
       @nullable FirebaseUser user,
       AppException exceptionRaised}) {
     return _Failure(
       isEmailValid: isEmailValid,
       isPasswordValid: isPasswordValid,
       isSubmitting: isSubmitting,
-      isSuccess: isSuccess,
+      isVerificationEmailSent: isVerificationEmailSent,
       user: user,
       exceptionRaised: exceptionRaised,
     );
@@ -525,14 +525,14 @@ class _$SignUpStateTearOff {
       {bool isEmailValid = true,
       bool isPasswordValid = true,
       bool isSubmitting = false,
-      bool isSuccess = true,
+      bool isVerificationEmailSent = true,
       FirebaseUser user,
       @nullable AppException exceptionRaised}) {
     return _Success(
       isEmailValid: isEmailValid,
       isPasswordValid: isPasswordValid,
       isSubmitting: isSubmitting,
-      isSuccess: isSuccess,
+      isVerificationEmailSent: isVerificationEmailSent,
       user: user,
       exceptionRaised: exceptionRaised,
     );
@@ -546,7 +546,7 @@ mixin _$SignUpState {
   bool get isEmailValid;
   bool get isPasswordValid;
   bool get isSubmitting;
-  bool get isSuccess;
+  bool get isVerificationEmailSent;
   @nullable
   FirebaseUser get user;
   @nullable
@@ -559,15 +559,15 @@ mixin _$SignUpState {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             @nullable AppException exceptionRaised),
     @required
-        Result loading(
+        Result signingUp(
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             @nullable AppException exceptionRaised),
     @required
@@ -575,7 +575,7 @@ mixin _$SignUpState {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             AppException exceptionRaised),
     @required
@@ -583,7 +583,7 @@ mixin _$SignUpState {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             FirebaseUser user,
             @nullable AppException exceptionRaised),
   });
@@ -593,28 +593,28 @@ mixin _$SignUpState {
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         @nullable AppException exceptionRaised),
-    Result loading(
+    Result signingUp(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         @nullable AppException exceptionRaised),
     Result failure(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         AppException exceptionRaised),
     Result emailSent(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         FirebaseUser user,
         @nullable AppException exceptionRaised),
     @required Result orElse(),
@@ -622,14 +622,14 @@ mixin _$SignUpState {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result empty(_Empty value),
-    @required Result loading(_Loading value),
+    @required Result signingUp(_Loading value),
     @required Result failure(_Failure value),
     @required Result emailSent(_Success value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result empty(_Empty value),
-    Result loading(_Loading value),
+    Result signingUp(_Loading value),
     Result failure(_Failure value),
     Result emailSent(_Success value),
     @required Result orElse(),
@@ -646,7 +646,7 @@ abstract class $SignUpStateCopyWith<$Res> {
       {bool isEmailValid,
       bool isPasswordValid,
       bool isSubmitting,
-      bool isSuccess,
+      bool isVerificationEmailSent,
       @nullable FirebaseUser user,
       @nullable AppException exceptionRaised});
 }
@@ -663,7 +663,7 @@ class _$SignUpStateCopyWithImpl<$Res> implements $SignUpStateCopyWith<$Res> {
     Object isEmailValid = freezed,
     Object isPasswordValid = freezed,
     Object isSubmitting = freezed,
-    Object isSuccess = freezed,
+    Object isVerificationEmailSent = freezed,
     Object user = freezed,
     Object exceptionRaised = freezed,
   }) {
@@ -675,7 +675,9 @@ class _$SignUpStateCopyWithImpl<$Res> implements $SignUpStateCopyWith<$Res> {
           : isPasswordValid as bool,
       isSubmitting:
           isSubmitting == freezed ? _value.isSubmitting : isSubmitting as bool,
-      isSuccess: isSuccess == freezed ? _value.isSuccess : isSuccess as bool,
+      isVerificationEmailSent: isVerificationEmailSent == freezed
+          ? _value.isVerificationEmailSent
+          : isVerificationEmailSent as bool,
       user: user == freezed ? _value.user : user as FirebaseUser,
       exceptionRaised: exceptionRaised == freezed
           ? _value.exceptionRaised
@@ -692,7 +694,7 @@ abstract class _$EmptyCopyWith<$Res> implements $SignUpStateCopyWith<$Res> {
       {bool isEmailValid,
       bool isPasswordValid,
       bool isSubmitting,
-      bool isSuccess,
+      bool isVerificationEmailSent,
       @nullable FirebaseUser user,
       @nullable AppException exceptionRaised});
 }
@@ -710,7 +712,7 @@ class __$EmptyCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
     Object isEmailValid = freezed,
     Object isPasswordValid = freezed,
     Object isSubmitting = freezed,
-    Object isSuccess = freezed,
+    Object isVerificationEmailSent = freezed,
     Object user = freezed,
     Object exceptionRaised = freezed,
   }) {
@@ -722,7 +724,9 @@ class __$EmptyCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
           : isPasswordValid as bool,
       isSubmitting:
           isSubmitting == freezed ? _value.isSubmitting : isSubmitting as bool,
-      isSuccess: isSuccess == freezed ? _value.isSuccess : isSuccess as bool,
+      isVerificationEmailSent: isVerificationEmailSent == freezed
+          ? _value.isVerificationEmailSent
+          : isVerificationEmailSent as bool,
       user: user == freezed ? _value.user : user as FirebaseUser,
       exceptionRaised: exceptionRaised == freezed
           ? _value.exceptionRaised
@@ -736,13 +740,13 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
       {this.isEmailValid = true,
       this.isPasswordValid = true,
       this.isSubmitting = false,
-      this.isSuccess = false,
+      this.isVerificationEmailSent = false,
       @nullable this.user,
       @nullable this.exceptionRaised})
       : assert(isEmailValid != null),
         assert(isPasswordValid != null),
         assert(isSubmitting != null),
-        assert(isSuccess != null),
+        assert(isVerificationEmailSent != null),
         super._();
 
   @JsonKey(defaultValue: true)
@@ -756,7 +760,7 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
   final bool isSubmitting;
   @JsonKey(defaultValue: false)
   @override
-  final bool isSuccess;
+  final bool isVerificationEmailSent;
   @override
   @nullable
   final FirebaseUser user;
@@ -790,7 +794,7 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignUpState.empty(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isSuccess: $isSuccess, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
+    return 'SignUpState.empty(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isVerificationEmailSent: $isVerificationEmailSent, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
   }
 
   @override
@@ -801,7 +805,8 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('isEmailValid', isEmailValid))
       ..add(DiagnosticsProperty('isPasswordValid', isPasswordValid))
       ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
-      ..add(DiagnosticsProperty('isSuccess', isSuccess))
+      ..add(DiagnosticsProperty(
+          'isVerificationEmailSent', isVerificationEmailSent))
       ..add(DiagnosticsProperty('user', user))
       ..add(DiagnosticsProperty('exceptionRaised', exceptionRaised))
       ..add(DiagnosticsProperty('isFormValid', isFormValid))
@@ -821,9 +826,10 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
             (identical(other.isSubmitting, isSubmitting) ||
                 const DeepCollectionEquality()
                     .equals(other.isSubmitting, isSubmitting)) &&
-            (identical(other.isSuccess, isSuccess) ||
-                const DeepCollectionEquality()
-                    .equals(other.isSuccess, isSuccess)) &&
+            (identical(
+                    other.isVerificationEmailSent, isVerificationEmailSent) ||
+                const DeepCollectionEquality().equals(
+                    other.isVerificationEmailSent, isVerificationEmailSent)) &&
             (identical(other.user, user) ||
                 const DeepCollectionEquality().equals(other.user, user)) &&
             (identical(other.exceptionRaised, exceptionRaised) ||
@@ -837,7 +843,7 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(isEmailValid) ^
       const DeepCollectionEquality().hash(isPasswordValid) ^
       const DeepCollectionEquality().hash(isSubmitting) ^
-      const DeepCollectionEquality().hash(isSuccess) ^
+      const DeepCollectionEquality().hash(isVerificationEmailSent) ^
       const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(exceptionRaised);
 
@@ -853,15 +859,15 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             @nullable AppException exceptionRaised),
     @required
-        Result loading(
+        Result signingUp(
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             @nullable AppException exceptionRaised),
     @required
@@ -869,7 +875,7 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             AppException exceptionRaised),
     @required
@@ -877,16 +883,16 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             FirebaseUser user,
             @nullable AppException exceptionRaised),
   }) {
     assert(empty != null);
-    assert(loading != null);
+    assert(signingUp != null);
     assert(failure != null);
     assert(emailSent != null);
-    return empty(isEmailValid, isPasswordValid, isSubmitting, isSuccess, user,
-        exceptionRaised);
+    return empty(isEmailValid, isPasswordValid, isSubmitting,
+        isVerificationEmailSent, user, exceptionRaised);
   }
 
   @override
@@ -896,36 +902,36 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         @nullable AppException exceptionRaised),
-    Result loading(
+    Result signingUp(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         @nullable AppException exceptionRaised),
     Result failure(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         AppException exceptionRaised),
     Result emailSent(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         FirebaseUser user,
         @nullable AppException exceptionRaised),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (empty != null) {
-      return empty(isEmailValid, isPasswordValid, isSubmitting, isSuccess, user,
-          exceptionRaised);
+      return empty(isEmailValid, isPasswordValid, isSubmitting,
+          isVerificationEmailSent, user, exceptionRaised);
     }
     return orElse();
   }
@@ -934,12 +940,12 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result empty(_Empty value),
-    @required Result loading(_Loading value),
+    @required Result signingUp(_Loading value),
     @required Result failure(_Failure value),
     @required Result emailSent(_Success value),
   }) {
     assert(empty != null);
-    assert(loading != null);
+    assert(signingUp != null);
     assert(failure != null);
     assert(emailSent != null);
     return empty(this);
@@ -949,7 +955,7 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result empty(_Empty value),
-    Result loading(_Loading value),
+    Result signingUp(_Loading value),
     Result failure(_Failure value),
     Result emailSent(_Success value),
     @required Result orElse(),
@@ -968,7 +974,7 @@ abstract class _Empty extends SignUpState {
       {bool isEmailValid,
       bool isPasswordValid,
       bool isSubmitting,
-      bool isSuccess,
+      bool isVerificationEmailSent,
       @nullable FirebaseUser user,
       @nullable AppException exceptionRaised}) = _$_Empty;
 
@@ -979,7 +985,7 @@ abstract class _Empty extends SignUpState {
   @override
   bool get isSubmitting;
   @override
-  bool get isSuccess;
+  bool get isVerificationEmailSent;
   @override
   @nullable
   FirebaseUser get user;
@@ -998,7 +1004,7 @@ abstract class _$LoadingCopyWith<$Res> implements $SignUpStateCopyWith<$Res> {
       {bool isEmailValid,
       bool isPasswordValid,
       bool isSubmitting,
-      bool isSuccess,
+      bool isVerificationEmailSent,
       @nullable FirebaseUser user,
       @nullable AppException exceptionRaised});
 }
@@ -1016,7 +1022,7 @@ class __$LoadingCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
     Object isEmailValid = freezed,
     Object isPasswordValid = freezed,
     Object isSubmitting = freezed,
-    Object isSuccess = freezed,
+    Object isVerificationEmailSent = freezed,
     Object user = freezed,
     Object exceptionRaised = freezed,
   }) {
@@ -1028,7 +1034,9 @@ class __$LoadingCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
           : isPasswordValid as bool,
       isSubmitting:
           isSubmitting == freezed ? _value.isSubmitting : isSubmitting as bool,
-      isSuccess: isSuccess == freezed ? _value.isSuccess : isSuccess as bool,
+      isVerificationEmailSent: isVerificationEmailSent == freezed
+          ? _value.isVerificationEmailSent
+          : isVerificationEmailSent as bool,
       user: user == freezed ? _value.user : user as FirebaseUser,
       exceptionRaised: exceptionRaised == freezed
           ? _value.exceptionRaised
@@ -1042,13 +1050,13 @@ class _$_Loading extends _Loading with DiagnosticableTreeMixin {
       {this.isEmailValid = true,
       this.isPasswordValid = true,
       this.isSubmitting = true,
-      this.isSuccess = false,
+      this.isVerificationEmailSent = false,
       @nullable this.user,
       @nullable this.exceptionRaised})
       : assert(isEmailValid != null),
         assert(isPasswordValid != null),
         assert(isSubmitting != null),
-        assert(isSuccess != null),
+        assert(isVerificationEmailSent != null),
         super._();
 
   @JsonKey(defaultValue: true)
@@ -1062,7 +1070,7 @@ class _$_Loading extends _Loading with DiagnosticableTreeMixin {
   final bool isSubmitting;
   @JsonKey(defaultValue: false)
   @override
-  final bool isSuccess;
+  final bool isVerificationEmailSent;
   @override
   @nullable
   final FirebaseUser user;
@@ -1096,18 +1104,19 @@ class _$_Loading extends _Loading with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignUpState.loading(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isSuccess: $isSuccess, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
+    return 'SignUpState.signingUp(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isVerificationEmailSent: $isVerificationEmailSent, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'SignUpState.loading'))
+      ..add(DiagnosticsProperty('type', 'SignUpState.signingUp'))
       ..add(DiagnosticsProperty('isEmailValid', isEmailValid))
       ..add(DiagnosticsProperty('isPasswordValid', isPasswordValid))
       ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
-      ..add(DiagnosticsProperty('isSuccess', isSuccess))
+      ..add(DiagnosticsProperty(
+          'isVerificationEmailSent', isVerificationEmailSent))
       ..add(DiagnosticsProperty('user', user))
       ..add(DiagnosticsProperty('exceptionRaised', exceptionRaised))
       ..add(DiagnosticsProperty('isFormValid', isFormValid))
@@ -1127,9 +1136,10 @@ class _$_Loading extends _Loading with DiagnosticableTreeMixin {
             (identical(other.isSubmitting, isSubmitting) ||
                 const DeepCollectionEquality()
                     .equals(other.isSubmitting, isSubmitting)) &&
-            (identical(other.isSuccess, isSuccess) ||
-                const DeepCollectionEquality()
-                    .equals(other.isSuccess, isSuccess)) &&
+            (identical(
+                    other.isVerificationEmailSent, isVerificationEmailSent) ||
+                const DeepCollectionEquality().equals(
+                    other.isVerificationEmailSent, isVerificationEmailSent)) &&
             (identical(other.user, user) ||
                 const DeepCollectionEquality().equals(other.user, user)) &&
             (identical(other.exceptionRaised, exceptionRaised) ||
@@ -1143,7 +1153,7 @@ class _$_Loading extends _Loading with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(isEmailValid) ^
       const DeepCollectionEquality().hash(isPasswordValid) ^
       const DeepCollectionEquality().hash(isSubmitting) ^
-      const DeepCollectionEquality().hash(isSuccess) ^
+      const DeepCollectionEquality().hash(isVerificationEmailSent) ^
       const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(exceptionRaised);
 
@@ -1159,15 +1169,15 @@ class _$_Loading extends _Loading with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             @nullable AppException exceptionRaised),
     @required
-        Result loading(
+        Result signingUp(
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             @nullable AppException exceptionRaised),
     @required
@@ -1175,7 +1185,7 @@ class _$_Loading extends _Loading with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             AppException exceptionRaised),
     @required
@@ -1183,16 +1193,16 @@ class _$_Loading extends _Loading with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             FirebaseUser user,
             @nullable AppException exceptionRaised),
   }) {
     assert(empty != null);
-    assert(loading != null);
+    assert(signingUp != null);
     assert(failure != null);
     assert(emailSent != null);
-    return loading(isEmailValid, isPasswordValid, isSubmitting, isSuccess, user,
-        exceptionRaised);
+    return signingUp(isEmailValid, isPasswordValid, isSubmitting,
+        isVerificationEmailSent, user, exceptionRaised);
   }
 
   @override
@@ -1202,36 +1212,36 @@ class _$_Loading extends _Loading with DiagnosticableTreeMixin {
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         @nullable AppException exceptionRaised),
-    Result loading(
+    Result signingUp(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         @nullable AppException exceptionRaised),
     Result failure(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         AppException exceptionRaised),
     Result emailSent(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         FirebaseUser user,
         @nullable AppException exceptionRaised),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (loading != null) {
-      return loading(isEmailValid, isPasswordValid, isSubmitting, isSuccess,
-          user, exceptionRaised);
+    if (signingUp != null) {
+      return signingUp(isEmailValid, isPasswordValid, isSubmitting,
+          isVerificationEmailSent, user, exceptionRaised);
     }
     return orElse();
   }
@@ -1240,29 +1250,29 @@ class _$_Loading extends _Loading with DiagnosticableTreeMixin {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result empty(_Empty value),
-    @required Result loading(_Loading value),
+    @required Result signingUp(_Loading value),
     @required Result failure(_Failure value),
     @required Result emailSent(_Success value),
   }) {
     assert(empty != null);
-    assert(loading != null);
+    assert(signingUp != null);
     assert(failure != null);
     assert(emailSent != null);
-    return loading(this);
+    return signingUp(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result empty(_Empty value),
-    Result loading(_Loading value),
+    Result signingUp(_Loading value),
     Result failure(_Failure value),
     Result emailSent(_Success value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (loading != null) {
-      return loading(this);
+    if (signingUp != null) {
+      return signingUp(this);
     }
     return orElse();
   }
@@ -1274,7 +1284,7 @@ abstract class _Loading extends SignUpState {
       {bool isEmailValid,
       bool isPasswordValid,
       bool isSubmitting,
-      bool isSuccess,
+      bool isVerificationEmailSent,
       @nullable FirebaseUser user,
       @nullable AppException exceptionRaised}) = _$_Loading;
 
@@ -1285,7 +1295,7 @@ abstract class _Loading extends SignUpState {
   @override
   bool get isSubmitting;
   @override
-  bool get isSuccess;
+  bool get isVerificationEmailSent;
   @override
   @nullable
   FirebaseUser get user;
@@ -1304,7 +1314,7 @@ abstract class _$FailureCopyWith<$Res> implements $SignUpStateCopyWith<$Res> {
       {bool isEmailValid,
       bool isPasswordValid,
       bool isSubmitting,
-      bool isSuccess,
+      bool isVerificationEmailSent,
       @nullable FirebaseUser user,
       AppException exceptionRaised});
 }
@@ -1322,7 +1332,7 @@ class __$FailureCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
     Object isEmailValid = freezed,
     Object isPasswordValid = freezed,
     Object isSubmitting = freezed,
-    Object isSuccess = freezed,
+    Object isVerificationEmailSent = freezed,
     Object user = freezed,
     Object exceptionRaised = freezed,
   }) {
@@ -1334,7 +1344,9 @@ class __$FailureCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
           : isPasswordValid as bool,
       isSubmitting:
           isSubmitting == freezed ? _value.isSubmitting : isSubmitting as bool,
-      isSuccess: isSuccess == freezed ? _value.isSuccess : isSuccess as bool,
+      isVerificationEmailSent: isVerificationEmailSent == freezed
+          ? _value.isVerificationEmailSent
+          : isVerificationEmailSent as bool,
       user: user == freezed ? _value.user : user as FirebaseUser,
       exceptionRaised: exceptionRaised == freezed
           ? _value.exceptionRaised
@@ -1348,13 +1360,13 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
       {this.isEmailValid = true,
       this.isPasswordValid = true,
       this.isSubmitting = false,
-      this.isSuccess = false,
+      this.isVerificationEmailSent = false,
       @nullable this.user,
       this.exceptionRaised})
       : assert(isEmailValid != null),
         assert(isPasswordValid != null),
         assert(isSubmitting != null),
-        assert(isSuccess != null),
+        assert(isVerificationEmailSent != null),
         super._();
 
   @JsonKey(defaultValue: true)
@@ -1368,7 +1380,7 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
   final bool isSubmitting;
   @JsonKey(defaultValue: false)
   @override
-  final bool isSuccess;
+  final bool isVerificationEmailSent;
   @override
   @nullable
   final FirebaseUser user;
@@ -1401,7 +1413,7 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignUpState.failure(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isSuccess: $isSuccess, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
+    return 'SignUpState.failure(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isVerificationEmailSent: $isVerificationEmailSent, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
   }
 
   @override
@@ -1412,7 +1424,8 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('isEmailValid', isEmailValid))
       ..add(DiagnosticsProperty('isPasswordValid', isPasswordValid))
       ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
-      ..add(DiagnosticsProperty('isSuccess', isSuccess))
+      ..add(DiagnosticsProperty(
+          'isVerificationEmailSent', isVerificationEmailSent))
       ..add(DiagnosticsProperty('user', user))
       ..add(DiagnosticsProperty('exceptionRaised', exceptionRaised))
       ..add(DiagnosticsProperty('isFormValid', isFormValid))
@@ -1432,9 +1445,10 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
             (identical(other.isSubmitting, isSubmitting) ||
                 const DeepCollectionEquality()
                     .equals(other.isSubmitting, isSubmitting)) &&
-            (identical(other.isSuccess, isSuccess) ||
-                const DeepCollectionEquality()
-                    .equals(other.isSuccess, isSuccess)) &&
+            (identical(
+                    other.isVerificationEmailSent, isVerificationEmailSent) ||
+                const DeepCollectionEquality().equals(
+                    other.isVerificationEmailSent, isVerificationEmailSent)) &&
             (identical(other.user, user) ||
                 const DeepCollectionEquality().equals(other.user, user)) &&
             (identical(other.exceptionRaised, exceptionRaised) ||
@@ -1448,7 +1462,7 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(isEmailValid) ^
       const DeepCollectionEquality().hash(isPasswordValid) ^
       const DeepCollectionEquality().hash(isSubmitting) ^
-      const DeepCollectionEquality().hash(isSuccess) ^
+      const DeepCollectionEquality().hash(isVerificationEmailSent) ^
       const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(exceptionRaised);
 
@@ -1464,15 +1478,15 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             @nullable AppException exceptionRaised),
     @required
-        Result loading(
+        Result signingUp(
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             @nullable AppException exceptionRaised),
     @required
@@ -1480,7 +1494,7 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             AppException exceptionRaised),
     @required
@@ -1488,16 +1502,16 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             FirebaseUser user,
             @nullable AppException exceptionRaised),
   }) {
     assert(empty != null);
-    assert(loading != null);
+    assert(signingUp != null);
     assert(failure != null);
     assert(emailSent != null);
-    return failure(isEmailValid, isPasswordValid, isSubmitting, isSuccess, user,
-        exceptionRaised);
+    return failure(isEmailValid, isPasswordValid, isSubmitting,
+        isVerificationEmailSent, user, exceptionRaised);
   }
 
   @override
@@ -1507,36 +1521,36 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         @nullable AppException exceptionRaised),
-    Result loading(
+    Result signingUp(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         @nullable AppException exceptionRaised),
     Result failure(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         AppException exceptionRaised),
     Result emailSent(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         FirebaseUser user,
         @nullable AppException exceptionRaised),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (failure != null) {
-      return failure(isEmailValid, isPasswordValid, isSubmitting, isSuccess,
-          user, exceptionRaised);
+      return failure(isEmailValid, isPasswordValid, isSubmitting,
+          isVerificationEmailSent, user, exceptionRaised);
     }
     return orElse();
   }
@@ -1545,12 +1559,12 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result empty(_Empty value),
-    @required Result loading(_Loading value),
+    @required Result signingUp(_Loading value),
     @required Result failure(_Failure value),
     @required Result emailSent(_Success value),
   }) {
     assert(empty != null);
-    assert(loading != null);
+    assert(signingUp != null);
     assert(failure != null);
     assert(emailSent != null);
     return failure(this);
@@ -1560,7 +1574,7 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result empty(_Empty value),
-    Result loading(_Loading value),
+    Result signingUp(_Loading value),
     Result failure(_Failure value),
     Result emailSent(_Success value),
     @required Result orElse(),
@@ -1579,7 +1593,7 @@ abstract class _Failure extends SignUpState {
       {bool isEmailValid,
       bool isPasswordValid,
       bool isSubmitting,
-      bool isSuccess,
+      bool isVerificationEmailSent,
       @nullable FirebaseUser user,
       AppException exceptionRaised}) = _$_Failure;
 
@@ -1590,7 +1604,7 @@ abstract class _Failure extends SignUpState {
   @override
   bool get isSubmitting;
   @override
-  bool get isSuccess;
+  bool get isVerificationEmailSent;
   @override
   @nullable
   FirebaseUser get user;
@@ -1608,7 +1622,7 @@ abstract class _$SuccessCopyWith<$Res> implements $SignUpStateCopyWith<$Res> {
       {bool isEmailValid,
       bool isPasswordValid,
       bool isSubmitting,
-      bool isSuccess,
+      bool isVerificationEmailSent,
       FirebaseUser user,
       @nullable AppException exceptionRaised});
 }
@@ -1626,7 +1640,7 @@ class __$SuccessCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
     Object isEmailValid = freezed,
     Object isPasswordValid = freezed,
     Object isSubmitting = freezed,
-    Object isSuccess = freezed,
+    Object isVerificationEmailSent = freezed,
     Object user = freezed,
     Object exceptionRaised = freezed,
   }) {
@@ -1638,7 +1652,9 @@ class __$SuccessCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
           : isPasswordValid as bool,
       isSubmitting:
           isSubmitting == freezed ? _value.isSubmitting : isSubmitting as bool,
-      isSuccess: isSuccess == freezed ? _value.isSuccess : isSuccess as bool,
+      isVerificationEmailSent: isVerificationEmailSent == freezed
+          ? _value.isVerificationEmailSent
+          : isVerificationEmailSent as bool,
       user: user == freezed ? _value.user : user as FirebaseUser,
       exceptionRaised: exceptionRaised == freezed
           ? _value.exceptionRaised
@@ -1652,13 +1668,13 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
       {this.isEmailValid = true,
       this.isPasswordValid = true,
       this.isSubmitting = false,
-      this.isSuccess = true,
+      this.isVerificationEmailSent = true,
       this.user,
       @nullable this.exceptionRaised})
       : assert(isEmailValid != null),
         assert(isPasswordValid != null),
         assert(isSubmitting != null),
-        assert(isSuccess != null),
+        assert(isVerificationEmailSent != null),
         super._();
 
   @JsonKey(defaultValue: true)
@@ -1672,7 +1688,7 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
   final bool isSubmitting;
   @JsonKey(defaultValue: true)
   @override
-  final bool isSuccess;
+  final bool isVerificationEmailSent;
   @override
   final FirebaseUser user;
   @override
@@ -1705,7 +1721,7 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignUpState.emailSent(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isSuccess: $isSuccess, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
+    return 'SignUpState.emailSent(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isVerificationEmailSent: $isVerificationEmailSent, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
   }
 
   @override
@@ -1716,7 +1732,8 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('isEmailValid', isEmailValid))
       ..add(DiagnosticsProperty('isPasswordValid', isPasswordValid))
       ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
-      ..add(DiagnosticsProperty('isSuccess', isSuccess))
+      ..add(DiagnosticsProperty(
+          'isVerificationEmailSent', isVerificationEmailSent))
       ..add(DiagnosticsProperty('user', user))
       ..add(DiagnosticsProperty('exceptionRaised', exceptionRaised))
       ..add(DiagnosticsProperty('isFormValid', isFormValid))
@@ -1736,9 +1753,10 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
             (identical(other.isSubmitting, isSubmitting) ||
                 const DeepCollectionEquality()
                     .equals(other.isSubmitting, isSubmitting)) &&
-            (identical(other.isSuccess, isSuccess) ||
-                const DeepCollectionEquality()
-                    .equals(other.isSuccess, isSuccess)) &&
+            (identical(
+                    other.isVerificationEmailSent, isVerificationEmailSent) ||
+                const DeepCollectionEquality().equals(
+                    other.isVerificationEmailSent, isVerificationEmailSent)) &&
             (identical(other.user, user) ||
                 const DeepCollectionEquality().equals(other.user, user)) &&
             (identical(other.exceptionRaised, exceptionRaised) ||
@@ -1752,7 +1770,7 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
       const DeepCollectionEquality().hash(isEmailValid) ^
       const DeepCollectionEquality().hash(isPasswordValid) ^
       const DeepCollectionEquality().hash(isSubmitting) ^
-      const DeepCollectionEquality().hash(isSuccess) ^
+      const DeepCollectionEquality().hash(isVerificationEmailSent) ^
       const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(exceptionRaised);
 
@@ -1768,15 +1786,15 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             @nullable AppException exceptionRaised),
     @required
-        Result loading(
+        Result signingUp(
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             @nullable AppException exceptionRaised),
     @required
@@ -1784,7 +1802,7 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             @nullable FirebaseUser user,
             AppException exceptionRaised),
     @required
@@ -1792,16 +1810,16 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
             bool isEmailValid,
             bool isPasswordValid,
             bool isSubmitting,
-            bool isSuccess,
+            bool isVerificationEmailSent,
             FirebaseUser user,
             @nullable AppException exceptionRaised),
   }) {
     assert(empty != null);
-    assert(loading != null);
+    assert(signingUp != null);
     assert(failure != null);
     assert(emailSent != null);
-    return emailSent(isEmailValid, isPasswordValid, isSubmitting, isSuccess,
-        user, exceptionRaised);
+    return emailSent(isEmailValid, isPasswordValid, isSubmitting,
+        isVerificationEmailSent, user, exceptionRaised);
   }
 
   @override
@@ -1811,36 +1829,36 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         @nullable AppException exceptionRaised),
-    Result loading(
+    Result signingUp(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         @nullable AppException exceptionRaised),
     Result failure(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         @nullable FirebaseUser user,
         AppException exceptionRaised),
     Result emailSent(
         bool isEmailValid,
         bool isPasswordValid,
         bool isSubmitting,
-        bool isSuccess,
+        bool isVerificationEmailSent,
         FirebaseUser user,
         @nullable AppException exceptionRaised),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (emailSent != null) {
-      return emailSent(isEmailValid, isPasswordValid, isSubmitting, isSuccess,
-          user, exceptionRaised);
+      return emailSent(isEmailValid, isPasswordValid, isSubmitting,
+          isVerificationEmailSent, user, exceptionRaised);
     }
     return orElse();
   }
@@ -1849,12 +1867,12 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result empty(_Empty value),
-    @required Result loading(_Loading value),
+    @required Result signingUp(_Loading value),
     @required Result failure(_Failure value),
     @required Result emailSent(_Success value),
   }) {
     assert(empty != null);
-    assert(loading != null);
+    assert(signingUp != null);
     assert(failure != null);
     assert(emailSent != null);
     return emailSent(this);
@@ -1864,7 +1882,7 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result empty(_Empty value),
-    Result loading(_Loading value),
+    Result signingUp(_Loading value),
     Result failure(_Failure value),
     Result emailSent(_Success value),
     @required Result orElse(),
@@ -1883,7 +1901,7 @@ abstract class _Success extends SignUpState {
       {bool isEmailValid,
       bool isPasswordValid,
       bool isSubmitting,
-      bool isSuccess,
+      bool isVerificationEmailSent,
       FirebaseUser user,
       @nullable AppException exceptionRaised}) = _$_Success;
 
@@ -1894,7 +1912,7 @@ abstract class _Success extends SignUpState {
   @override
   bool get isSubmitting;
   @override
-  bool get isSuccess;
+  bool get isVerificationEmailSent;
   @override
   FirebaseUser get user;
   @override

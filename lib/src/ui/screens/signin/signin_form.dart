@@ -64,10 +64,10 @@ class SignInFormState extends State<SignInForm> {
 
   @override
   void dispose() {
-    _passwordFocus.dispose();
-    _emailFocus.dispose();
-    _passwordController.dispose();
-    _emailController.dispose();
+    _passwordFocus?.dispose();
+    _emailFocus?.dispose();
+    _passwordController?.dispose();
+    _emailController?.dispose();
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,

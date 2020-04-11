@@ -50,7 +50,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _emailController?.dispose();
     SystemChrome.setPreferredOrientations(<DeviceOrientation>[
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
@@ -77,6 +77,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
           await showPlatformDialog<void>(
             context: context,
             builder: (_) => PlatformAlertDialog(
+              title: const Text('Password Reset'),
               content: Text('A password reset email was sent to ${state.email}.'),
               actions: <Widget>[
                 PlatformDialogAction(

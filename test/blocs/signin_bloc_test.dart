@@ -16,7 +16,7 @@ Future<void> main() async {
   group('SignIn Bloc:', () {
     final AuthenticationRepository authRepositoryMock = MockAuthenticationRepository();
     final FirebaseUser authenticatedUser = MockFirebaseUser();
-    final AppException exception = AppException.fromCode('ERROR_SiGN_IN_CANCEL');
+    final AppException exception = AppException.fromCode('ERROR_EMAIL_NOT_VERIFIED');
 
     group('Initialization:', () {
       blocTest<SignInBloc, SignInEvent, SignInState>(

@@ -7,6 +7,7 @@ abstract class AuthenticationRepositoryInterface {
   Future<FirebaseUser> signInWithEmailAndPassword({String email, String password});
   Future<FirebaseUser> signInWithGoogle({Function newUserHandler});
   Future<FirebaseUser> signUp({String email, String password});
+  Future<void> sendEmailVerification({FirebaseUser user});
   Future<void> signOut();
   Future<void> sendPasswordResetEmail({String email});
 }
@@ -35,6 +36,9 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
         password: password,
       );
       final FirebaseUser firebaseUser = authResult.user;
+      if (firebaseUser.isEmailVerified == false) {
+        throw AppException.fromCode('ERROR_EMAIL_NOT_VERIFIED');
+      }
       return firebaseUser;
     } catch (exception) {
       throw AppException.from(exception as Exception);
@@ -70,7 +74,17 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
         password: password,
       );
       final FirebaseUser firebaseUser = authResult.user;
+      await sendEmailVerification(user: firebaseUser);
       return firebaseUser;
+    } catch (exception) {
+      throw AppException.from(exception as Exception);
+    }
+  }
+
+  @override
+  Future<void> sendEmailVerification({FirebaseUser user}) async {
+    try {
+      user.sendEmailVerification();
     } catch (exception) {
       throw AppException.from(exception as Exception);
     }
@@ -91,13 +105,6 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   @override
   Future<void> sendPasswordResetEmail({String email}) async {
     try {
-      final List<String> methods = await _firebaseAuth.fetchSignInMethodsForEmail(
-        email: email,
-      );
-      // Is email registered?
-      if (methods.isEmpty) {
-        throw AppException.fromCode('ERROR_INVALID_CREDENTIAL');
-      }
       await _firebaseAuth.sendPasswordResetEmail(email: email);
     } catch (exception) {
       throw AppException.from(exception as Exception);
