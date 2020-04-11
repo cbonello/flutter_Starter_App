@@ -53,7 +53,7 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
 
   Stream<ResetPasswordState> _mapResetPressedToState(String email) async* {
     try {
-      await _authRepository.resetPassword(email: email);
+      await _authRepository.sendPasswordResetEmail(email: email);
       yield ResetPasswordState.success(email: email);
     } catch (exception) {
       yield ResetPasswordState.failure(

@@ -65,7 +65,8 @@ Future<void> main() async {
       blocTest<ResetPasswordBloc, ResetPasswordEvent, ResetPasswordState>(
         'exception thrown by authentication repository',
         build: () async {
-          when(authRepositoryMock.resetPassword(email: kMockEmail)).thenThrow(exception);
+          when(authRepositoryMock.sendPasswordResetEmail(email: kMockEmail))
+              .thenThrow(exception);
           return ResetPasswordBloc(authRepository: authRepositoryMock);
         },
         act: (ResetPasswordBloc bloc) async =>
