@@ -80,7 +80,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         email: email,
         password: password,
       );
-      yield SignUpState.success(user: user);
+      yield SignUpState.emailSent(user: user);
     } catch (exception) {
       yield SignUpState.failure(
         exceptionRaised: AppException.from(exception as Exception),

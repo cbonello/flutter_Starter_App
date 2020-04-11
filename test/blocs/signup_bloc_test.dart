@@ -98,7 +98,7 @@ Future<void> main() async {
         },
         expect: <SignUpState>[
           SignUpState.loading(),
-          SignUpState.success(user: authenticatedUser)
+          SignUpState.emailSent(user: authenticatedUser)
         ],
       );
 
