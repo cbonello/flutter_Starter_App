@@ -33,6 +33,7 @@ Here are a few resources to get you started if you are new to Flutter:
 
 ## Resources
 
+- [Getting Started: Creating Your Flutter Project](https://dash-overflow.net/articles/getting_started/)
 - [Dash Tips: Using Bloc with Freezed](https://chimon.hashnode.dev/dash-tips-using-bloc-with-freezed-ck8s5s89000mnhps1zf62m14n)
 
 ## Created & Maintained by

@@ -31,13 +31,12 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       // See https://flutterigniter.com/dismiss-keyboard-form-lose-focus/
       onTap: () {
         final FocusScopeNode currentFocus = FocusScope.of(context);
-        print(currentFocus);
         if (!currentFocus.hasPrimaryFocus) {
           currentFocus.unfocus();
         }
       },
       child: PlatformApp(
-        onGenerateTitle: (BuildContext context) => APP_NAME,
+        onGenerateTitle: (BuildContext context) => kAppName,
         debugShowCheckedModeBanner: false,
         android: (BuildContext context) => MaterialAppData(
           theme: AppTheme.theme(Brightness.light),

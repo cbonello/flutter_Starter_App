@@ -96,7 +96,7 @@ class SignInFormState extends State<SignInForm> {
               .add(AuthenticationEvent.signedIn(user: state.user));
           await _signingInFlushbar.dismiss();
           try {
-            Navigator.of(context).popUntil((dynamic route) => route.isFirst);
+            Navigator.of(context).popUntil((dynamic route) => route.isFirst as bool);
           } catch (_) {}
         }
       },

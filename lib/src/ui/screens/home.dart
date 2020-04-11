@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: PlatformScaffold(
         appBar: PlatformAppBar(
-          title: const Text(APP_NAME),
+          title: const Text(kAppName),
           android: (BuildContext context) {
             return MaterialAppBarData(
               actions: <Widget>[

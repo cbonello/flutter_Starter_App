@@ -55,9 +55,10 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
     try {
       await _authRepository.resetPassword(email: email);
       yield ResetPasswordState.success(email: email);
-    } catch (exception, stacktrace) {
-      print(stacktrace);
-      yield ResetPasswordState.failure(exceptionRaised: AppException.from(exception));
+    } catch (exception) {
+      yield ResetPasswordState.failure(
+        exceptionRaised: AppException.from(exception as Exception),
+      );
     }
   }
 }

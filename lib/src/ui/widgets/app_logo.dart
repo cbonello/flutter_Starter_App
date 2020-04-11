@@ -12,17 +12,17 @@ class AppLogo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Hero(
-          tag: APP_ASSET_LOGO,
+          tag: kAppAssetLogo,
           child: Image(
             height: 120.0 * scaleFactor,
             fit: BoxFit.fill,
-            image: const AssetImage(APP_ASSET_LOGO),
+            image: const AssetImage(kAppAssetLogo),
           ),
         ),
         const SizedBox(width: 10.0),
         Expanded(
           child: Text(
-            APP_NAME,
+            kAppName,
             style: Theme.of(context).textTheme.title,
           ),
         ),

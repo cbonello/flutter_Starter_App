@@ -171,7 +171,7 @@ class GradientButton extends StatelessWidget {
   final Gradient _gradient;
   final double width;
   final double height;
-  final Function onPressed;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -212,8 +212,8 @@ class CircleIconButton extends StatelessWidget {
   }) : super(key: key);
 
   final double size;
-  final Function onPressed;
   final IconData icon;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {

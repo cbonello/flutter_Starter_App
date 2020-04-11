@@ -48,8 +48,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         await _localStorageService.deleteAuthenticatedUserID();
         yield const AuthenticationState.unauthenticated();
       }
-    } catch (_, stacktrace) {
-      print(stacktrace);
+    } catch (_) {
       await _localStorageService.deleteAuthenticatedUserID();
       yield const AuthenticationState.unauthenticated();
     }

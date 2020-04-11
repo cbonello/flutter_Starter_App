@@ -37,7 +37,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
       final FirebaseUser firebaseUser = authResult.user;
       return firebaseUser;
     } catch (exception) {
-      throw AppException.from(exception);
+      throw AppException.from(exception as Exception);
     }
   }
 
@@ -58,7 +58,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
       return firebaseUser;
     } catch (exception) {
       await signOut();
-      throw AppException.from(exception);
+      throw AppException.from(exception as Exception);
     }
   }
 
@@ -72,7 +72,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
       final FirebaseUser firebaseUser = authResult.user;
       return firebaseUser;
     } catch (exception) {
-      throw AppException.from(exception);
+      throw AppException.from(exception as Exception);
     }
   }
 
@@ -83,9 +83,8 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
         _firebaseAuth.signOut(),
         _googleSignIn.signOut(),
       ]);
-    } catch (_, stacktrace) {
+    } catch (_) {
       // TODO(cbonello): handle exception.
-      print(stacktrace);
     }
   }
 
@@ -100,9 +99,8 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
         throw AppException.fromCode('ERROR_INVALID_CREDENTIAL');
       }
       await _firebaseAuth.sendPasswordResetEmail(email: email);
-    } catch (exception, stacktrace) {
-      print(stacktrace);
-      throw AppException.from(exception);
+    } catch (exception) {
+      throw AppException.from(exception as Exception);
     }
   }
 }

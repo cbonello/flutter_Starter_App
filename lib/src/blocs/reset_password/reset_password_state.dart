@@ -25,14 +25,14 @@ abstract class ResetPasswordState implements _$ResetPasswordState {
     @Default(false) bool isSubmitting,
     @Default(false) bool isSuccess,
     @nullable String email,
-    @required AppException exceptionRaised,
+    AppException exceptionRaised,
   }) = _Failure;
 
   factory ResetPasswordState.success({
     @Default(true) bool isEmailValid,
     @Default(false) bool isSubmitting,
     @Default(true) bool isSuccess,
-    @required String email,
+    String email,
     @nullable AppException exceptionRaised,
   }) = _Success;
 

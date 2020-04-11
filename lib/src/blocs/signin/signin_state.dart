@@ -28,7 +28,7 @@ abstract class SignInState implements _$SignInState {
     @Default(false) bool isSubmitting,
     @Default(false) bool isSuccess,
     @nullable FirebaseUser user,
-    @required AppException exceptionRaised,
+    AppException exceptionRaised,
   }) = _Failure;
 
   factory SignInState.success({
@@ -36,7 +36,7 @@ abstract class SignInState implements _$SignInState {
     @Default(true) bool isPasswordValid,
     @Default(false) bool isSubmitting,
     @Default(true) bool isSuccess,
-    @required FirebaseUser user,
+    FirebaseUser user,
     @nullable AppException exceptionRaised,
   }) = _Success;
 

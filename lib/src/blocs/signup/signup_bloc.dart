@@ -81,9 +81,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         password: password,
       );
       yield SignUpState.success(user: user);
-    } catch (exception, stacktrace) {
-      print(stacktrace);
-      yield SignUpState.failure(exceptionRaised: AppException.from(exception));
+    } catch (exception) {
+      yield SignUpState.failure(
+        exceptionRaised: AppException.from(exception as Exception),
+      );
     }
   }
 }

@@ -85,10 +85,11 @@ class SignUpFormState extends State<SignUpForm> {
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (BuildContext context, SignUpState state) {
         if (state.isFailure) {
-          FlushbarHelper.createError(
+          final Flushbar<Object> flushbar = FlushbarHelper.createError(
             title: 'Sign up failure',
             message: state.exceptionRaised.message,
-          )..show(context);
+          );
+          flushbar.show(context);
         } else if (state.isSubmitting) {
           _signingUpFlushbar.show(context);
         } else if (state.isSuccess) {
@@ -97,7 +98,7 @@ class SignUpFormState extends State<SignUpForm> {
               .add(AuthenticationEvent.signedIn(user: state.user));
           _signingUpFlushbar.dismiss();
           try {
-            Navigator.of(context).popUntil((dynamic route) => route.isFirst);
+            Navigator.of(context).popUntil((dynamic route) => route.isFirst as bool);
           } catch (_) {}
         }
       },
@@ -167,6 +168,7 @@ class SignUpFormState extends State<SignUpForm> {
                           ),
                           // Expanded(child: Container()) to prevent text overflow.
                           Expanded(
+                            // ignore: avoid_unnecessary_containers
                             child: Container(
                               child: GestureDetector(
                                 onTap: () => _onTOSChanged(!_agreedToTOSAndPolicy),

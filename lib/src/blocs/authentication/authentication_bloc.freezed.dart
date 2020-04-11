@@ -16,7 +16,7 @@ class _$AuthenticationEventTearOff {
     return const _AppStarted();
   }
 
-  _SignedIn signedIn({@required FirebaseUser user}) {
+  _SignedIn signedIn({FirebaseUser user}) {
     return _SignedIn(
       user: user,
     );
@@ -34,13 +34,13 @@ mixin _$AuthenticationEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result appStarted(),
-    @required Result signedIn(@required FirebaseUser user),
+    @required Result signedIn(FirebaseUser user),
     @required Result signedOut(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result appStarted(),
-    Result signedIn(@required FirebaseUser user),
+    Result signedIn(FirebaseUser user),
     Result signedOut(),
     @required Result orElse(),
   });
@@ -111,7 +111,7 @@ class _$_AppStarted implements _AppStarted {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result appStarted(),
-    @required Result signedIn(@required FirebaseUser user),
+    @required Result signedIn(FirebaseUser user),
     @required Result signedOut(),
   }) {
     assert(appStarted != null);
@@ -124,7 +124,7 @@ class _$_AppStarted implements _AppStarted {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result appStarted(),
-    Result signedIn(@required FirebaseUser user),
+    Result signedIn(FirebaseUser user),
     Result signedOut(),
     @required Result orElse(),
   }) {
@@ -194,7 +194,7 @@ class __$SignedInCopyWithImpl<$Res>
 }
 
 class _$_SignedIn implements _SignedIn {
-  const _$_SignedIn({@required this.user}) : assert(user != null);
+  const _$_SignedIn({this.user});
 
   @override
   final FirebaseUser user;
@@ -224,7 +224,7 @@ class _$_SignedIn implements _SignedIn {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result appStarted(),
-    @required Result signedIn(@required FirebaseUser user),
+    @required Result signedIn(FirebaseUser user),
     @required Result signedOut(),
   }) {
     assert(appStarted != null);
@@ -237,7 +237,7 @@ class _$_SignedIn implements _SignedIn {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result appStarted(),
-    Result signedIn(@required FirebaseUser user),
+    Result signedIn(FirebaseUser user),
     Result signedOut(),
     @required Result orElse(),
   }) {
@@ -278,7 +278,7 @@ class _$_SignedIn implements _SignedIn {
 }
 
 abstract class _SignedIn implements AuthenticationEvent {
-  const factory _SignedIn({@required FirebaseUser user}) = _$_SignedIn;
+  const factory _SignedIn({FirebaseUser user}) = _$_SignedIn;
 
   FirebaseUser get user;
   _$SignedInCopyWith<_SignedIn> get copyWith;
@@ -320,7 +320,7 @@ class _$_SignedOut implements _SignedOut {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result appStarted(),
-    @required Result signedIn(@required FirebaseUser user),
+    @required Result signedIn(FirebaseUser user),
     @required Result signedOut(),
   }) {
     assert(appStarted != null);
@@ -333,7 +333,7 @@ class _$_SignedOut implements _SignedOut {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result appStarted(),
-    Result signedIn(@required FirebaseUser user),
+    Result signedIn(FirebaseUser user),
     Result signedOut(),
     @required Result orElse(),
   }) {
@@ -384,7 +384,7 @@ class _$AuthenticationStateTearOff {
     return const _Uninitialized();
   }
 
-  _Authenticated authenticated({@required FirebaseUser authenticatedUser}) {
+  _Authenticated authenticated({FirebaseUser authenticatedUser}) {
     return _Authenticated(
       authenticatedUser: authenticatedUser,
     );
@@ -402,13 +402,13 @@ mixin _$AuthenticationState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result uninitialized(),
-    @required Result authenticated(@required FirebaseUser authenticatedUser),
+    @required Result authenticated(FirebaseUser authenticatedUser),
     @required Result unauthenticated(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result uninitialized(),
-    Result authenticated(@required FirebaseUser authenticatedUser),
+    Result authenticated(FirebaseUser authenticatedUser),
     Result unauthenticated(),
     @required Result orElse(),
   });
@@ -479,7 +479,7 @@ class _$_Uninitialized implements _Uninitialized {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result uninitialized(),
-    @required Result authenticated(@required FirebaseUser authenticatedUser),
+    @required Result authenticated(FirebaseUser authenticatedUser),
     @required Result unauthenticated(),
   }) {
     assert(uninitialized != null);
@@ -492,7 +492,7 @@ class _$_Uninitialized implements _Uninitialized {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result uninitialized(),
-    Result authenticated(@required FirebaseUser authenticatedUser),
+    Result authenticated(FirebaseUser authenticatedUser),
     Result unauthenticated(),
     @required Result orElse(),
   }) {
@@ -566,8 +566,7 @@ class __$AuthenticatedCopyWithImpl<$Res>
 }
 
 class _$_Authenticated implements _Authenticated {
-  const _$_Authenticated({@required this.authenticatedUser})
-      : assert(authenticatedUser != null);
+  const _$_Authenticated({this.authenticatedUser});
 
   @override
   final FirebaseUser authenticatedUser;
@@ -599,7 +598,7 @@ class _$_Authenticated implements _Authenticated {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result uninitialized(),
-    @required Result authenticated(@required FirebaseUser authenticatedUser),
+    @required Result authenticated(FirebaseUser authenticatedUser),
     @required Result unauthenticated(),
   }) {
     assert(uninitialized != null);
@@ -612,7 +611,7 @@ class _$_Authenticated implements _Authenticated {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result uninitialized(),
-    Result authenticated(@required FirebaseUser authenticatedUser),
+    Result authenticated(FirebaseUser authenticatedUser),
     Result unauthenticated(),
     @required Result orElse(),
   }) {
@@ -653,7 +652,7 @@ class _$_Authenticated implements _Authenticated {
 }
 
 abstract class _Authenticated implements AuthenticationState {
-  const factory _Authenticated({@required FirebaseUser authenticatedUser}) =
+  const factory _Authenticated({FirebaseUser authenticatedUser}) =
       _$_Authenticated;
 
   FirebaseUser get authenticatedUser;
@@ -697,7 +696,7 @@ class _$_Unauthenticated implements _Unauthenticated {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result uninitialized(),
-    @required Result authenticated(@required FirebaseUser authenticatedUser),
+    @required Result authenticated(FirebaseUser authenticatedUser),
     @required Result unauthenticated(),
   }) {
     assert(uninitialized != null);
@@ -710,7 +709,7 @@ class _$_Unauthenticated implements _Unauthenticated {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result uninitialized(),
-    Result authenticated(@required FirebaseUser authenticatedUser),
+    Result authenticated(FirebaseUser authenticatedUser),
     Result unauthenticated(),
     @required Result orElse(),
   }) {

@@ -9,8 +9,8 @@ import 'package:starter_app/src/utils/exceptions.dart';
 import '../mock/firebase_auth.dart';
 import '../mock/repositories.dart';
 
-const String MOCK_EMAIL = 'john.doe@yahoo.com';
-const String MOCK_PASSWORD = 'password1234';
+const String kMockEmail = 'john.doe@yahoo.com';
+const String kMockPassword = 'password1234';
 
 Future<void> main() async {
   group('SignIn Bloc:', () {
@@ -84,8 +84,8 @@ Future<void> main() async {
         'successful login',
         build: () async {
           when(authRepositoryMock.signInWithEmailAndPassword(
-            email: MOCK_EMAIL,
-            password: MOCK_PASSWORD,
+            email: kMockEmail,
+            password: kMockPassword,
           )).thenAnswer((_) {
             return Future<FirebaseUser>.value(authenticatedUser);
           });
@@ -93,8 +93,8 @@ Future<void> main() async {
         },
         act: (SignInBloc bloc) async =>
             bloc.add(const SignInEvent.emailAndPasswordPressed(
-          email: MOCK_EMAIL,
-          password: MOCK_PASSWORD,
+          email: kMockEmail,
+          password: kMockPassword,
         )),
         expect: <SignInState>[
           SignInState.signingIn(),
@@ -106,16 +106,15 @@ Future<void> main() async {
         'exception thrown by authentication repository',
         build: () async {
           when(authRepositoryMock.signInWithEmailAndPassword(
-            email: MOCK_EMAIL,
-            password: MOCK_PASSWORD,
-          ))
-            ..thenThrow(exception);
+            email: kMockEmail,
+            password: kMockPassword,
+          )).thenThrow(exception);
           return SignInBloc(authRepository: authRepositoryMock);
         },
         act: (SignInBloc bloc) async =>
             bloc.add(const SignInEvent.emailAndPasswordPressed(
-          email: MOCK_EMAIL,
-          password: MOCK_PASSWORD,
+          email: kMockEmail,
+          password: kMockPassword,
         )),
         expect: <SignInState>[
           SignInState.signingIn(),

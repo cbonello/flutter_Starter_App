@@ -79,9 +79,10 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         password: password,
       );
       yield SignInState.success(user: user);
-    } catch (exception, stacktrace) {
-      print(stacktrace);
-      yield SignInState.failure(exceptionRaised: AppException.from(exception));
+    } catch (exception) {
+      yield SignInState.failure(
+        exceptionRaised: AppException.from(exception as Exception),
+      );
     }
   }
 
@@ -89,9 +90,10 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     try {
       final FirebaseUser user = await _authRepository.signInWithGoogle();
       yield SignInState.success(user: user);
-    } catch (exception, stacktrace) {
-      print(stacktrace);
-      yield SignInState.failure(exceptionRaised: AppException.from(exception));
+    } catch (exception) {
+      yield SignInState.failure(
+        exceptionRaised: AppException.from(exception as Exception),
+      );
     }
   }
 }

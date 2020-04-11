@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
         body: Center(
           child: FractionallySizedBox(
             widthFactor: 0.5,
-            child: Image.asset(APP_ASSET_LOGO, fit: BoxFit.fill),
+            child: Image.asset(kAppAssetLogo, fit: BoxFit.fill),
           ),
         ),
       ),

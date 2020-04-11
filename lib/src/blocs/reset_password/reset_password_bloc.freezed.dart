@@ -12,13 +12,13 @@ T _$identity<T>(T value) => value;
 class _$ResetPasswordEventTearOff {
   const _$ResetPasswordEventTearOff();
 
-  _EmailChanged emailChanged({@required String email}) {
+  _EmailChanged emailChanged({String email}) {
     return _EmailChanged(
       email: email,
     );
   }
 
-  _ResetPressed resetPressed({@required String email}) {
+  _ResetPressed resetPressed({String email}) {
     return _ResetPressed(
       email: email,
     );
@@ -33,13 +33,13 @@ mixin _$ResetPasswordEvent {
 
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result emailChanged(@required String email),
-    @required Result resetPressed(@required String email),
+    @required Result emailChanged(String email),
+    @required Result resetPressed(String email),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result emailChanged(@required String email),
-    Result resetPressed(@required String email),
+    Result emailChanged(String email),
+    Result resetPressed(String email),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -112,7 +112,7 @@ class __$EmailChangedCopyWithImpl<$Res>
 }
 
 class _$_EmailChanged with DiagnosticableTreeMixin implements _EmailChanged {
-  const _$_EmailChanged({@required this.email}) : assert(email != null);
+  const _$_EmailChanged({this.email});
 
   @override
   final String email;
@@ -149,8 +149,8 @@ class _$_EmailChanged with DiagnosticableTreeMixin implements _EmailChanged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result emailChanged(@required String email),
-    @required Result resetPressed(@required String email),
+    @required Result emailChanged(String email),
+    @required Result resetPressed(String email),
   }) {
     assert(emailChanged != null);
     assert(resetPressed != null);
@@ -160,8 +160,8 @@ class _$_EmailChanged with DiagnosticableTreeMixin implements _EmailChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result emailChanged(@required String email),
-    Result resetPressed(@required String email),
+    Result emailChanged(String email),
+    Result resetPressed(String email),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -198,7 +198,7 @@ class _$_EmailChanged with DiagnosticableTreeMixin implements _EmailChanged {
 }
 
 abstract class _EmailChanged implements ResetPasswordEvent {
-  const factory _EmailChanged({@required String email}) = _$_EmailChanged;
+  const factory _EmailChanged({String email}) = _$_EmailChanged;
 
   @override
   String get email;
@@ -236,7 +236,7 @@ class __$ResetPressedCopyWithImpl<$Res>
 }
 
 class _$_ResetPressed with DiagnosticableTreeMixin implements _ResetPressed {
-  const _$_ResetPressed({@required this.email}) : assert(email != null);
+  const _$_ResetPressed({this.email});
 
   @override
   final String email;
@@ -273,8 +273,8 @@ class _$_ResetPressed with DiagnosticableTreeMixin implements _ResetPressed {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result emailChanged(@required String email),
-    @required Result resetPressed(@required String email),
+    @required Result emailChanged(String email),
+    @required Result resetPressed(String email),
   }) {
     assert(emailChanged != null);
     assert(resetPressed != null);
@@ -284,8 +284,8 @@ class _$_ResetPressed with DiagnosticableTreeMixin implements _ResetPressed {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result emailChanged(@required String email),
-    Result resetPressed(@required String email),
+    Result emailChanged(String email),
+    Result resetPressed(String email),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -322,7 +322,7 @@ class _$_ResetPressed with DiagnosticableTreeMixin implements _ResetPressed {
 }
 
 abstract class _ResetPressed implements ResetPasswordEvent {
-  const factory _ResetPressed({@required String email}) = _$_ResetPressed;
+  const factory _ResetPressed({String email}) = _$_ResetPressed;
 
   @override
   String get email;
@@ -368,7 +368,7 @@ class _$ResetPasswordStateTearOff {
       bool isSubmitting = false,
       bool isSuccess = false,
       @nullable String email,
-      @required AppException exceptionRaised}) {
+      AppException exceptionRaised}) {
     return _Failure(
       isEmailValid: isEmailValid,
       isSubmitting: isSubmitting,
@@ -382,7 +382,7 @@ class _$ResetPasswordStateTearOff {
       {bool isEmailValid = true,
       bool isSubmitting = false,
       bool isSuccess = true,
-      @required String email,
+      String email,
       @nullable AppException exceptionRaised}) {
     return _Success(
       isEmailValid: isEmailValid,
@@ -416,10 +416,10 @@ mixin _$ResetPasswordState {
             @nullable String email, @nullable AppException exceptionRaised),
     @required
         Result failure(bool isEmailValid, bool isSubmitting, bool isSuccess,
-            @nullable String email, @required AppException exceptionRaised),
+            @nullable String email, AppException exceptionRaised),
     @required
         Result success(bool isEmailValid, bool isSubmitting, bool isSuccess,
-            @required String email, @nullable AppException exceptionRaised),
+            String email, @nullable AppException exceptionRaised),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -428,9 +428,9 @@ mixin _$ResetPasswordState {
     Result resetting(bool isEmailValid, bool isSubmitting, bool isSuccess,
         @nullable String email, @nullable AppException exceptionRaised),
     Result failure(bool isEmailValid, bool isSubmitting, bool isSuccess,
-        @nullable String email, @required AppException exceptionRaised),
+        @nullable String email, AppException exceptionRaised),
     Result success(bool isEmailValid, bool isSubmitting, bool isSuccess,
-        @required String email, @nullable AppException exceptionRaised),
+        String email, @nullable AppException exceptionRaised),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -652,10 +652,10 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
             @nullable String email, @nullable AppException exceptionRaised),
     @required
         Result failure(bool isEmailValid, bool isSubmitting, bool isSuccess,
-            @nullable String email, @required AppException exceptionRaised),
+            @nullable String email, AppException exceptionRaised),
     @required
         Result success(bool isEmailValid, bool isSubmitting, bool isSuccess,
-            @required String email, @nullable AppException exceptionRaised),
+            String email, @nullable AppException exceptionRaised),
   }) {
     assert(empty != null);
     assert(resetting != null);
@@ -672,9 +672,9 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
     Result resetting(bool isEmailValid, bool isSubmitting, bool isSuccess,
         @nullable String email, @nullable AppException exceptionRaised),
     Result failure(bool isEmailValid, bool isSubmitting, bool isSuccess,
-        @nullable String email, @required AppException exceptionRaised),
+        @nullable String email, AppException exceptionRaised),
     Result success(bool isEmailValid, bool isSubmitting, bool isSuccess,
-        @required String email, @nullable AppException exceptionRaised),
+        String email, @nullable AppException exceptionRaised),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -902,10 +902,10 @@ class _$_Resetting extends _Resetting with DiagnosticableTreeMixin {
             @nullable String email, @nullable AppException exceptionRaised),
     @required
         Result failure(bool isEmailValid, bool isSubmitting, bool isSuccess,
-            @nullable String email, @required AppException exceptionRaised),
+            @nullable String email, AppException exceptionRaised),
     @required
         Result success(bool isEmailValid, bool isSubmitting, bool isSuccess,
-            @required String email, @nullable AppException exceptionRaised),
+            String email, @nullable AppException exceptionRaised),
   }) {
     assert(empty != null);
     assert(resetting != null);
@@ -923,9 +923,9 @@ class _$_Resetting extends _Resetting with DiagnosticableTreeMixin {
     Result resetting(bool isEmailValid, bool isSubmitting, bool isSuccess,
         @nullable String email, @nullable AppException exceptionRaised),
     Result failure(bool isEmailValid, bool isSubmitting, bool isSuccess,
-        @nullable String email, @required AppException exceptionRaised),
+        @nullable String email, AppException exceptionRaised),
     Result success(bool isEmailValid, bool isSubmitting, bool isSuccess,
-        @required String email, @nullable AppException exceptionRaised),
+        String email, @nullable AppException exceptionRaised),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1043,11 +1043,10 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
       this.isSubmitting = false,
       this.isSuccess = false,
       @nullable this.email,
-      @required this.exceptionRaised})
+      this.exceptionRaised})
       : assert(isEmailValid != null),
         assert(isSubmitting != null),
         assert(isSuccess != null),
-        assert(exceptionRaised != null),
         super._();
 
   @JsonKey(defaultValue: true)
@@ -1152,10 +1151,10 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
             @nullable String email, @nullable AppException exceptionRaised),
     @required
         Result failure(bool isEmailValid, bool isSubmitting, bool isSuccess,
-            @nullable String email, @required AppException exceptionRaised),
+            @nullable String email, AppException exceptionRaised),
     @required
         Result success(bool isEmailValid, bool isSubmitting, bool isSuccess,
-            @required String email, @nullable AppException exceptionRaised),
+            String email, @nullable AppException exceptionRaised),
   }) {
     assert(empty != null);
     assert(resetting != null);
@@ -1173,9 +1172,9 @@ class _$_Failure extends _Failure with DiagnosticableTreeMixin {
     Result resetting(bool isEmailValid, bool isSubmitting, bool isSuccess,
         @nullable String email, @nullable AppException exceptionRaised),
     Result failure(bool isEmailValid, bool isSubmitting, bool isSuccess,
-        @nullable String email, @required AppException exceptionRaised),
+        @nullable String email, AppException exceptionRaised),
     Result success(bool isEmailValid, bool isSubmitting, bool isSuccess,
-        @required String email, @nullable AppException exceptionRaised),
+        String email, @nullable AppException exceptionRaised),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1225,7 +1224,7 @@ abstract class _Failure extends ResetPasswordState {
       bool isSubmitting,
       bool isSuccess,
       @nullable String email,
-      @required AppException exceptionRaised}) = _$_Failure;
+      AppException exceptionRaised}) = _$_Failure;
 
   @override
   bool get isEmailValid;
@@ -1291,12 +1290,11 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
       {this.isEmailValid = true,
       this.isSubmitting = false,
       this.isSuccess = true,
-      @required this.email,
+      this.email,
       @nullable this.exceptionRaised})
       : assert(isEmailValid != null),
         assert(isSubmitting != null),
         assert(isSuccess != null),
-        assert(email != null),
         super._();
 
   @JsonKey(defaultValue: true)
@@ -1401,10 +1399,10 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
             @nullable String email, @nullable AppException exceptionRaised),
     @required
         Result failure(bool isEmailValid, bool isSubmitting, bool isSuccess,
-            @nullable String email, @required AppException exceptionRaised),
+            @nullable String email, AppException exceptionRaised),
     @required
         Result success(bool isEmailValid, bool isSubmitting, bool isSuccess,
-            @required String email, @nullable AppException exceptionRaised),
+            String email, @nullable AppException exceptionRaised),
   }) {
     assert(empty != null);
     assert(resetting != null);
@@ -1422,9 +1420,9 @@ class _$_Success extends _Success with DiagnosticableTreeMixin {
     Result resetting(bool isEmailValid, bool isSubmitting, bool isSuccess,
         @nullable String email, @nullable AppException exceptionRaised),
     Result failure(bool isEmailValid, bool isSubmitting, bool isSuccess,
-        @nullable String email, @required AppException exceptionRaised),
+        @nullable String email, AppException exceptionRaised),
     Result success(bool isEmailValid, bool isSubmitting, bool isSuccess,
-        @required String email, @nullable AppException exceptionRaised),
+        String email, @nullable AppException exceptionRaised),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1473,7 +1471,7 @@ abstract class _Success extends ResetPasswordState {
       {bool isEmailValid,
       bool isSubmitting,
       bool isSuccess,
-      @required String email,
+      String email,
       @nullable AppException exceptionRaised}) = _$_Success;
 
   @override

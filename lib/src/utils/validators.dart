@@ -11,7 +11,7 @@ bool isValidPassword(String password) =>
     isValidPasswordLength(password) && isValidPasswordStrength(password);
 
 bool isValidPasswordLength(String password) =>
-    password.trim().length >= MIN_PASSWORD_LENGTH;
+    password.trim().length >= kMinPasswordLength;
 
 bool isValidPasswordStrength(String password) =>
-    estimatePasswordStrength(password) >= MIN_PASSWORD_STRENGTH;
+    estimatePasswordStrength(password) >= kMinPasswordStrength;
