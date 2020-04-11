@@ -107,7 +107,7 @@ class SignUpFormState extends State<SignUpForm> {
           return Center(
             child: SingleChildScrollView(
               child: Container(
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height - kToolbarHeight,
                 child: FractionallySizedBox(
                   widthFactor: widget.widthFactor,
                   child: Column(

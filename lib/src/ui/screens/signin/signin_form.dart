@@ -105,7 +105,7 @@ class SignInFormState extends State<SignInForm> {
           return Center(
             child: SingleChildScrollView(
               child: Container(
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height - kToolbarHeight,
                 child: FractionallySizedBox(
                   widthFactor: widget.widthFactor,
                   child: Column(
@@ -217,39 +217,36 @@ class SignInFormState extends State<SignInForm> {
                         ),
                       ),
                       const Spacer(),
-                      Center(
-                        child: FlatButton(
-                          onPressed: () {
-                            Navigator.push<void>(
-                              context,
-                              platformPageRoute<void>(
-                                context: context,
-                                builder: (_) =>
-                                    SignUpScreen(authRepository: widget._authRepository),
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.push<void>(
+                            context,
+                            platformPageRoute<void>(
+                              context: context,
+                              builder: (_) =>
+                                  SignUpScreen(authRepository: widget._authRepository),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Don\'t have an account?',
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              'Sign up',
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w600,
                               ),
-                            );
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'Don\'t have an account?',
-                                style:
-                                    TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                'Sign up',
-                                style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              )
-                            ],
-                          ),
+                            )
+                          ],
                         ),
                       ),
-                      const Spacer(),
+                      SizedBox(height: 20.0 / widget.widthFactor),
                     ],
                   ),
                 ),
