@@ -194,38 +194,35 @@ class SignUpFormState extends State<SignUpForm> {
                             ),
                           )),
                       const Spacer(),
-                      Center(
-                        child: FlatButton(
-                          onPressed: () {
-                            Navigator.push<void>(
-                              context,
-                              platformPageRoute<void>(
-                                context: context,
-                                builder: (_) => SignInScreen(
-                                  authRepository: widget._authRepository,
-                                ),
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.push<void>(
+                            context,
+                            platformPageRoute<void>(
+                              context: context,
+                              builder: (_) => SignInScreen(
+                                authRepository: widget._authRepository,
                               ),
-                            );
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                'Already have an account?',
-                                style:
-                                    TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Already have an account?',
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              'Sign in',
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
                               ),
-                              const SizedBox(width: 10),
-                              Text(
-                                'Sign in',
-                                style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              )
-                            ],
-                          ),
+                            )
+                          ],
                         ),
                       ),
                       SizedBox(height: 20.0 / widget.widthFactor),
