@@ -25,6 +25,7 @@ class ResetPasswordForm extends StatefulWidget {
 class ResetPasswordFormState extends State<ResetPasswordForm> {
   TextEditingController _emailController;
   ResetPasswordBloc _resetPasswordBloc;
+  Flushbar<Object> _resettingFlushbar;
 
   @override
   void initState() {
@@ -36,6 +37,15 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
     _resetPasswordBloc = context.bloc<ResetPasswordBloc>();
     _emailController = TextEditingController();
     _emailController.addListener(_onEmailChanged);
+  }
+
+  @override
+  void didChangeDependencies() {
+    _resettingFlushbar = FlushbarHelper.createLoading(
+      message: 'Sending Password Reset Email...',
+      linearProgressIndicator: const LinearProgressIndicator(),
+    );
+    super.didChangeDependencies();
   }
 
   @override
@@ -60,11 +70,14 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
             message: state.exceptionRaised.message,
           );
           await error.show(context);
+        } else if (state.isSubmitting) {
+          _resettingFlushbar.show(context);
         } else if (state.isResetEmailSent) {
+          await _resettingFlushbar.dismiss();
           await showPlatformDialog<void>(
             context: context,
             builder: (_) => PlatformAlertDialog(
-              content: Text('A password reset link has been sent to ${state.email}.'),
+              content: Text('A password reset email was sent to ${state.email}.'),
               actions: <Widget>[
                 PlatformDialogAction(
                   onPressed: () {
