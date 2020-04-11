@@ -7,7 +7,7 @@ abstract class ResetPasswordState implements _$ResetPasswordState {
   factory ResetPasswordState.empty({
     @Default(true) bool isEmailValid,
     @Default(false) bool isSubmitting,
-    @Default(false) bool isSuccess,
+    @Default(false) bool isResetEmailSent,
     @nullable String email,
     @nullable AppException exceptionRaised,
   }) = _Empty;
@@ -15,7 +15,7 @@ abstract class ResetPasswordState implements _$ResetPasswordState {
   factory ResetPasswordState.resetting({
     @Default(true) bool isEmailValid,
     @Default(true) bool isSubmitting,
-    @Default(false) bool isSuccess,
+    @Default(false) bool isResetEmailSent,
     @nullable String email,
     @nullable AppException exceptionRaised,
   }) = _Resetting;
@@ -23,7 +23,7 @@ abstract class ResetPasswordState implements _$ResetPasswordState {
   factory ResetPasswordState.failure({
     @Default(true) bool isEmailValid,
     @Default(false) bool isSubmitting,
-    @Default(false) bool isSuccess,
+    @Default(false) bool isResetEmailSent,
     @nullable String email,
     AppException exceptionRaised,
   }) = _Failure;
@@ -31,7 +31,7 @@ abstract class ResetPasswordState implements _$ResetPasswordState {
   factory ResetPasswordState.success({
     @Default(true) bool isEmailValid,
     @Default(false) bool isSubmitting,
-    @Default(true) bool isSuccess,
+    @Default(true) bool isResetEmailSent,
     String email,
     @nullable AppException exceptionRaised,
   }) = _Success;
@@ -46,7 +46,7 @@ abstract class ResetPasswordState implements _$ResetPasswordState {
     return copyWith(
       isEmailValid: isEmailValid,
       isSubmitting: false,
-      isSuccess: false,
+      isResetEmailSent: false,
       email: email,
       exceptionRaised: null,
     );

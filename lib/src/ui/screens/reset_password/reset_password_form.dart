@@ -60,7 +60,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
             message: state.exceptionRaised.message,
           );
           await error.show(context);
-        } else if (state.isSuccess) {
+        } else if (state.isResetEmailSent) {
           await showPlatformDialog<void>(
             context: context,
             builder: (_) => PlatformAlertDialog(
