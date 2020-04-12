@@ -1,9 +1,14 @@
-name: starter_app
-description: A new Flutter project.
-version: 1.0.0+2
+name: flutter_auth
+version: 1.0.0+1
+description: Flutter starter app providing sign up, sign in and sign out functionnalities.
+author: Christophe Bonello
+homepage: https://github.com/cbonello/
+repository: https://github.com/cbonello/flutter_auth
+issue_tracker: https://github.com/cbonello/flutter_auth/issues
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ^1.12.0
 
 dependencies:
   device_preview: ^0.4.4
@@ -12,7 +17,8 @@ dependencies:
   firebase_auth: ^0.15.5+3
   flutter:
     sdk: flutter
-  flushbar: ^1.9.1
+    # See https://pub.dev/packages/flushbar#-changelog-tab-
+  flushbar: 1.9.1
   flutter_auth_buttons: ^0.8.0
   flutter_bloc: ^3.2.0
   flutter_platform_widgets: ^0.32.5
@@ -24,16 +30,10 @@ dependencies:
 dev_dependencies:
   bloc_test: ^4.0.0
   build_runner: ^1.8.1
-  flutter_launcher_icons: ^0.7.4
   flutter_test:
     sdk: flutter
   freezed: ^0.10.5
   lint: ^1.1.1
-
-flutter_icons:
-  android: "launcher_icon" 
-  ios: true
-  image_path: "assets/images/app_logo.png"
 
 flutter:
   uses-material-design: true

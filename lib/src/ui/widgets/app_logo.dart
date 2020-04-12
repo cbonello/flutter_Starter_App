@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:starter_app/src/utils/constants.dart';
+import 'package:flutter_auth/src/utils/constants.dart';
 
 class AppLogo extends StatelessWidget {
   const AppLogo({Key key, this.scaleFactor = 1.0}) : super(key: key);

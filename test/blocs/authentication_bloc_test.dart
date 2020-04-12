@@ -1,12 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:starter_app/src/blocs/authentication/authentication_bloc.dart';
-import 'package:starter_app/src/repositories/authentication_repository.dart';
-import 'package:starter_app/src/services/local_storage.dart';
-import 'package:starter_app/src/utils/exceptions.dart';
+import 'package:flutter_auth/src/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_auth/src/repositories/authentication_repository.dart';
+import 'package:flutter_auth/src/services/analytics.dart';
+import 'package:flutter_auth/src/services/local_storage.dart';
+import 'package:flutter_auth/src/utils/exceptions.dart';
 
 import '../mock/firebase_auth.dart';
 import '../mock/repositories.dart';
@@ -16,7 +16,7 @@ Future<void> main() async {
   group('Authentication Bloc:', () {
     final LocalStorageService localStorageServiceMock = MockLocalStorageService();
     final AuthenticationRepository authRepositoryMock = MockAuthenticationRepository();
-    final FirebaseAnalytics firebaseAnalyticsMock = MockFirebaseAnalytics();
+    final AnalyticsService analyticsServiceMock = MockAnalyticsService();
     final FirebaseUser authenticatedUser = MockFirebaseUser();
     final AppException exception = AppException.fromCode('ERROR_SiGN_IN_CANCEL');
 
@@ -26,7 +26,7 @@ Future<void> main() async {
         build: () async => AuthenticationBloc(
           localStorageService: localStorageServiceMock,
           authRepository: authRepositoryMock,
-          firebaseAnalytics: firebaseAnalyticsMock,
+          analyticsService: analyticsServiceMock,
         ),
         skip: 0,
         expect: <AuthenticationState>[const AuthenticationState.uninitialized()],
@@ -41,7 +41,7 @@ Future<void> main() async {
           return AuthenticationBloc(
             localStorageService: localStorageServiceMock,
             authRepository: authRepositoryMock,
-            firebaseAnalytics: firebaseAnalyticsMock,
+            analyticsService: analyticsServiceMock,
           )..add(const AuthenticationEvent.appStarted());
         },
         expect: <AuthenticationState>[
@@ -58,13 +58,10 @@ Future<void> main() async {
           when(localStorageServiceMock.setAuthenticatedUserID(any)).thenAnswer((_) {
             return Future<bool>.value(true);
           });
-          when(firebaseAnalyticsMock.logLogin()).thenAnswer((_) {
-            return;
-          });
           return AuthenticationBloc(
             localStorageService: localStorageServiceMock,
             authRepository: authRepositoryMock,
-            firebaseAnalytics: firebaseAnalyticsMock,
+            analyticsService: analyticsServiceMock,
           )..add(const AuthenticationEvent.appStarted());
         },
         expect: <AuthenticationState>[
@@ -79,7 +76,7 @@ Future<void> main() async {
           return AuthenticationBloc(
             localStorageService: localStorageServiceMock,
             authRepository: authRepositoryMock,
-            firebaseAnalytics: firebaseAnalyticsMock,
+            analyticsService: analyticsServiceMock,
           )..add(const AuthenticationEvent.appStarted());
         },
         expect: <AuthenticationState>[
@@ -99,7 +96,7 @@ Future<void> main() async {
           return AuthenticationBloc(
             localStorageService: localStorageServiceMock,
             authRepository: authRepositoryMock,
-            firebaseAnalytics: firebaseAnalyticsMock,
+            analyticsService: analyticsServiceMock,
           )
             ..add(const AuthenticationEvent.appStarted())
             ..add(AuthenticationEvent.signedIn(user: authenticatedUser));
@@ -122,7 +119,7 @@ Future<void> main() async {
           return AuthenticationBloc(
             localStorageService: localStorageServiceMock,
             authRepository: authRepositoryMock,
-            firebaseAnalytics: firebaseAnalyticsMock,
+            analyticsService: analyticsServiceMock,
           )
             ..add(const AuthenticationEvent.appStarted())
             ..add(AuthenticationEvent.signedIn(user: authenticatedUser))

@@ -3,19 +3,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:starter_app/src/repositories/authentication_repository.dart';
-import 'package:starter_app/src/utils/exceptions.dart';
-import 'package:starter_app/src/utils/validators.dart';
+import 'package:flutter_auth/src/repositories/authentication_repository.dart';
+import 'package:flutter_auth/src/services/analytics.dart';
+import 'package:flutter_auth/src/utils/exceptions.dart';
+import 'package:flutter_auth/src/utils/validators.dart';
 
 part 'signin_bloc.freezed.dart';
 part 'signin_event.dart';
 part 'signin_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
-  SignInBloc({@required AuthenticationRepository authRepository})
-      : _authRepository = authRepository;
+  SignInBloc({
+    @required AuthenticationRepository authRepository,
+    @required AnalyticsService analyticsService,
+  })  : assert(authRepository != null),
+        _authRepository = authRepository,
+        assert(analyticsService != null),
+        _analyticsService = analyticsService;
 
   final AuthenticationRepository _authRepository;
+  final AnalyticsService _analyticsService;
 
   @override
   SignInState get initialState => SignInState.empty();
@@ -60,7 +67,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   }
 
   Stream<SignInState> _mapPasswordChangedToState(String password) async* {
-    // Check of password strength is not required; it was done during sign up.
     yield state.update(
       isEmailValid: state.isPasswordValid,
       isPasswordValid: password.isNotEmpty,
@@ -78,6 +84,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         email: email,
         password: password,
       );
+      await _analyticsService.logSignIn('signInWithEmailAndPassword');
       yield SignInState.success(user: user);
     } catch (exception) {
       yield SignInState.failure(
@@ -89,6 +96,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   Stream<SignInState> _mapSignInWithGooglePressedToState() async* {
     try {
       final FirebaseUser user = await _authRepository.signInWithGoogle();
+      await _analyticsService.logSignIn('signInWithGoogle');
       yield SignInState.success(user: user);
     } catch (exception) {
       yield SignInState.failure(

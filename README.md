@@ -34,8 +34,9 @@ Here are a few resources to get you started if you are new to Flutter:
 
 ## Resources
 
-- [Getting Started: Creating Your Flutter Project](https://dash-overflow.net/articles/getting_started/)
-- [Dash Tips: Using Bloc with Freezed](https://chimon.hashnode.dev/dash-tips-using-bloc-with-freezed-ck8s5s89000mnhps1zf62m14n)
+- Remi Rousselet, [Getting Started: Creating Your Flutter Project](https://dash-overflow.net/articles/getting_started/)
+- Ryan Edge, [Dash Tips: Using Bloc with Freezed](https://chimon.hashnode.dev/dash-tips-using-bloc-with-freezed-ck8s5s89000mnhps1zf62m14n)
+- Dane Mackier, [Firebase Analytics and Metrics in Flutter](https://www.filledstacks.com/post/firebase-analytics-and-metrics-in-flutter/)
 
 ## Created & Maintained by
 

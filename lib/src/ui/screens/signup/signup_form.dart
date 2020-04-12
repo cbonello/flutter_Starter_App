@@ -4,24 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:starter_app/src/blocs/signup/signup_bloc.dart';
-import 'package:starter_app/src/repositories/authentication_repository.dart';
-import 'package:starter_app/src/ui/screens/signin/signin_screen.dart';
-import 'package:starter_app/src/ui/widgets/app_logo.dart';
-import 'package:starter_app/src/ui/widgets/form_fields.dart';
-import 'package:starter_app/src/utils/theme.dart';
-import 'package:starter_app/src/utils/validators.dart';
+import 'package:flutter_auth/src/blocs/signup/signup_bloc.dart';
+import 'package:flutter_auth/src/repositories/authentication_repository.dart';
+import 'package:flutter_auth/src/services/analytics.dart';
+import 'package:flutter_auth/src/ui/screens/signin/signin_screen.dart';
+import 'package:flutter_auth/src/ui/widgets/app_logo.dart';
+import 'package:flutter_auth/src/ui/widgets/form_fields.dart';
+import 'package:flutter_auth/src/utils/theme.dart';
+import 'package:flutter_auth/src/utils/validators.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
     Key key,
     @required AuthenticationRepository authRepository,
+    @required AnalyticsService analyticsService,
     @required this.widthFactor,
     @required this.logoScaleFactor,
-  })  : _authRepository = authRepository,
+  })  : assert(authRepository != null),
+        _authRepository = authRepository,
+        assert(analyticsService != null),
+        _analyticsService = analyticsService,
         super(key: key);
 
   final AuthenticationRepository _authRepository;
+  final AnalyticsService _analyticsService;
   final double widthFactor, logoScaleFactor;
 
   @override
@@ -218,6 +224,7 @@ class SignUpFormState extends State<SignUpForm> {
                               context: context,
                               builder: (_) => SignInScreen(
                                 authRepository: widget._authRepository,
+                                analyticsService: widget._analyticsService,
                               ),
                             ),
                           );

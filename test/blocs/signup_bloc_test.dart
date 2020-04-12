@@ -2,9 +2,9 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:starter_app/src/blocs/signup/signup_bloc.dart';
-import 'package:starter_app/src/repositories/authentication_repository.dart';
-import 'package:starter_app/src/utils/exceptions.dart';
+import 'package:flutter_auth/src/blocs/signup/signup_bloc.dart';
+import 'package:flutter_auth/src/repositories/authentication_repository.dart';
+import 'package:flutter_auth/src/utils/exceptions.dart';
 
 import '../mock/firebase_auth.dart';
 import '../mock/repositories.dart';

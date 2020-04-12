@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:starter_app/src/blocs/authentication/authentication_bloc.dart';
-import 'package:starter_app/src/utils/constants.dart';
+import 'package:flutter_auth/src/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_auth/src/utils/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
+
+  static MaterialPageRoute<void> route(BuildContext context) {
+    return MaterialPageRoute<void>(
+      builder: (_) => HomeScreen(),
+      settings: const RouteSettings(name: 'HomeScreen'),
+    );
+  }
 }
 
 class _HomeScreenState extends State<HomeScreen> {

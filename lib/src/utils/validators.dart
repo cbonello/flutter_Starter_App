@@ -1,6 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:password_strength/password_strength.dart';
-import 'package:starter_app/src/utils/constants.dart';
+import 'package:flutter_auth/src/utils/constants.dart';
 
 bool isValidName(String name) => name.trim().isNotEmpty;
 
