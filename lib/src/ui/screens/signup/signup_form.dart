@@ -87,7 +87,7 @@ class SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignUpBloc, SignUpState>(
+    return BlocConsumer<SignUpBloc, SignUpState>(
       listener: (BuildContext context, SignUpState state) async {
         if (state.isFailure) {
           final Flushbar<Object> flushbar = FlushbarHelper.createError(
@@ -124,139 +124,137 @@ class SignUpFormState extends State<SignUpForm> {
           );
         }
       },
-      child: BlocBuilder<SignUpBloc, SignUpState>(
-        builder: (BuildContext context, SignUpState state) {
-          return Center(
-            child: SingleChildScrollView(
-              child: Container(
-                height: MediaQuery.of(context).size.height - kToolbarHeight,
-                child: FractionallySizedBox(
-                  widthFactor: widget.widthFactor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const Spacer(),
-                      AppLogo(scaleFactor: widget.logoScaleFactor),
-                      const Spacer(),
-                      AppTextFormField(
-                        labelText: 'Email',
-                        textInputAction: TextInputAction.next,
-                        focusNode: _emailFocus,
-                        onFieldSubmitted: (_) {
-                          fieldFocusChangeCallback(
-                            context,
-                            _emailFocus,
-                            _passwordFocus,
-                          );
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        controller: _emailController,
-                        validator: (_) {
-                          if (_emailController.text.isNotEmpty) {
-                            if (state.isEmailValid == false) {
-                              return 'Enter a valid email address';
-                            }
+      builder: (BuildContext context, SignUpState state) {
+        return Center(
+          child: SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height - kToolbarHeight,
+              child: FractionallySizedBox(
+                widthFactor: widget.widthFactor,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Spacer(),
+                    AppLogo(scaleFactor: widget.logoScaleFactor),
+                    const Spacer(),
+                    AppTextFormField(
+                      labelText: 'Email',
+                      textInputAction: TextInputAction.next,
+                      focusNode: _emailFocus,
+                      onFieldSubmitted: (_) {
+                        fieldFocusChangeCallback(
+                          context,
+                          _emailFocus,
+                          _passwordFocus,
+                        );
+                      },
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailController,
+                      validator: (_) {
+                        if (_emailController.text.isNotEmpty) {
+                          if (state.isEmailValid == false) {
+                            return 'Enter a valid email address';
                           }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 10.0),
-                      AppPassworFormField(
-                        controller: _passwordController,
-                        validator: (_) {
-                          if (_passwordController.text.isNotEmpty) {
-                            if (!isValidPasswordLength(_passwordController.text)) {
-                              return 'Password is too short (8 characters minimum)';
-                            }
-                            if (!isValidPasswordStrength(_passwordController.text)) {
-                              return 'Password is too weak';
-                            }
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 10.0),
+                    AppPassworFormField(
+                      controller: _passwordController,
+                      validator: (_) {
+                        if (_passwordController.text.isNotEmpty) {
+                          if (!isValidPasswordLength(_passwordController.text)) {
+                            return 'Password is too short (8 characters minimum)';
                           }
-                          return null;
-                        },
-                        textInputAction: TextInputAction.done,
-                        focusNode: _passwordFocus,
-                      ),
-                      const SizedBox(height: 10.0),
-                      Row(
-                        children: <Widget>[
-                          Checkbox(
-                            activeColor: _agreedToTOSAndPolicy
-                                ? Theme.of(context).primaryColor
-                                : Colors.grey,
-                            value: _agreedToTOSAndPolicy,
-                            onChanged: _onTOSChanged,
-                          ),
-                          // Expanded(child: Container()) to prevent text overflow.
-                          Expanded(
-                            // ignore: avoid_unnecessary_containers
-                            child: Container(
-                              child: GestureDetector(
-                                onTap: () => _onTOSChanged(!_agreedToTOSAndPolicy),
-                                child: const Text(
-                                  'I agree to the Terms of Services and Privacy Policy',
-                                ),
+                          if (!isValidPasswordStrength(_passwordController.text)) {
+                            return 'Password is too weak';
+                          }
+                        }
+                        return null;
+                      },
+                      textInputAction: TextInputAction.done,
+                      focusNode: _passwordFocus,
+                    ),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      children: <Widget>[
+                        Checkbox(
+                          activeColor: _agreedToTOSAndPolicy
+                              ? Theme.of(context).primaryColor
+                              : Colors.grey,
+                          value: _agreedToTOSAndPolicy,
+                          onChanged: _onTOSChanged,
+                        ),
+                        // Expanded(child: Container()) to prevent text overflow.
+                        Expanded(
+                          // ignore: avoid_unnecessary_containers
+                          child: Container(
+                            child: GestureDetector(
+                              onTap: () => _onTOSChanged(!_agreedToTOSAndPolicy),
+                              child: const Text(
+                                'I agree to the Terms of Services and Privacy Policy',
                               ),
                             ),
                           ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: GradientButton(
+                          gradient: AppTheme.widgetGradient,
+                          onPressed:
+                              isSignUpButtonEnabled(state) ? _onFormSubmitted : null,
+                          child: Text(
+                            'Sign up',
+                            style: isSignUpButtonEnabled(state)
+                                ? AppTheme.buttonEnabledTextStyle
+                                : AppTheme.buttonDisabledTextStyle,
+                          ),
+                        )),
+                    const Spacer(),
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.push<void>(
+                          context,
+                          platformPageRoute<void>(
+                            context: context,
+                            builder: (_) => SignInScreen(
+                              authRepository: widget._authRepository,
+                              analyticsService: widget._analyticsService,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'Already have an account?',
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Sign in',
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
                         ],
                       ),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
-                          child: GradientButton(
-                            gradient: AppTheme.widgetGradient,
-                            onPressed:
-                                isSignUpButtonEnabled(state) ? _onFormSubmitted : null,
-                            child: Text(
-                              'Sign up',
-                              style: isSignUpButtonEnabled(state)
-                                  ? AppTheme.buttonEnabledTextStyle
-                                  : AppTheme.buttonDisabledTextStyle,
-                            ),
-                          )),
-                      const Spacer(),
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.push<void>(
-                            context,
-                            platformPageRoute<void>(
-                              context: context,
-                              builder: (_) => SignInScreen(
-                                authRepository: widget._authRepository,
-                                analyticsService: widget._analyticsService,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'Already have an account?',
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              'Sign in',
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20.0 / widget.widthFactor),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 20.0 / widget.widthFactor),
+                  ],
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

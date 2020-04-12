@@ -62,7 +62,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ResetPasswordBloc, ResetPasswordState>(
+    return BlocConsumer<ResetPasswordBloc, ResetPasswordState>(
       listener: (BuildContext context, ResetPasswordState state) async {
         if (state.exceptionRaised != null) {
           final Flushbar<Object> error = FlushbarHelper.createError(
@@ -92,51 +92,49 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
           );
         }
       },
-      child: BlocBuilder<ResetPasswordBloc, ResetPasswordState>(
-        builder: (BuildContext context, ResetPasswordState state) {
-          return SingleChildScrollView(
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.6,
-              child: Center(
-                child: FractionallySizedBox(
-                  widthFactor: widget.widthFactor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      const Spacer(),
-                      AppLogo(scaleFactor: widget.logoScaleFactor),
-                      const Spacer(),
-                      AppTextFormField(
-                        labelText: 'Email',
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.emailAddress,
-                        controller: _emailController,
-                        validator: (_) =>
-                            _emailController.text.isNotEmpty && !state.isEmailValid
-                                ? 'Enter a valid email address'
-                                : null,
+      builder: (BuildContext context, ResetPasswordState state) {
+        return SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: Center(
+              child: FractionallySizedBox(
+                widthFactor: widget.widthFactor,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Spacer(),
+                    AppLogo(scaleFactor: widget.logoScaleFactor),
+                    const Spacer(),
+                    AppTextFormField(
+                      labelText: 'Email',
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailController,
+                      validator: (_) =>
+                          _emailController.text.isNotEmpty && !state.isEmailValid
+                              ? 'Enter a valid email address'
+                              : null,
+                    ),
+                    const SizedBox(height: 15.0),
+                    GradientButton(
+                      gradient: AppTheme.widgetGradient,
+                      onPressed: isubmitButtonEnabled(state) ? _onFormSubmitted : null,
+                      child: Text(
+                        'Submit',
+                        style: isubmitButtonEnabled(state)
+                            ? AppTheme.buttonEnabledTextStyle
+                            : AppTheme.buttonDisabledTextStyle,
                       ),
-                      const SizedBox(height: 15.0),
-                      GradientButton(
-                        gradient: AppTheme.widgetGradient,
-                        onPressed: isubmitButtonEnabled(state) ? _onFormSubmitted : null,
-                        child: Text(
-                          'Submit',
-                          style: isubmitButtonEnabled(state)
-                              ? AppTheme.buttonEnabledTextStyle
-                              : AppTheme.buttonDisabledTextStyle,
-                        ),
-                      ),
-                      const Spacer(),
-                    ],
-                  ),
+                    ),
+                    const Spacer(),
+                  ],
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
