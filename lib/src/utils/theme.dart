@@ -43,7 +43,6 @@ class AppTheme {
         color: Colors.transparent,
         elevation: 0.0,
       ),
-      // See https://github.com/flutter/flutter/issues/35826.
       buttonTheme: const ButtonThemeData(minWidth: 5),
       iconTheme: const IconThemeData(color: Colors.blue),
       inputDecorationTheme: InputDecorationTheme(
@@ -84,13 +83,6 @@ class AppTheme {
       return Colors.black;
     }
     return Colors.grey[600];
-  }
-
-  static Color cardsBackgroundColor(Brightness brightness) {
-    if (brightness == Brightness.light) {
-      return Colors.white;
-    }
-    return Colors.grey[800];
   }
 
   static TextStyle get buttonEnabledTextStyle {

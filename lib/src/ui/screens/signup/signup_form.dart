@@ -98,9 +98,6 @@ class SignUpFormState extends State<SignUpForm> {
         } else if (state.isSubmitting) {
           _signingUpFlushbar.show(context);
         } else if (state.isVerificationEmailSent) {
-          // context
-          //     .bloc<AuthenticationBloc>()
-          //     .add(AuthenticationEvent.signedIn(user: state.user));
           _signingUpFlushbar.dismiss();
           await showPlatformDialog<void>(
             context: context,
