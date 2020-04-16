@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_auth/src/utils/exceptions.dart';
 
@@ -93,10 +94,14 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   @override
   Future<void> signOut() async {
     try {
-      await Future.wait<void>(<Future<void>>[
-        _firebaseAuth.signOut(),
-        _googleSignIn.signOut(),
-      ]);
+      if (kIsWeb == false) {
+        await Future.wait<void>(<Future<void>>[
+          _firebaseAuth.signOut(),
+          _googleSignIn.signOut(),
+        ]);
+      } else {
+        await _firebaseAuth.signOut();
+      }
     } catch (_) {
       // TODO(cbonello): handle exception.
     }

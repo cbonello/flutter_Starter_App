@@ -50,11 +50,11 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       emailChanged: (String email) => _mapEmailChangedToState(email),
       passwordChanged: (String password) => _mapPasswordChangedToState(password),
       emailAndPasswordPressed: (String email, String password) =>
-          _mapSignInWithEmailAndPasswordPressedToState(
+          _mapSignInWithEmailAndPasswordToState(
         email: email,
         password: password,
       ),
-      googlePressed: () => _mapSignInWithGooglePressedToState(),
+      googlePressed: () => _mapSignInWithGoogleToState(),
     );
   }
 
@@ -68,13 +68,13 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   Stream<SignInState> _mapPasswordChangedToState(String password) async* {
     yield state.update(
-      isEmailValid: state.isPasswordValid,
+      isEmailValid: state.isEmailValid,
       isPasswordValid: password.isNotEmpty,
       user: state.user,
     );
   }
 
-  Stream<SignInState> _mapSignInWithEmailAndPasswordPressedToState({
+  Stream<SignInState> _mapSignInWithEmailAndPasswordToState({
     String email,
     String password,
   }) async* {
@@ -87,18 +87,20 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       await _analyticsService.logSignIn('signInWithEmailAndPassword');
       yield SignInState.success(user: user);
     } catch (exception) {
+      await _authRepository.signOut();
       yield SignInState.failure(
         exceptionRaised: AppException.from(exception as Exception),
       );
     }
   }
 
-  Stream<SignInState> _mapSignInWithGooglePressedToState() async* {
+  Stream<SignInState> _mapSignInWithGoogleToState() async* {
     try {
       final FirebaseUser user = await _authRepository.signInWithGoogle();
-      await _analyticsService.logSignIn('signInWithGoogle');
+      // await _analyticsService.logSignIn('signInWithGoogle');
       yield SignInState.success(user: user);
     } catch (exception) {
+      await _authRepository.signOut();
       yield SignInState.failure(
         exceptionRaised: AppException.from(exception as Exception),
       );

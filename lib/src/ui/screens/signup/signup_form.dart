@@ -1,7 +1,6 @@
-import 'package:flushbar/flushbar.dart';
-import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_auth/src/ui/widgets/app_snackbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_auth/src/blocs/signup/signup_bloc.dart';
@@ -41,7 +40,7 @@ class SignUpFormState extends State<SignUpForm> {
   FocusNode _emailFocus, _passwordFocus;
   bool _agreedToTOSAndPolicy;
   SignUpBloc _signUpBloc;
-  Flushbar<Object> _signingUpFlushbar;
+  SnackBar _signingUpSnackBar;
 
   @override
   void initState() {
@@ -50,22 +49,22 @@ class SignUpFormState extends State<SignUpForm> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    _agreedToTOSAndPolicy = false;
-    _signUpBloc = context.bloc<SignUpBloc>();
     _emailController = TextEditingController();
     _emailController.addListener(_onEmailChanged);
     _passwordController = TextEditingController();
     _passwordController.addListener(_onPasswordChanged);
+    _agreedToTOSAndPolicy = false;
+    _signUpBloc = context.bloc<SignUpBloc>();
   }
 
   @override
   void didChangeDependencies() {
-    _signingUpFlushbar = FlushbarHelper.createLoading(
-      message: 'Signing up...',
-      linearProgressIndicator: const LinearProgressIndicator(),
-    );
     _emailFocus = FocusNode(debugLabel: 'Email');
     _passwordFocus = FocusNode(debugLabel: 'Password');
+    _signingUpSnackBar = AppSnackBar.createLoading(
+      message: 'Signing up...',
+      progressIndicatorValueColor: Theme.of(context).accentColor,
+    );
     super.didChangeDependencies();
   }
 
@@ -90,15 +89,16 @@ class SignUpFormState extends State<SignUpForm> {
     return BlocConsumer<SignUpBloc, SignUpState>(
       listener: (BuildContext context, SignUpState state) async {
         if (state.isFailure) {
-          final Flushbar<Object> flushbar = FlushbarHelper.createError(
+          final SnackBar error = AppSnackBar.createError(
             title: 'Sign up failure',
             message: state.exceptionRaised.message,
           );
-          flushbar.show(context);
+          Scaffold.of(context).removeCurrentSnackBar();
+          Scaffold.of(context).showSnackBar(error);
         } else if (state.isSubmitting) {
-          _signingUpFlushbar.show(context);
+          Scaffold.of(context).showSnackBar(_signingUpSnackBar);
         } else if (state.isVerificationEmailSent) {
-          _signingUpFlushbar.dismiss();
+          Scaffold.of(context).removeCurrentSnackBar();
           await showPlatformDialog<void>(
             context: context,
             builder: (_) => PlatformAlertDialog(

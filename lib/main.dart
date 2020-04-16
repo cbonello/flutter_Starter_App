@@ -19,11 +19,11 @@ Future<void> main() async {
 
   final LocalStorageService localStorageService = await LocalStorageService.getInstance();
   final AuthenticationRepository authRepository = AuthenticationRepository();
+  final AnalyticsService analyticsService = AnalyticsService();
 
   if (isInDebugMode) {
     BlocSupervisor.delegate = SimpleBlocDelegate();
   }
-  final AnalyticsService analyticsService = AnalyticsService();
 
   runApp(
     DevicePreview(

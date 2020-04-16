@@ -1,7 +1,6 @@
-import 'package:flushbar/flushbar.dart';
-import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_auth/src/ui/widgets/app_snackbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_auth/src/blocs/reset_password/reset_password_bloc.dart';
@@ -25,7 +24,7 @@ class ResetPasswordForm extends StatefulWidget {
 class ResetPasswordFormState extends State<ResetPasswordForm> {
   TextEditingController _emailController;
   ResetPasswordBloc _resetPasswordBloc;
-  Flushbar<Object> _resettingFlushbar;
+  SnackBar _resettingSnackBar;
 
   @override
   void initState() {
@@ -34,16 +33,16 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    _resetPasswordBloc = context.bloc<ResetPasswordBloc>();
     _emailController = TextEditingController();
     _emailController.addListener(_onEmailChanged);
+    _resetPasswordBloc = context.bloc<ResetPasswordBloc>();
   }
 
   @override
   void didChangeDependencies() {
-    _resettingFlushbar = FlushbarHelper.createLoading(
+    _resettingSnackBar = AppSnackBar.createLoading(
       message: 'Sending Password Reset Email...',
-      linearProgressIndicator: const LinearProgressIndicator(),
+      progressIndicatorValueColor: Theme.of(context).accentColor,
     );
     super.didChangeDependencies();
   }
@@ -65,15 +64,16 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
     return BlocConsumer<ResetPasswordBloc, ResetPasswordState>(
       listener: (BuildContext context, ResetPasswordState state) async {
         if (state.exceptionRaised != null) {
-          final Flushbar<Object> error = FlushbarHelper.createError(
+          final SnackBar error = AppSnackBar.createError(
             title: 'Password reset failure',
             message: state.exceptionRaised.message,
           );
-          await error.show(context);
+          Scaffold.of(context).removeCurrentSnackBar();
+          Scaffold.of(context).showSnackBar(error);
         } else if (state.isSubmitting) {
-          _resettingFlushbar.show(context);
+          Scaffold.of(context).showSnackBar(_resettingSnackBar);
         } else if (state.isResetEmailSent) {
-          await _resettingFlushbar.dismiss();
+          Scaffold.of(context).removeCurrentSnackBar();
           await showPlatformDialog<void>(
             context: context,
             builder: (_) => PlatformAlertDialog(

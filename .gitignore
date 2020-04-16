@@ -75,7 +75,7 @@ l10n-translated/
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 GoogleService-Info.plist
-ios/Runner/Info.plist
+**/ios/Runner/Info.plist
 
 # macOS
 **/macos/Flutter/GeneratedPluginRegistrant.swift
@@ -94,6 +94,7 @@ coverage/
 
 # Web related
 lib/generated_plugin_registrant.dart
+**/web/app.js
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages

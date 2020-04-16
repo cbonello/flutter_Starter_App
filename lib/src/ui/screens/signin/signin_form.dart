@@ -1,7 +1,7 @@
-import 'package:flushbar/flushbar.dart';
-import 'package:flushbar/flushbar_helper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_auth/src/ui/widgets/app_snackbar.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -41,7 +41,7 @@ class SignInFormState extends State<SignInForm> {
   TextEditingController _emailController, _passwordController;
   FocusNode _emailFocus, _passwordFocus;
   SignInBloc _signInBloc;
-  Flushbar<Object> _signingInFlushbar;
+  SnackBar _signingInSnackBar;
 
   @override
   void initState() {
@@ -50,21 +50,21 @@ class SignInFormState extends State<SignInForm> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    _signInBloc = context.bloc<SignInBloc>();
     _emailController = TextEditingController();
     _emailController.addListener(_onEmailChanged);
     _passwordController = TextEditingController();
     _passwordController.addListener(_onPasswordChanged);
+    _signInBloc = context.bloc<SignInBloc>();
   }
 
   @override
   void didChangeDependencies() {
-    _signingInFlushbar = FlushbarHelper.createLoading(
-      message: 'Signing in...',
-      linearProgressIndicator: const LinearProgressIndicator(),
-    );
     _emailFocus = FocusNode(debugLabel: 'Email');
     _passwordFocus = FocusNode(debugLabel: 'Password');
+    _signingInSnackBar = AppSnackBar.createLoading(
+      message: 'Signing in...',
+      progressIndicatorValueColor: Theme.of(context).accentColor,
+    );
     super.didChangeDependencies();
   }
 
@@ -88,19 +88,20 @@ class SignInFormState extends State<SignInForm> {
     return BlocConsumer<SignInBloc, SignInState>(
       listener: (BuildContext context, SignInState state) async {
         if (state.exceptionRaised != null) {
-          final Flushbar<Object> error = FlushbarHelper.createError(
+          final SnackBar error = AppSnackBar.createError(
             title: 'Sign in failure',
             message: state.exceptionRaised.message,
           );
-          await error.show(context);
+          Scaffold.of(context).removeCurrentSnackBar();
+          Scaffold.of(context).showSnackBar(error);
         } else if (state.isSubmitting) {
-          await _signingInFlushbar.show(context);
+          Scaffold.of(context).showSnackBar(_signingInSnackBar);
         } else if (state.isSuccess) {
           assert(state.user != null);
           context
               .bloc<AuthenticationBloc>()
               .add(AuthenticationEvent.signedIn(user: state.user));
-          await _signingInFlushbar.dismiss();
+          Scaffold.of(context).removeCurrentSnackBar();
           try {
             Navigator.of(context).popUntil((dynamic route) => route.isFirst as bool);
           } catch (_) {}
@@ -182,45 +183,47 @@ class SignInFormState extends State<SignInForm> {
                         ),
                       ],
                     ),
-                    Container(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: HorizontalLine(
-                                color: AppTheme.horizontalLineColor(
-                                    Theme.of(context).brightness),
+                    if (kIsWeb == false) ...<Widget>[
+                      Container(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: HorizontalLine(
+                                  color: AppTheme.horizontalLineColor(
+                                      Theme.of(context).brightness),
+                                ),
                               ),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.0),
-                              child: Text('OR'),
-                            ),
-                            Expanded(
-                              child: HorizontalLine(
-                                color: AppTheme.horizontalLineColor(
-                                    Theme.of(context).brightness),
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                                child: Text('OR'),
                               ),
-                            ),
-                          ],
+                              Expanded(
+                                child: HorizontalLine(
+                                  color: AppTheme.horizontalLineColor(
+                                      Theme.of(context).brightness),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 15.0),
-                    Container(
-                      width: double.infinity,
-                      child: GoogleSignInButton(
-                        borderRadius: 6.0,
-                        darkMode: Theme.of(context).brightness == Brightness.dark,
-                        onPressed: () {
-                          context.bloc<SignInBloc>().add(
-                                const SignInEvent.googlePressed(),
-                              );
-                        },
+                      const SizedBox(height: 15.0),
+                      Container(
+                        width: double.infinity,
+                        child: GoogleSignInButton(
+                          borderRadius: 6.0,
+                          darkMode: Theme.of(context).brightness == Brightness.dark,
+                          onPressed: () {
+                            context.bloc<SignInBloc>().add(
+                                  const SignInEvent.googlePressed(),
+                                );
+                          },
+                        ),
                       ),
-                    ),
+                    ],
                     const Spacer(),
                     FlatButton(
                       onPressed: () {

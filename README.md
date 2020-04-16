@@ -3,15 +3,48 @@
 A Flutter starter project (tested on Android only). Project contains splash, sign in, sign up, password reset and home screens.
 it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https://pub.dev/packages/flutter_bloc) library) for state management.
 
+## Features
+
+- Sign In (email + password or Google Sign-In)
+- Sign Up
+- Password reset
+- Email verification
+- Firebase Analytics
+- Flutter web support
+
 ## Setup
 
-Follow these steps to setup the app:
+### Android App
 
 1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com) and add and Android app to the project.
 1. In the Firebase console, enable Email/Password authentication on your project by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
 1. In the Firebase console, enable Google authentication on your project by doing: **Authentication > SIGN-IN METHOD > Google > Enable > SAVE**
 1. In the Firebase console, update the email address verification template by doing: **Authentication > TEMPLATES > Email address verification**
 1. In the Firebase console, update the password reset template by doing: **Authentication > TEMPLATES > Password reset**
+
+### Flutter Web
+
+**Important:**
+- You need the latest version of the Flutter SDK from the beta channel to compile this project. See
+[Building a web application with Flutter](https://flutter.dev/docs/get-started/web).
+- Project does run properly as of now (April 16th, 2020). Issue is related to [Cannot find kernel2js compiler #54520](https://github.com/flutter/flutter/issues/54520).
+- Firebase Analytics and Google Sign-In are not enabled for Flutter web for now.
+
+1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com) and add a web app to the project.
+1. Rename ```web/SAMPLE_firebase.js``` as ```web/firebase.js``` and update its content with the Firebase SDK snippet
+from the Firebase Console (see [Resources](#Resources)).
+1. In the Firebase console, enable Email/Password authentication on your project by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
+1. In the Firebase console, enable Google authentication on your project by doing: **Authentication > SIGN-IN METHOD > Google > Enable > SAVE**
+1. In the Firebase console, update the email address verification template by doing: **Authentication > TEMPLATES > Email address verification**
+1. In the Firebase console, update the password reset template by doing: **Authentication > TEMPLATES > Password reset**
+<!-- 1. Follow the instructions from [google_sign_in_web README](https://pub.dev/packages/google_sign_in_web) and include your OAuth ID to ```web/index.html```. -->
+
+#### Resources
+
+- [firebase_auth README](https://pub.dev/packages/firebase_auth)
+- [firebase_auth_web README](https://github.com/FirebaseExtended/flutterfire/blob/master/packages/firebase_auth/firebase_auth_web/README.md)
+- [Add Firebase to your JavaScript project](https://firebase.google.com/docs/web/setup#from-the-cdn)
+<!-- - [google_sign_in_web README](https://pub.dev/packages/google_sign_in_web) -->
 
 ## Screenshots
 

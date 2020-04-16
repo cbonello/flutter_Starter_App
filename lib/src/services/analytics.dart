@@ -9,18 +9,26 @@ class AnalyticsService {
       FirebaseAnalyticsObserver(analytics: _analytics);
 
   Future<void> setUserProperties({@required String userId}) async {
-    await _analytics.setUserId(userId);
+    if (kIsWeb == false) {
+      await _analytics.setUserId(userId);
+    }
   }
 
   Future<void> logSignIn(String loginMethod) async {
-    await _analytics.logLogin(loginMethod: loginMethod);
+    if (kIsWeb == false) {
+      await _analytics.logLogin(loginMethod: loginMethod);
+    }
   }
 
   Future<void> logSignUp(String signUpMethod) async {
-    await _analytics.logSignUp(signUpMethod: signUpMethod);
+    if (kIsWeb == false) {
+      await _analytics.logSignUp(signUpMethod: signUpMethod);
+    }
   }
 
   Future<void> logSignOut() async {
-    await _analytics.logEvent(name: 'sign_out', parameters: <String, dynamic>{});
+    if (kIsWeb == false) {
+      await _analytics.logEvent(name: 'sign_out', parameters: <String, dynamic>{});
+    }
   }
 }

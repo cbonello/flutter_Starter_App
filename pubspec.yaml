@@ -17,8 +17,6 @@ dependencies:
   firebase_auth: ^0.15.5+3
   flutter:
     sdk: flutter
-    # See https://pub.dev/packages/flushbar#-changelog-tab-
-  flushbar: 1.9.1
   flutter_auth_buttons: ^0.8.0
   flutter_bloc: ^3.2.0
   flutter_platform_widgets: ^0.32.5
@@ -38,4 +36,4 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/
+    - assets/images/app_logo.png
