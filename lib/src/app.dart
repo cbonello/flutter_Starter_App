@@ -1,13 +1,14 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_auth/src/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_auth/src/configuration.dart';
 import 'package:flutter_auth/src/repositories/authentication_repository.dart';
 import 'package:flutter_auth/src/services/analytics.dart';
 import 'package:flutter_auth/src/ui/screens/home.dart';
 import 'package:flutter_auth/src/ui/screens/signin/signin_screen.dart';
 import 'package:flutter_auth/src/ui/screens/splash_screen.dart';
-import 'package:flutter_auth/src/utils/constants.dart';
 import 'package:flutter_auth/src/utils/theme.dart';
 
 class App extends StatefulWidget {
@@ -44,6 +45,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       child: PlatformApp(
         onGenerateTitle: (BuildContext context) => kAppName,
         debugShowCheckedModeBanner: false,
+        locale: kUseDevicePreview ? DevicePreview.of(context).locale : null,
+        builder: kUseDevicePreview ? DevicePreview.appBuilder : null,
         android: (BuildContext context) => MaterialAppData(
           theme: AppTheme.theme(Brightness.light),
           themeMode: mediaQuery?.platformBrightness == Brightness.dark

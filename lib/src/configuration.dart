@@ -1,3 +1,5 @@
+const bool kUseDevicePreview = false;
+
 const String kAppName = 'Starter App';
 const String kAppAssetLogo = 'assets/images/app_logo.png';
 
