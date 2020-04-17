@@ -17,6 +17,7 @@ class AppLogo extends StatelessWidget {
             height: 120.0 * scaleFactor,
             fit: BoxFit.fill,
             image: const AssetImage(kAppAssetLogo),
+            semanticLabel: 'Application logo',
           ),
         ),
         const SizedBox(width: 10.0),

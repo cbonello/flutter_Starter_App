@@ -136,6 +136,8 @@ class _AppPassworFormFieldState extends State<AppPassworFormField> {
         suffixIcon: PlatformIconButton(
           icon: Icon(
             obscurePassword ? Icons.visibility : Icons.visibility_off,
+            color: Colors.black,
+            semanticLabel: 'Toggle paswword visibility',
           ),
           onPressed: () => setState(() => obscurePassword = !obscurePassword),
         ),

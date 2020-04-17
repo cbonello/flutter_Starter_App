@@ -178,21 +178,18 @@ class SignUpFormState extends State<SignUpForm> {
                     Row(
                       children: <Widget>[
                         Checkbox(
+                          materialTapTargetSize: MaterialTapTargetSize.padded,
                           activeColor: _agreedToTOSAndPolicy
                               ? Theme.of(context).primaryColor
                               : Colors.grey,
                           value: _agreedToTOSAndPolicy,
                           onChanged: _onTOSChanged,
                         ),
-                        // Expanded(child: Container()) to prevent text overflow.
                         Expanded(
-                          // ignore: avoid_unnecessary_containers
-                          child: Container(
-                            child: GestureDetector(
-                              onTap: () => _onTOSChanged(!_agreedToTOSAndPolicy),
-                              child: const Text(
-                                'I agree to the Terms of Services and Privacy Policy',
-                              ),
+                          child: GestureDetector(
+                            onTap: () => _onTOSChanged(!_agreedToTOSAndPolicy),
+                            child: const Text(
+                              'I agree to the Terms of Services and Privacy Policy',
                             ),
                           ),
                         ),
