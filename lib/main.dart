@@ -1,4 +1,5 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/src/configuration.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,20 +10,16 @@ import 'package:flutter_auth/src/repositories/authentication_repository.dart';
 import 'package:flutter_auth/src/services/analytics.dart';
 import 'package:flutter_auth/src/services/local_storage.dart';
 
-bool get isInDebugMode {
-  bool inDebugMode = false;
-  assert(inDebugMode = true);
-  return inDebugMode;
-}
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final LocalStorageService localStorageService = await LocalStorageService.getInstance();
   final AuthenticationRepository authRepository = AuthenticationRepository();
-  final AnalyticsService analyticsService = AnalyticsService();
+  final AnalyticsService analyticsService = AnalyticsService(
+    useGoogleAnalytics: kIsWeb == false && kUseGoogleAnalytics,
+  );
 
-  if (isInDebugMode) {
+  if (kUseFlutterBlocDelegate) {
     BlocSupervisor.delegate = SimpleBlocDelegate();
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_auth/src/configuration.dart';
 import 'package:flutter_auth/src/ui/widgets/app_snackbar.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -183,7 +184,7 @@ class SignInFormState extends State<SignInForm> {
                         ),
                       ],
                     ),
-                    if (kIsWeb == false) ...<Widget>[
+                    if (kIsWeb == false && kUseGoogleASignIn) ...<Widget>[
                       Container(
                         width: double.infinity,
                         child: Padding(

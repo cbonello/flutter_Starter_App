@@ -1,3 +1,6 @@
+const bool kUseGoogleASignIn = true;
+const bool kUseGoogleAnalytics = true;
+const bool kUseFlutterBlocDelegate = false;
 const bool kUseDevicePreview = false;
 
 const String kAppName = 'Starter App';

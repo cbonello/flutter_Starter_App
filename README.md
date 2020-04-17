@@ -5,14 +5,21 @@ it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https:/
 
 ## Features
 
-- Sign In (email + password or Google Sign-In)
-- Sign Up
-- Password reset
-- Email verification
-- Firebase Analytics
-- Flutter web support
+- Sign In (email + password or Google Sign-In).
+- Sign Up.
+- Password reset.
+- Email verification.
+- Google Analytics.
+- Flutter web support.
 
 ## Setup
+
+[`lib/src/configuration.dart`](./lib/src/configuration.dart) allows you to quickly enable/disable options. 
+
+- `kUseGoogleASignIn`: Google Sign-In; not supported for Flutter web as of now.
+- `kUseGoogleAnalytics`: Google Analytics; not supported for Flutter web as of now.
+- `kUseFlutterBlocDelegate`: Flutter_bloc delegates.
+- `kUseDevicePreview`: Great `Device Preview` package from [Aloïs Deniel](https://aloisdeniel.github.com/).
 
 ### Android App
 
@@ -27,8 +34,6 @@ it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https:/
 **Important:**
 - You need the latest version of the Flutter SDK from the beta channel to compile this project. See
 [Building a web application with Flutter](https://flutter.dev/docs/get-started/web).
-- Project does run properly as of now (April 16th, 2020). Issue is related to [Cannot find kernel2js compiler #54520](https://github.com/flutter/flutter/issues/54520).
-- Firebase Analytics and Google Sign-In are not enabled for Flutter web for now.
 
 1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com) and add a web app to the project.
 1. Rename ```web/SAMPLE_firebase.js``` as ```web/firebase.js``` and update its content with the Firebase SDK snippet
@@ -38,6 +43,7 @@ from the Firebase Console (see [Resources](#Resources)).
 1. In the Firebase console, update the email address verification template by doing: **Authentication > TEMPLATES > Email address verification**
 1. In the Firebase console, update the password reset template by doing: **Authentication > TEMPLATES > Password reset**
 <!-- 1. Follow the instructions from [google_sign_in_web README](https://pub.dev/packages/google_sign_in_web) and include your OAuth ID to ```web/index.html```. -->
+<!-- - [Flutter Web Google Sign In](https://stackoverflow.com/questions/60250342/flutter-web-google-sign-in) -->
 
 #### Resources
 
