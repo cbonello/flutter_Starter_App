@@ -28,10 +28,13 @@ dependencies:
 dev_dependencies:
   bloc_test: ^4.0.0
   build_runner: ^1.8.1
+  flutter_driver:
+    sdk: flutter
   flutter_test:
     sdk: flutter
   freezed: ^0.10.5
   lint: ^1.1.1
+  test: any
 
 flutter:
   uses-material-design: true
