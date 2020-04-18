@@ -136,6 +136,7 @@ class SignUpFormState extends State<SignUpForm> {
                     AppLogo(scaleFactor: widget.logoScaleFactor),
                     const Spacer(),
                     AppTextFormField(
+                      key: const Key('SignUpEmailField'),
                       labelText: 'Email',
                       textInputAction: TextInputAction.next,
                       focusNode: _emailFocus,
@@ -159,6 +160,7 @@ class SignUpFormState extends State<SignUpForm> {
                     ),
                     const SizedBox(height: 10.0),
                     AppPassworFormField(
+                      key: const Key('SignUpPasswordField'),
                       controller: _passwordController,
                       validator: (_) {
                         if (_passwordController.text.isNotEmpty) {
@@ -178,6 +180,7 @@ class SignUpFormState extends State<SignUpForm> {
                     Row(
                       children: <Widget>[
                         Checkbox(
+                          key: const Key('SignUpTOSCheckbox'),
                           materialTapTargetSize: MaterialTapTargetSize.padded,
                           activeColor: _agreedToTOSAndPolicy
                               ? Theme.of(context).primaryColor
@@ -198,6 +201,7 @@ class SignUpFormState extends State<SignUpForm> {
                     Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: GradientButton(
+                          key: const Key('SignUpSubmitButton'),
                           gradient: AppTheme.widgetGradient,
                           onPressed:
                               isSignUpButtonEnabled(state) ? _onFormSubmitted : null,
@@ -210,6 +214,7 @@ class SignUpFormState extends State<SignUpForm> {
                         )),
                     const Spacer(),
                     FlatButton(
+                      key: const Key('SignUpSignInButton'),
                       onPressed: () {
                         Navigator.push<void>(
                           context,

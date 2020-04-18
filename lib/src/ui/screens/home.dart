@@ -52,13 +52,14 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text('You have pushed the button this many times:'),
-              Text('$_counter'),
+              Text('$_counter', key: const Key('HomeCounterField')),
             ],
           ),
         ),
         android: (BuildContext context) {
           return MaterialScaffoldData(
             floatingActionButton: FloatingActionButton(
+              key: const Key('HomeFAB'),
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: _incrementCounter,
               tooltip: 'Increment',

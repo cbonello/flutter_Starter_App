@@ -107,6 +107,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
                     AppLogo(scaleFactor: widget.logoScaleFactor),
                     const Spacer(),
                     AppTextFormField(
+                      key: const Key('PasswordResetEmailField'),
                       labelText: 'Email',
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
@@ -118,6 +119,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
                     ),
                     const SizedBox(height: 15.0),
                     GradientButton(
+                      key: const Key('PasswordResetSubmitButton'),
                       gradient: AppTheme.widgetGradient,
                       onPressed: isubmitButtonEnabled(state) ? _onFormSubmitted : null,
                       child: Text(

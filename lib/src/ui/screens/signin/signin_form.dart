@@ -124,6 +124,7 @@ class SignInFormState extends State<SignInForm> {
                     AppLogo(scaleFactor: widget.logoScaleFactor),
                     const Spacer(),
                     AppTextFormField(
+                      key: const Key('SignInEmailField'),
                       labelText: 'Email',
                       textInputAction: TextInputAction.next,
                       focusNode: _emailFocus,
@@ -143,6 +144,7 @@ class SignInFormState extends State<SignInForm> {
                     ),
                     const SizedBox(height: 10.0),
                     AppPassworFormField(
+                      key: const Key('SignInPasswordField'),
                       labelText: 'Password',
                       controller: _passwordController,
                       textInputAction: TextInputAction.done,
@@ -150,6 +152,7 @@ class SignInFormState extends State<SignInForm> {
                     ),
                     const SizedBox(height: 15.0),
                     GradientButton(
+                      key: const Key('SignInSubmitButton'),
                       gradient: AppTheme.widgetGradient,
                       onPressed: isSignInButtonEnabled(state) ? _onFormSubmitted : null,
                       child: Text(
@@ -163,6 +166,7 @@ class SignInFormState extends State<SignInForm> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         FlatButton(
+                          key: const Key('SignInForgotPasswordButton'),
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -215,6 +219,7 @@ class SignInFormState extends State<SignInForm> {
                       Container(
                         width: double.infinity,
                         child: GoogleSignInButton(
+                          key: const Key('SignInGoogleButton'),
                           borderRadius: 6.0,
                           darkMode: Theme.of(context).brightness == Brightness.dark,
                           onPressed: () {
@@ -227,6 +232,7 @@ class SignInFormState extends State<SignInForm> {
                     ],
                     const Spacer(),
                     FlatButton(
+                      key: const Key('SignInSignUpButton'),
                       onPressed: () {
                         Navigator.push<void>(
                           context,
