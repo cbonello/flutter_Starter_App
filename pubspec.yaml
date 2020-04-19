@@ -19,9 +19,12 @@ dependencies:
     sdk: flutter
   flutter_auth_buttons: ^0.8.0
   flutter_bloc: ^3.2.0
+  flutter_localizations:
+    sdk: flutter
   flutter_platform_widgets: ^0.32.5
   freezed_annotation: ^0.7.1
   google_sign_in: ^4.4.1
+  intl: ^0.16.0
   password_strength: ^0.1.2
   shared_preferences: ^0.5.6+3
 
@@ -33,6 +36,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^0.10.5
+  intl_translation: ^0.17.9
   lint: ^1.1.1
   test: any
 

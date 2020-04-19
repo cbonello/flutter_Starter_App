@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_auth/src/configuration.dart';
 import 'package:flutter_auth/src/ui/widgets/app_snackbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_auth/src/blocs/signup/signup_bloc.dart';
 import 'package:flutter_auth/src/repositories/authentication_repository.dart';
 import 'package:flutter_auth/src/services/analytics.dart';
+import 'package:flutter_auth/src/utils/app_localizations.dart';
 import 'package:flutter_auth/src/ui/screens/signin/signin_screen.dart';
 import 'package:flutter_auth/src/ui/widgets/app_logo.dart';
 import 'package:flutter_auth/src/ui/widgets/form_fields.dart';
@@ -59,10 +61,10 @@ class SignUpFormState extends State<SignUpForm> {
 
   @override
   void didChangeDependencies() {
-    _emailFocus = FocusNode(debugLabel: 'Email');
-    _passwordFocus = FocusNode(debugLabel: 'Password');
+    _emailFocus = FocusNode(debugLabel: context.l10n().msgEmail);
+    _passwordFocus = FocusNode(debugLabel: context.l10n().msgPassword);
     _signingUpSnackBar = AppSnackBar.createLoading(
-      message: 'Signing up...',
+      message: context.l10n().msgSigningUp,
       progressIndicatorValueColor: Theme.of(context).accentColor,
     );
     super.didChangeDependencies();
@@ -90,7 +92,7 @@ class SignUpFormState extends State<SignUpForm> {
       listener: (BuildContext context, SignUpState state) async {
         if (state.isFailure) {
           final SnackBar error = AppSnackBar.createError(
-            title: 'Sign up failure',
+            title: context.l10n().msgSignUpFailure,
             message: state.exceptionRaised.message,
           );
           Scaffold.of(context).removeCurrentSnackBar();
@@ -102,9 +104,9 @@ class SignUpFormState extends State<SignUpForm> {
           await showPlatformDialog<void>(
             context: context,
             builder: (_) => PlatformAlertDialog(
-              title: const Text('Account Verification'),
+              title: Text(context.l10n().msgAccountVerification),
               content: Text(
-                'An account verification email was sent to ${state.user.email} with instructions on how to verify your address.',
+                context.l10n().msgAccountVerificationExplanation(state.user.email),
               ),
               actions: <Widget>[
                 PlatformDialogAction(
@@ -114,7 +116,7 @@ class SignUpFormState extends State<SignUpForm> {
                           .popUntil((dynamic route) => route.isFirst as bool);
                     } catch (_) {}
                   },
-                  child: PlatformText('OK'),
+                  child: PlatformText(context.l10n().msgOk),
                 ),
               ],
             ),
@@ -137,7 +139,7 @@ class SignUpFormState extends State<SignUpForm> {
                     const Spacer(),
                     AppTextFormField(
                       key: const Key('SignUpEmailField'),
-                      labelText: 'Email',
+                      labelText: context.l10n().msgEmail,
                       textInputAction: TextInputAction.next,
                       focusNode: _emailFocus,
                       onFieldSubmitted: (_) {
@@ -152,7 +154,7 @@ class SignUpFormState extends State<SignUpForm> {
                       validator: (_) {
                         if (_emailController.text.isNotEmpty) {
                           if (state.isEmailValid == false) {
-                            return 'Enter a valid email address';
+                            return context.l10n().msgEnterValidEmail;
                           }
                         }
                         return null;
@@ -165,10 +167,10 @@ class SignUpFormState extends State<SignUpForm> {
                       validator: (_) {
                         if (_passwordController.text.isNotEmpty) {
                           if (!isValidPasswordLength(_passwordController.text)) {
-                            return 'Password is too short (8 characters minimum)';
+                            return context.l10n().msgWeakTooShort('$kMinPasswordLength');
                           }
                           if (!isValidPasswordStrength(_passwordController.text)) {
-                            return 'Password is too weak';
+                            return context.l10n().msgWeakPassword;
                           }
                         }
                         return null;
@@ -191,9 +193,7 @@ class SignUpFormState extends State<SignUpForm> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () => _onTOSChanged(!_agreedToTOSAndPolicy),
-                            child: const Text(
-                              'I agree to the Terms of Services and Privacy Policy',
-                            ),
+                            child: Text(context.l10n().msgToS),
                           ),
                         ),
                       ],
@@ -206,7 +206,7 @@ class SignUpFormState extends State<SignUpForm> {
                           onPressed:
                               isSignUpButtonEnabled(state) ? _onFormSubmitted : null,
                           child: Text(
-                            'Sign up',
+                            context.l10n().msgSignUp,
                             style: isSignUpButtonEnabled(state)
                                 ? AppTheme.buttonEnabledTextStyle
                                 : AppTheme.buttonDisabledTextStyle,
@@ -231,12 +231,12 @@ class SignUpFormState extends State<SignUpForm> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Already have an account?',
+                            context.l10n().msgAlreadyHaveAccount,
                             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                           ),
                           const SizedBox(width: 10),
                           Text(
-                            'Sign in',
+                            context.l10n().msgSignIn,
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontSize: 14,

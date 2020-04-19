@@ -6,6 +6,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_auth/src/blocs/reset_password/reset_password_bloc.dart';
 import 'package:flutter_auth/src/ui/widgets/app_logo.dart';
 import 'package:flutter_auth/src/ui/widgets/form_fields.dart';
+import 'package:flutter_auth/src/utils/app_localizations.dart';
 import 'package:flutter_auth/src/utils/theme.dart';
 
 class ResetPasswordForm extends StatefulWidget {
@@ -41,7 +42,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
   @override
   void didChangeDependencies() {
     _resettingSnackBar = AppSnackBar.createLoading(
-      message: 'Sending Password Reset Email...',
+      message: context.l10n().msgSendingPasswordResetEmail,
       progressIndicatorValueColor: Theme.of(context).accentColor,
     );
     super.didChangeDependencies();
@@ -65,7 +66,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
       listener: (BuildContext context, ResetPasswordState state) async {
         if (state.exceptionRaised != null) {
           final SnackBar error = AppSnackBar.createError(
-            title: 'Password reset failure',
+            title: context.l10n().msgPasswordResetFailure,
             message: state.exceptionRaised.message,
           );
           Scaffold.of(context).removeCurrentSnackBar();
@@ -77,15 +78,15 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
           await showPlatformDialog<void>(
             context: context,
             builder: (_) => PlatformAlertDialog(
-              title: const Text('Password Reset'),
-              content: Text('A password reset email was sent to ${state.email}.'),
+              title: Text(context.l10n().msgPasswordReset),
+              content: Text(context.l10n().msgPasswordResetSent(state.email)),
               actions: <Widget>[
                 PlatformDialogAction(
                   onPressed: () {
                     Navigator.of(context).pop(); // Close dialog.
                     Navigator.of(context).pop(); // Go back to sign in screen.
                   },
-                  child: PlatformText('OK'),
+                  child: PlatformText(context.l10n().msgOk),
                 ),
               ],
             ),
@@ -108,13 +109,13 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
                     const Spacer(),
                     AppTextFormField(
                       key: const Key('PasswordResetEmailField'),
-                      labelText: 'Email',
+                      labelText: context.l10n().msgEmail,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
                       validator: (_) =>
                           _emailController.text.isNotEmpty && !state.isEmailValid
-                              ? 'Enter a valid email address'
+                              ? context.l10n().msgEnterValidEmail
                               : null,
                     ),
                     const SizedBox(height: 15.0),
@@ -123,7 +124,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
                       gradient: AppTheme.widgetGradient,
                       onPressed: isubmitButtonEnabled(state) ? _onFormSubmitted : null,
                       child: Text(
-                        'Submit',
+                        context.l10n().msgSubmit,
                         style: isubmitButtonEnabled(state)
                             ? AppTheme.buttonEnabledTextStyle
                             : AppTheme.buttonDisabledTextStyle,

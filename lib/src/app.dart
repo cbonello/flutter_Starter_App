@@ -1,6 +1,8 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/src/utils/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_auth/src/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_auth/src/configuration.dart';
@@ -47,12 +49,21 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         debugShowCheckedModeBanner: false,
         locale: kUseDevicePreview ? DevicePreview.of(context).locale : null,
         builder: kUseDevicePreview ? DevicePreview.appBuilder : null,
+        localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+          const AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const <Locale>[Locale('en', 'US'), Locale('fr', 'FR')],
         android: (BuildContext context) => MaterialAppData(
           theme: AppTheme.theme(Brightness.light),
           themeMode: mediaQuery?.platformBrightness == Brightness.dark
               ? ThemeMode.dark
               : ThemeMode.light,
-          navigatorObservers: [widget._analyticsService.getAnalyticsObserver()],
+          navigatorObservers: <NavigatorObserver>[
+            widget._analyticsService.getAnalyticsObserver(),
+          ],
         ),
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (BuildContext context, AuthenticationState state) => state.when(

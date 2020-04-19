@@ -1,5 +1,9 @@
 include: package:lint/analysis_options.yaml
 
+analyzer:
+  exclude:
+    - lib/l10n/**
+
 linter:
   rules:
     sort_unnamed_constructors_first: false

@@ -10,6 +10,7 @@ import 'package:flutter_auth/src/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_auth/src/blocs/signin/signin_bloc.dart';
 import 'package:flutter_auth/src/repositories/authentication_repository.dart';
 import 'package:flutter_auth/src/services/analytics.dart';
+import 'package:flutter_auth/src/utils/app_localizations.dart';
 import 'package:flutter_auth/src/ui/screens/reset_password/reset_password_screen.dart';
 import 'package:flutter_auth/src/ui/screens/signup/signup_screen.dart';
 import 'package:flutter_auth/src/ui/widgets/app_logo.dart';
@@ -60,10 +61,10 @@ class SignInFormState extends State<SignInForm> {
 
   @override
   void didChangeDependencies() {
-    _emailFocus = FocusNode(debugLabel: 'Email');
-    _passwordFocus = FocusNode(debugLabel: 'Password');
+    _emailFocus = FocusNode(debugLabel: context.l10n().msgEmail);
+    _passwordFocus = FocusNode(debugLabel: context.l10n().msgPassword);
     _signingInSnackBar = AppSnackBar.createLoading(
-      message: 'Signing in...',
+      message: context.l10n().msgSigningIn,
       progressIndicatorValueColor: Theme.of(context).accentColor,
     );
     super.didChangeDependencies();
@@ -90,7 +91,7 @@ class SignInFormState extends State<SignInForm> {
       listener: (BuildContext context, SignInState state) async {
         if (state.exceptionRaised != null) {
           final SnackBar error = AppSnackBar.createError(
-            title: 'Sign in failure',
+            title: context.l10n().msgSignInFailure,
             message: state.exceptionRaised.message,
           );
           Scaffold.of(context).removeCurrentSnackBar();
@@ -125,7 +126,7 @@ class SignInFormState extends State<SignInForm> {
                     const Spacer(),
                     AppTextFormField(
                       key: const Key('SignInEmailField'),
-                      labelText: 'Email',
+                      labelText: context.l10n().msgEmail,
                       textInputAction: TextInputAction.next,
                       focusNode: _emailFocus,
                       onFieldSubmitted: (_) {
@@ -139,13 +140,13 @@ class SignInFormState extends State<SignInForm> {
                       controller: _emailController,
                       validator: (_) =>
                           _emailController.text.isNotEmpty && !state.isEmailValid
-                              ? 'Enter a valid email address'
+                              ? context.l10n().msgEnterValidEmail
                               : null,
                     ),
                     const SizedBox(height: 10.0),
                     AppPassworFormField(
                       key: const Key('SignInPasswordField'),
-                      labelText: 'Password',
+                      labelText: context.l10n().msgPassword,
                       controller: _passwordController,
                       textInputAction: TextInputAction.done,
                       focusNode: _passwordFocus,
@@ -156,7 +157,7 @@ class SignInFormState extends State<SignInForm> {
                       gradient: AppTheme.widgetGradient,
                       onPressed: isSignInButtonEnabled(state) ? _onFormSubmitted : null,
                       child: Text(
-                        'Sign in',
+                        context.l10n().msgSignIn,
                         style: isSignInButtonEnabled(state)
                             ? AppTheme.buttonEnabledTextStyle
                             : AppTheme.buttonDisabledTextStyle,
@@ -179,7 +180,7 @@ class SignInFormState extends State<SignInForm> {
                             );
                           },
                           child: Text(
-                            'Forgot Password?',
+                            context.l10n().msgForgotPasswprd,
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.w600,
@@ -201,9 +202,9 @@ class SignInFormState extends State<SignInForm> {
                                       Theme.of(context).brightness),
                                 ),
                               ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                                child: Text('OR'),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                child: Text(context.l10n().msgOr),
                               ),
                               Expanded(
                                 child: HorizontalLine(
@@ -249,12 +250,12 @@ class SignInFormState extends State<SignInForm> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'Don\'t have an account?',
+                            context.l10n().msgDontHaveAccount,
                             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                           ),
                           const SizedBox(width: 10),
                           Text(
-                            'Sign up',
+                            context.l10n().msgSignUp,
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.w600,

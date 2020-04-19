@@ -41,7 +41,6 @@ it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https:/
 1. Rename ```web/SAMPLE_firebase.js``` as ```web/firebase.js``` and update its content with the Firebase SDK snippet
 from the Firebase Console (see [Resources](#Resources)).
 1. In the Firebase console, enable Email/Password authentication on your project by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
-1. In the Firebase console, enable Google authentication on your project by doing: **Authentication > SIGN-IN METHOD > Google > Enable > SAVE**
 1. In the Firebase console, update the email address verification template by doing: **Authentication > TEMPLATES > Email address verification**
 1. In the Firebase console, update the password reset template by doing: **Authentication > TEMPLATES > Password reset**
 <!-- 1. Follow the instructions from [google_sign_in_web README](https://pub.dev/packages/google_sign_in_web) and include your OAuth ID to ```web/index.html```. -->
@@ -79,6 +78,7 @@ Here are a few resources to get you started if you are new to Flutter:
 - Remi Rousselet, [Getting Started: Creating Your Flutter Project](https://dash-overflow.net/articles/getting_started/)
 - Ryan Edge, [Dash Tips: Using Bloc with Freezed](https://chimon.hashnode.dev/dash-tips-using-bloc-with-freezed-ck8s5s89000mnhps1zf62m14n)
 - Dane Mackier, [Firebase Analytics and Metrics in Flutter](https://www.filledstacks.com/post/firebase-analytics-and-metrics-in-flutter/)
+- Sam Debruyn, [Easy localization in Flutter with continuous integration](https://debruyn.dev/2019/easy-localization-in-flutter-with-continuous-integration/)
 
 ## Created & Maintained by
 
