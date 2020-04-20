@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_auth/l10n/messages_all.dart';
 import 'package:intl/intl.dart';
+
+import '../../l10n/messages_all.dart';
 
 extension AppLocalizationsExtension on BuildContext {
   AppLocalizations l10n() {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:flutter_auth/src/blocs/signin/signin_bloc.dart';
-import 'package:flutter_auth/src/repositories/authentication_repository.dart';
-import 'package:flutter_auth/src/services/analytics.dart';
-import 'package:flutter_auth/src/ui/screens/signin/signin_form.dart';
+
+import '../../../blocs/signin/signin_bloc.dart';
+import '../../../repositories/authentication_repository.dart';
+import '../../../services/analytics.dart';
+import './signin_form.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({

@@ -2,9 +2,10 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter_auth/src/repositories/authentication_repository.dart';
-import 'package:flutter_auth/src/services/analytics.dart';
-import 'package:flutter_auth/src/services/local_storage.dart';
+
+import '../../repositories/authentication_repository.dart';
+import '../../services/analytics.dart';
+import '../../services/local_storage.dart';
 
 part 'authentication_bloc.freezed.dart';
 part 'authentication_event.dart';

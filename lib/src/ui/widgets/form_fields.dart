@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+import '../../utils/app_localizations.dart';
+
 void fieldFocusChangeCallback(
   BuildContext context,
   FocusNode currentFocus,
@@ -195,11 +197,7 @@ class GradientButton extends StatelessWidget {
       ),
       child: Material(
         color: Colors.transparent,
-        child: InkWell(
-            onTap: onPressed,
-            child: Center(
-              child: _child,
-            )),
+        child: InkWell(onTap: onPressed, child: Center(child: _child)),
       ),
     );
   }

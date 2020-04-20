@@ -4,9 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:flutter_auth/src/repositories/authentication_repository.dart';
-import 'package:flutter_auth/src/utils/exceptions.dart';
-import 'package:flutter_auth/src/utils/validators.dart';
+
+import '../../repositories/authentication_repository.dart';
+import '../../utils/exceptions.dart';
+import '../../utils/validators.dart';
 
 part 'reset_password_bloc.freezed.dart';
 part 'reset_password_event.dart';

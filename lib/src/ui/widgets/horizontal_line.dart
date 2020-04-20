@@ -8,10 +8,5 @@ class HorizontalLine extends StatelessWidget {
   final Color _color;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 1.0,
-      color: _color,
-    );
-  }
+  Widget build(BuildContext context) => Container(height: 1.0, color: _color);
 }

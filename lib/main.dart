@@ -1,14 +1,15 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/src/configuration.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_auth/src/app.dart';
-import 'package:flutter_auth/src/blocs/authentication/authentication_bloc.dart';
-import 'package:flutter_auth/src/blocs/simple_bloc_delegate.dart';
-import 'package:flutter_auth/src/repositories/authentication_repository.dart';
-import 'package:flutter_auth/src/services/analytics.dart';
-import 'package:flutter_auth/src/services/local_storage.dart';
+
+import 'src/app.dart';
+import 'src/blocs/authentication/authentication_bloc.dart';
+import 'src/blocs/simple_bloc_delegate.dart';
+import 'src/configuration.dart';
+import 'src/repositories/authentication_repository.dart';
+import 'src/services/analytics.dart';
+import 'src/services/local_storage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

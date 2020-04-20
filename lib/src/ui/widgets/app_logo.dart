@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/src/configuration.dart';
+
+import '../../configuration.dart';
+import '../../utils/app_localizations.dart';
 
 class AppLogo extends StatelessWidget {
   const AppLogo({Key key, this.scaleFactor = 1.0}) : super(key: key);
@@ -22,10 +24,7 @@ class AppLogo extends StatelessWidget {
         ),
         const SizedBox(width: 10.0),
         Expanded(
-          child: Text(
-            kAppName,
-            style: Theme.of(context).textTheme.title,
-          ),
+          child: Text(kAppName, style: Theme.of(context).textTheme.title),
         ),
       ],
     );

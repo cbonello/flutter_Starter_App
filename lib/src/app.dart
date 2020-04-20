@@ -4,14 +4,15 @@ import 'package:flutter_auth/src/utils/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:flutter_auth/src/blocs/authentication/authentication_bloc.dart';
-import 'package:flutter_auth/src/configuration.dart';
-import 'package:flutter_auth/src/repositories/authentication_repository.dart';
-import 'package:flutter_auth/src/services/analytics.dart';
-import 'package:flutter_auth/src/ui/screens/home.dart';
-import 'package:flutter_auth/src/ui/screens/signin/signin_screen.dart';
-import 'package:flutter_auth/src/ui/screens/splash_screen.dart';
-import 'package:flutter_auth/src/utils/theme.dart';
+
+import 'blocs/authentication/authentication_bloc.dart';
+import 'configuration.dart';
+import 'repositories/authentication_repository.dart';
+import 'services/analytics.dart';
+import 'ui/screens/home.dart';
+import 'ui/screens/signin/signin_screen.dart';
+import 'ui/screens/splash_screen.dart';
+import 'utils/theme.dart';
 
 class App extends StatefulWidget {
   const App({

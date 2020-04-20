@@ -4,9 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:flutter_auth/src/repositories/authentication_repository.dart';
-import 'package:flutter_auth/src/utils/exceptions.dart';
-import 'package:flutter_auth/src/utils/validators.dart';
+
+import '../../repositories/authentication_repository.dart';
+import '../../utils/exceptions.dart';
+import '../../utils/validators.dart';
 
 part 'signup_bloc.freezed.dart';
 part 'signup_event.dart';

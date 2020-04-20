@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+
 import 'package:flutter_auth/src/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_auth/src/blocs/reset_password/reset_password_bloc.dart';
 import 'package:flutter_auth/src/blocs/signin/signin_bloc.dart';

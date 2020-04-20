@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_auth/src/configuration.dart';
-import 'package:flutter_auth/src/ui/widgets/app_snackbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:flutter_auth/src/blocs/signup/signup_bloc.dart';
-import 'package:flutter_auth/src/repositories/authentication_repository.dart';
-import 'package:flutter_auth/src/services/analytics.dart';
-import 'package:flutter_auth/src/utils/app_localizations.dart';
-import 'package:flutter_auth/src/ui/screens/signin/signin_screen.dart';
-import 'package:flutter_auth/src/ui/widgets/app_logo.dart';
-import 'package:flutter_auth/src/ui/widgets/form_fields.dart';
-import 'package:flutter_auth/src/utils/theme.dart';
-import 'package:flutter_auth/src/utils/validators.dart';
+
+import '../../../blocs/signup/signup_bloc.dart';
+import '../../../configuration.dart';
+import '../../../repositories/authentication_repository.dart';
+import '../../../services/analytics.dart';
+import '../../../utils/app_localizations.dart';
+import '../../../utils/theme.dart';
+import '../../../utils/validators.dart';
+import '../../widgets/app_logo.dart';
+import '../../widgets/app_snackbar.dart';
+import '../../widgets/form_fields.dart';
+import '../signin/signin_screen.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({

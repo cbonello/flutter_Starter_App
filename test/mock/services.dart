@@ -1,4 +1,5 @@
 import 'package:mockito/mockito.dart';
+
 import 'package:flutter_auth/src/services/analytics.dart';
 import 'package:flutter_auth/src/services/local_storage.dart';
 
