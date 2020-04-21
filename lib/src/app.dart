@@ -1,4 +1,5 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/src/utils/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +49,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       child: PlatformApp(
         onGenerateTitle: (BuildContext context) => kAppName,
         debugShowCheckedModeBanner: false,
-        locale: kUseDevicePreview ? DevicePreview.of(context).locale : null,
+        locale: kUseDevicePreview ? DevicePreview.of(context)?.locale : null,
         builder: kUseDevicePreview ? DevicePreview.appBuilder : null,
         localizationsDelegates: <LocalizationsDelegate<dynamic>>[
           const AppLocalizationsDelegate(),
@@ -56,15 +57,20 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: const <Locale>[Locale('en', 'US'), Locale('fr', 'FR')],
+        supportedLocales: kSupportedLanguages,
         android: (BuildContext context) => MaterialAppData(
           theme: AppTheme.theme(Brightness.light),
           themeMode: mediaQuery?.platformBrightness == Brightness.dark
               ? ThemeMode.dark
               : ThemeMode.light,
-          navigatorObservers: <NavigatorObserver>[
-            widget._analyticsService.getAnalyticsObserver(),
-          ],
+          navigatorObservers: kUseGoogleAnalytics
+              ? <NavigatorObserver>[widget._analyticsService.getAnalyticsObserver()]
+              : null,
+        ),
+        ios: (_) => CupertinoAppData(
+          theme: CupertinoThemeData(
+            brightness: mediaQuery.platformBrightness,
+          ),
         ),
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (BuildContext context, AuthenticationState state) => state.when(

@@ -13,7 +13,7 @@ const String kMockEmail = 'john.doe@yahoo.com';
 Future<void> main() async {
   group('ResetPassword Bloc:', () {
     final AuthenticationRepository authRepositoryMock = MockAuthenticationRepository();
-    final AppException exception = AppException.fromCode('ERROR_SiGN_IN_CANCEL');
+    const AppException exception = AppException(code: 'ERROR_SiGN_IN_CANCEL');
 
     group('Initialization:', () {
       blocTest<ResetPasswordBloc, ResetPasswordEvent, ResetPasswordState>(

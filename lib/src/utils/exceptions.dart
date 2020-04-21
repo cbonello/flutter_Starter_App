@@ -1,64 +1,64 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'app_localizations.dart';
+
 class AppException implements Exception {
-  const AppException(this.message);
+  const AppException({@required this.code});
 
   factory AppException.from(Exception exception) {
     if (exception is AppException) {
       return exception;
     }
-
     if (exception is PlatformException) {
-      return AppException.fromCode(exception.code);
+      return AppException(code: exception.code);
     }
 
-    return AppException.fromCode('ERROR_UNKNOWN');
+    return const AppException(code: 'ERROR_UNKNOWN');
   }
 
-  factory AppException.fromCode(String code) {
+  String message(BuildContext context) {
     switch (code) {
       // Internal.
       case 'ERROR_SiGN_IN_CANCEL':
-        return const AppException('Cancelled');
+        return context.l10n().msgCancelled;
       // Firebase Authentication: signInWithEmailAndPassword(), sendPasswordResetEmail().
       case 'ERROR_EMAIL_ALREADY_IN_USE':
-        return const AppException('Email is already registered');
+        return context.l10n().msgErrorEmailAlreadyRegistered;
       case 'ERROR_INVALID_EMAIL':
-        return const AppException('Malformed email address');
+        return context.l10n().msgErrorMalformedEmailAddress;
       case 'ERROR_WRONG_PASSWORD':
-        return const AppException('Wrong password');
+        return context.l10n().msgErrorWrongPassword;
       case 'ERROR_USER_NOT_FOUND':
-        return const AppException('Invalid email address');
+        return context.l10n().msgErrorInvalidEmailAddress;
       case 'ERROR_USER_DISABLED':
-        return const AppException('Account has been disabled');
+        return context.l10n().msgErrorAccountHasBeenDisabled;
       case 'ERROR_TOO_MANY_REQUESTS':
-        return const AppException(
-          'Too many sign in attempts, try again later',
-        );
+        return context.l10n().msgErrorTooManySignInAttempts;
       case 'ERROR_EMAIL_NOT_VERIFIED':
-        return const AppException('Email address is not verified');
+        return context.l10n().msgErrorEmailAddressIsNotVerified;
       // Firebase Authentication: signInWithCredential().
       case 'ERROR_INVALID_CREDENTIAL':
-        return const AppException('Invalid credential');
+        return context.l10n().msgErrorInvalidCredential;
       case 'ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL':
-        return const AppException('Account already exists with different credential');
+        return context.l10n().msgErrorAccountExistsWithDifferentCredential;
       case 'ERROR_OPERATION_NOT_ALLOWED':
-        return const AppException('Google accounts are disabled');
-      case 'ERROR_NETWORK_REQUEST_FAILED':
-        return const AppException('No Internet connection');
+        return context.l10n().msgErrorGoogleAccountsAreDisabled;
       // Firebase Authentication: createUserWithEmailAndPassword().
       case 'ERROR_WEAK_PASSWORD':
-        return const AppException('Password is not strong enough');
+        return context.l10n().msgErrorPasswordNotStrongEnough;
+      case 'ERROR_NETWORK_REQUEST_FAILED':
       case 'sign_in_failed':
       case 'FirebaseException':
-        return const AppException('No Internet connection');
+        return context.l10n().msgErrorNoInternetConnection;
       default:
-        return const AppException('Unknown error');
+        return context.l10n().msgErrorUnknown;
     }
   }
 
-  final String message;
+  final String code;
 
   @override
-  String toString() => 'AppException($message)';
+  String toString() => 'AppException("$code")';
 }

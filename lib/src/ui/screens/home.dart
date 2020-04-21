@@ -10,8 +10,9 @@ class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 
-  static MaterialPageRoute<void> route(BuildContext context) {
-    return MaterialPageRoute<void>(
+  static PageRoute<void> route(BuildContext context) {
+    return platformPageRoute<void>(
+      context: context,
       builder: (_) => HomeScreen(),
       settings: const RouteSettings(name: 'HomeScreen'),
     );
@@ -52,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text('You have pushed the button this many times:'),
+              Text(context.l10n().msgYouHavePushedTheButton),
               Text('$_counter', key: const Key('HomeCounterField')),
             ],
           ),
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               key: const Key('HomeFAB'),
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: _incrementCounter,
-              tooltip: 'Increment',
+              tooltip: context.l10n().msgIncrement,
               child: Icon(Icons.add),
             ),
           );

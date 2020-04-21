@@ -17,7 +17,7 @@ class ResetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: PlatformScaffold(
-        appBar: PlatformAppBar(title: const Text('Reset Password')),
+        appBar: PlatformAppBar(title: Text(context.l10n().msgPasswordReset)),
         android: (BuildContext context) => MaterialScaffoldData(
           resizeToAvoidBottomInset: true,
         ),

@@ -20,7 +20,7 @@ Future<void> main() async {
     final AuthenticationRepository authRepositoryMock = MockAuthenticationRepository();
     final AnalyticsService analyticsServiceMock = MockAnalyticsService();
     final FirebaseUser authenticatedUser = MockFirebaseUser();
-    final AppException exception = AppException.fromCode('ERROR_EMAIL_NOT_VERIFIED');
+    const AppException exception = AppException(code: 'ERROR_EMAIL_NOT_VERIFIED');
 
     group('Initialization:', () {
       blocTest<SignInBloc, SignInEvent, SignInState>(

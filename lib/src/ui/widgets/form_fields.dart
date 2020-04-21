@@ -83,7 +83,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
 class AppPassworFormField extends StatefulWidget {
   const AppPassworFormField({
     Key key,
-    String labelText = 'Password',
+    String labelText,
     String helperText,
     String hintText,
     Color cursorColor = Colors.black,
@@ -132,14 +132,14 @@ class _AppPassworFormFieldState extends State<AppPassworFormField> {
     return TextFormField(
       controller: widget._controller,
       decoration: InputDecoration(
-        labelText: widget._labelText,
+        labelText: widget._labelText ?? context.l10n().msgPassword,
         helperText: widget._helperText,
         hintText: widget._hintText,
         suffixIcon: PlatformIconButton(
           icon: Icon(
             obscurePassword ? Icons.visibility : Icons.visibility_off,
             color: Colors.black,
-            semanticLabel: 'Toggle paswword visibility',
+            semanticLabel: context.l10n().msgTogglePaswwordVisibility,
           ),
           onPressed: () => setState(() => obscurePassword = !obscurePassword),
         ),

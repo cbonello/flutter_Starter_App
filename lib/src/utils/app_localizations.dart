@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 import '../../l10n/messages_all.dart';
+import '../configuration.dart';
 
 extension AppLocalizationsExtension on BuildContext {
   AppLocalizations l10n() {
@@ -46,6 +47,11 @@ class AppLocalizations {
         args: <String>[email],
         name: 'msgAccountVerificationExplanation',
       );
+  String get msgApplicationLogo => Intl.message(
+        'Application logo',
+        name: 'msgApplicationLogo',
+      );
+  String get msgCancelled => Intl.message('Cancelled', name: 'msgCancelled');
   String get msgDontHaveAccount => Intl.message(
         'Don\'t have an account?',
         name: 'msgDontHaveAccount',
@@ -60,11 +66,64 @@ class AppLocalizations {
         name: 'msgEnterYourName',
       );
   String get msgError => Intl.message('Error', name: 'msgError');
+  String get msgErrorAccountExistsWithDifferentCredential => Intl.message(
+        'Account already exists with different credential',
+        name: 'msgErrorAccountExistsWithDifferentCredential',
+      );
+  String get msgErrorAccountHasBeenDisabled => Intl.message(
+        'Account has been disabled',
+        name: 'msgErrorAccountHasBeenDisabled',
+      );
+  String get msgErrorEmailAddressIsNotVerified => Intl.message(
+        'Email address is not verified',
+        name: 'msgErrorEmailAddressIsNotVerified',
+      );
+  String get msgErrorEmailAlreadyRegistered => Intl.message(
+        'Email is already registered',
+        name: 'msgErrorEmailAlreadyRegistered',
+      );
+  String get msgErrorGoogleAccountsAreDisabled => Intl.message(
+        'Google accounts are disabled',
+        name: 'msgErrorGoogleAccountsAreDisabled',
+      );
+  String get msgErrorInvalidCredential => Intl.message(
+        'Invalid credential',
+        name: 'msgErrorInvalidCredential',
+      );
+  String get msgErrorInvalidEmailAddress => Intl.message(
+        'Invalid email address',
+        name: 'msgErrorInvalidEmailAddress',
+      );
+  String get msgErrorMalformedEmailAddress => Intl.message(
+        'Malformed email address',
+        name: 'msgErrorMalformedEmailAddress',
+      );
+  String get msgErrorNoInternetConnection => Intl.message(
+        'No Internet connection',
+        name: 'msgErrorNoInternetConnection',
+      );
+  String get msgErrorPasswordNotStrongEnough => Intl.message(
+        'Password is not strong enough',
+        name: 'msgErrorPasswordNotStrongEnough',
+      );
+  String get msgErrorTooManySignInAttempts => Intl.message(
+        'Too many sign in attempts, try again later',
+        name: 'msgErrorTooManySignInAttempts',
+      );
+  String get msgErrorUnknown => Intl.message(
+        'Unknown error',
+        name: 'msgErrorUnknown',
+      );
+  String get msgErrorWrongPassword => Intl.message(
+        'Wrong password',
+        name: 'msgErrorWrongPassword',
+      );
   String get msgFirstName => Intl.message('First Name', name: 'msgFirstName');
   String get msgForgotPasswprd => Intl.message(
         'Forgot Password?',
         name: 'msgForgotPasswprd',
       );
+  String get msgIncrement => Intl.message('Increment', name: 'msgIncrement');
   String get msgName => Intl.message('Name', name: 'msgName');
   String get msgOk => Intl.message('OK', name: 'msgOk');
   String get msgOr => Intl.message('OR', name: 'msgOr');
@@ -100,6 +159,10 @@ class AppLocalizations {
   String get msgSigningIn => Intl.message('Signing in...', name: 'msgSigningIn');
   String get msgSigningUp => Intl.message('Signing up...', name: 'msgSigningUp');
   String get msgSubmit => Intl.message('Submit', name: 'msgSubmit');
+  String get msgTogglePaswwordVisibility => Intl.message(
+        'Toggle paswword visibility',
+        name: 'msgTogglePaswwordVisibility',
+      );
   String get msgToS => Intl.message(
         'I agree to the Terms of Services and Privacy Policy',
         name: 'msgToS',
@@ -113,13 +176,24 @@ class AppLocalizations {
         args: <String>[minLength],
         name: 'msgWeakTooShort',
       );
+  String get msgYouHavePushedTheButton => Intl.message(
+        'You have pushed the button this many times:',
+        name: 'msgYouHavePushedTheButton',
+      );
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'fr'].contains(locale.languageCode);
+  bool isSupported(Locale locale) {
+    for (final Locale l in kSupportedLanguages) {
+      if (l == locale || l.languageCode == locale.languageCode) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   @override
   Future<AppLocalizations> load(Locale locale) => AppLocalizations.load(locale);

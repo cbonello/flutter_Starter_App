@@ -17,7 +17,7 @@ Future<void> main() async {
   group('SignUp Bloc:', () {
     final AuthenticationRepository authRepositoryMock = MockAuthenticationRepository();
     final FirebaseUser authenticatedUser = MockFirebaseUser();
-    final AppException exception = AppException.fromCode('ERROR_SiGN_IN_CANCEL');
+    const AppException exception = AppException(code: 'ERROR_SiGN_IN_CANCEL');
 
     group('Initialization:', () {
       blocTest<SignUpBloc, SignUpEvent, SignUpState>(

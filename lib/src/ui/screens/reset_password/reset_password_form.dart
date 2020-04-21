@@ -69,7 +69,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
         if (state.exceptionRaised != null) {
           final SnackBar error = AppSnackBar.createError(
             title: context.l10n().msgPasswordResetFailure,
-            message: state.exceptionRaised.message,
+            message: state.exceptionRaised.message(context),
           );
           Scaffold.of(context).removeCurrentSnackBar();
           Scaffold.of(context).showSnackBar(error);

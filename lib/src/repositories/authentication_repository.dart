@@ -39,7 +39,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
       );
       final FirebaseUser firebaseUser = authResult.user;
       if (firebaseUser.isEmailVerified == false) {
-        throw AppException.fromCode('ERROR_EMAIL_NOT_VERIFIED');
+        throw const AppException(code: 'ERROR_EMAIL_NOT_VERIFIED');
       }
       return firebaseUser;
     } catch (exception) {
@@ -52,7 +52,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
     try {
       final GoogleSignInAccount account = await _googleSignIn.signIn();
       if (account == null) {
-        throw AppException.fromCode('ERROR_SiGN_IN_CANCEL');
+        throw const AppException(code: 'ERROR_SiGN_IN_CANCEL');
       }
       final GoogleSignInAuthentication auth = await account.authentication;
       final AuthCredential credential = GoogleAuthProvider.getCredential(

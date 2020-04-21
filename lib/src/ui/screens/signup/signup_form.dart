@@ -94,7 +94,7 @@ class SignUpFormState extends State<SignUpForm> {
         if (state.isFailure) {
           final SnackBar error = AppSnackBar.createError(
             title: context.l10n().msgSignUpFailure,
-            message: state.exceptionRaised.message,
+            message: state.exceptionRaised.message(context),
           );
           Scaffold.of(context).removeCurrentSnackBar();
           Scaffold.of(context).showSnackBar(error);

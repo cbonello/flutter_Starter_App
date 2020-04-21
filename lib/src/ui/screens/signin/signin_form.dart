@@ -93,7 +93,7 @@ class SignInFormState extends State<SignInForm> {
         if (state.exceptionRaised != null) {
           final SnackBar error = AppSnackBar.createError(
             title: context.l10n().msgSignInFailure,
-            message: state.exceptionRaised.message,
+            message: state.exceptionRaised.message(context),
           );
           Scaffold.of(context).removeCurrentSnackBar();
           Scaffold.of(context).showSnackBar(error);
@@ -210,7 +210,8 @@ class SignInFormState extends State<SignInForm> {
                               Expanded(
                                 child: HorizontalLine(
                                   color: AppTheme.horizontalLineColor(
-                                      Theme.of(context).brightness),
+                                    Theme.of(context).brightness,
+                                  ),
                                 ),
                               ),
                             ],
