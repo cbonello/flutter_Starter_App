@@ -169,6 +169,7 @@ class GradientButton extends StatelessWidget {
         assert(gradient != null),
         _child = child,
         _gradient = gradient,
+        enabled = onPressed != null,
         super(key: key);
 
   final Widget _child;
@@ -176,6 +177,7 @@ class GradientButton extends StatelessWidget {
   final double width;
   final double height;
   final Function() onPressed;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {

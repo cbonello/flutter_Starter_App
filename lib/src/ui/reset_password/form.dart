@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../blocs/reset_password/reset_password_bloc.dart';
+import '../../keys.dart';
 import '../../utils/app_localizations.dart';
 import '../../utils/theme.dart';
 import '../common/index.dart';
@@ -107,7 +108,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
                     AppLogo(scaleFactor: widget.logoScaleFactor),
                     const Spacer(),
                     AppTextFormField(
-                      key: const Key('PasswordResetEmailField'),
+                      key: AppWidgetKeys.keys['PasswordResetEmailField'],
                       labelText: context.l10n().msgEmail,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
@@ -119,7 +120,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
                     ),
                     const SizedBox(height: 15.0),
                     GradientButton(
-                      key: const Key('PasswordResetSubmitButton'),
+                      key: AppWidgetKeys.keys['PasswordResetSubmitButton'],
                       gradient: AppTheme.widgetGradient,
                       onPressed: isubmitButtonEnabled(state) ? _onFormSubmitted : null,
                       child: Text(

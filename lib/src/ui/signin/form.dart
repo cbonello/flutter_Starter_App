@@ -8,6 +8,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import '../../blocs/authentication/authentication_bloc.dart';
 import '../../blocs/signin/signin_bloc.dart';
 import '../../configuration.dart';
+import '../../keys.dart';
 import '../../repositories/authentication_repository.dart';
 import '../../services/analytics.dart';
 import '../../utils/app_localizations.dart';
@@ -123,7 +124,7 @@ class SignInFormState extends State<SignInForm> {
                     AppLogo(scaleFactor: widget.logoScaleFactor),
                     const Spacer(),
                     AppTextFormField(
-                      key: const Key('SignInEmailField'),
+                      key: AppWidgetKeys.keys['SignInEmailField'],
                       labelText: context.l10n().msgEmail,
                       textInputAction: TextInputAction.next,
                       focusNode: _emailFocus,
@@ -143,7 +144,7 @@ class SignInFormState extends State<SignInForm> {
                     ),
                     const SizedBox(height: 10.0),
                     AppPassworFormField(
-                      key: const Key('SignInPasswordField'),
+                      key: AppWidgetKeys.keys['SignInPasswordField'],
                       labelText: context.l10n().msgPassword,
                       controller: _passwordController,
                       textInputAction: TextInputAction.done,
@@ -151,7 +152,7 @@ class SignInFormState extends State<SignInForm> {
                     ),
                     const SizedBox(height: 15.0),
                     GradientButton(
-                      key: const Key('SignInSubmitButton'),
+                      key: AppWidgetKeys.keys['SignInSubmitButton'],
                       gradient: AppTheme.widgetGradient,
                       onPressed: isSignInButtonEnabled(state) ? _onFormSubmitted : null,
                       child: Text(
@@ -165,7 +166,7 @@ class SignInFormState extends State<SignInForm> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         FlatButton(
-                          key: const Key('SignInForgotPasswordButton'),
+                          key: AppWidgetKeys.keys['SignInForgotPasswordButton'],
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -219,7 +220,7 @@ class SignInFormState extends State<SignInForm> {
                       Container(
                         width: double.infinity,
                         child: GoogleSignInButton(
-                          key: const Key('SignInGoogleButton'),
+                          key: AppWidgetKeys.keys['SignInGoogleButton'],
                           borderRadius: 6.0,
                           darkMode: Theme.of(context).brightness == Brightness.dark,
                           onPressed: () {
@@ -232,7 +233,7 @@ class SignInFormState extends State<SignInForm> {
                     ],
                     const Spacer(),
                     FlatButton(
-                      key: const Key('SignInSignUpButton'),
+                      key: AppWidgetKeys.keys['SignInSignUpButton'],
                       onPressed: () {
                         Navigator.push<void>(
                           context,

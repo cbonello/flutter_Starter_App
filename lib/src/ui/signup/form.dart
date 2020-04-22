@@ -5,6 +5,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../blocs/signup/signup_bloc.dart';
 import '../../configuration.dart';
+import '../../keys.dart';
 import '../../repositories/authentication_repository.dart';
 import '../../services/analytics.dart';
 import '../../utils/app_localizations.dart';
@@ -137,7 +138,7 @@ class SignUpFormState extends State<SignUpForm> {
                     AppLogo(scaleFactor: widget.logoScaleFactor),
                     const Spacer(),
                     AppTextFormField(
-                      key: const Key('SignUpEmailField'),
+                      key: AppWidgetKeys.keys['SignUpEmailField'],
                       labelText: context.l10n().msgEmail,
                       textInputAction: TextInputAction.next,
                       focusNode: _emailFocus,
@@ -161,7 +162,7 @@ class SignUpFormState extends State<SignUpForm> {
                     ),
                     const SizedBox(height: 10.0),
                     AppPassworFormField(
-                      key: const Key('SignUpPasswordField'),
+                      key: AppWidgetKeys.keys['SignUpPasswordField'],
                       controller: _passwordController,
                       validator: (_) {
                         if (_passwordController.text.isNotEmpty) {
@@ -181,7 +182,7 @@ class SignUpFormState extends State<SignUpForm> {
                     Row(
                       children: <Widget>[
                         Checkbox(
-                          key: const Key('SignUpTOSCheckbox'),
+                          key: AppWidgetKeys.keys['SignUpTOSCheckbox'],
                           materialTapTargetSize: MaterialTapTargetSize.padded,
                           activeColor: _agreedToTOSAndPolicy
                               ? Theme.of(context).primaryColor
@@ -200,7 +201,7 @@ class SignUpFormState extends State<SignUpForm> {
                     Padding(
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: GradientButton(
-                          key: const Key('SignUpSubmitButton'),
+                          key: AppWidgetKeys.keys['SignUpSubmitButton'],
                           gradient: AppTheme.widgetGradient,
                           onPressed:
                               isSignUpButtonEnabled(state) ? _onFormSubmitted : null,
@@ -213,7 +214,7 @@ class SignUpFormState extends State<SignUpForm> {
                         )),
                     const Spacer(),
                     FlatButton(
-                      key: const Key('SignUpSignInButton'),
+                      key: AppWidgetKeys.keys['SignUpSignInButton'],
                       onPressed: () {
                         Navigator.push<void>(
                           context,
