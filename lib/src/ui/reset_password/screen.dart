@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../../../blocs/reset_password/reset_password_bloc.dart';
-import '../../../repositories/authentication_repository.dart';
-import '../../../utils/app_localizations.dart';
-import './reset_password_form.dart';
+import '../../blocs/reset_password/reset_password_bloc.dart';
+import '../../repositories/authentication_repository.dart';
+import '../../utils/app_localizations.dart';
+import 'form.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({@required AuthenticationRepository authRepository})

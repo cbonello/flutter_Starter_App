@@ -6,7 +6,6 @@ class AnalyticsService {
   AnalyticsService({this.useGoogleAnalytics = true});
 
   final bool useGoogleAnalytics;
-
   final FirebaseAnalytics _analytics = FirebaseAnalytics();
 
   FirebaseAnalyticsObserver getAnalyticsObserver() =>

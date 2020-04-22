@@ -103,9 +103,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
       } else {
         await _firebaseAuth.signOut();
       }
-    } catch (_) {
-      // TODO(cbonello): handle exception.
-    }
+    } catch (_) {}
   }
 
   @override

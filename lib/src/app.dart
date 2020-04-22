@@ -10,9 +10,9 @@ import 'blocs/authentication/authentication_bloc.dart';
 import 'configuration.dart';
 import 'repositories/authentication_repository.dart';
 import 'services/analytics.dart';
-import 'ui/screens/home.dart';
-import 'ui/screens/signin/signin_screen.dart';
-import 'ui/screens/splash_screen.dart';
+import 'ui/home/screen.dart';
+import 'ui/signin/screen.dart';
+import 'ui/splash/screen.dart';
 import 'utils/theme.dart';
 
 class App extends StatefulWidget {

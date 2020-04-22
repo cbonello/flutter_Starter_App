@@ -3,17 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../../../blocs/signup/signup_bloc.dart';
-import '../../../configuration.dart';
-import '../../../repositories/authentication_repository.dart';
-import '../../../services/analytics.dart';
-import '../../../utils/app_localizations.dart';
-import '../../../utils/theme.dart';
-import '../../../utils/validators.dart';
-import '../../widgets/app_logo.dart';
-import '../../widgets/app_snackbar.dart';
-import '../../widgets/form_fields.dart';
-import '../signin/signin_screen.dart';
+import '../../blocs/signup/signup_bloc.dart';
+import '../../configuration.dart';
+import '../../repositories/authentication_repository.dart';
+import '../../services/analytics.dart';
+import '../../utils/app_localizations.dart';
+import '../../utils/theme.dart';
+import '../../utils/validators.dart';
+import '../common/index.dart';
+import '../signin/screen.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({

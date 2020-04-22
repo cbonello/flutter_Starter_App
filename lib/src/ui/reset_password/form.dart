@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_auth/src/ui/widgets/app_snackbar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../../../blocs/reset_password/reset_password_bloc.dart';
-import '../../../utils/app_localizations.dart';
-import '../../../utils/theme.dart';
-import '../../widgets/app_logo.dart';
-import '../../widgets/app_snackbar.dart';
-import '../../widgets/form_fields.dart';
+import '../../blocs/reset_password/reset_password_bloc.dart';
+import '../../utils/app_localizations.dart';
+import '../../utils/theme.dart';
+import '../common/index.dart';
 
 class ResetPasswordForm extends StatefulWidget {
   const ResetPasswordForm({
