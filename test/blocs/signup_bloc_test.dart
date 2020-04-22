@@ -37,7 +37,7 @@ Future<void> main() async {
           bloc.add(const SignUpEvent.emailChanged(email: 'abcd@'));
         },
         skip: 0,
-        wait: const Duration(milliseconds: 300),
+        wait: const Duration(milliseconds: 500),
         expect: <SignUpState>[
           SignUpState.empty(),
           SignUpState.empty(isEmailValid: false),
@@ -50,7 +50,7 @@ Future<void> main() async {
         act: (SignUpBloc bloc) async =>
             bloc.add(const SignUpEvent.emailChanged(email: 'abcd@efgh.com')),
         skip: 0,
-        wait: const Duration(milliseconds: 300),
+        wait: const Duration(milliseconds: 500),
         expect: <SignUpState>[SignUpState.empty()],
       );
     });
@@ -62,7 +62,7 @@ Future<void> main() async {
         act: (SignUpBloc bloc) async =>
             bloc.add(const SignUpEvent.passwordChanged(password: '')),
         skip: 0,
-        wait: const Duration(milliseconds: 300),
+        wait: const Duration(milliseconds: 500),
         expect: <SignUpState>[
           SignUpState.empty(),
           SignUpState.empty(isPasswordValid: false)
@@ -75,7 +75,7 @@ Future<void> main() async {
         act: (SignUpBloc bloc) async =>
             bloc.add(const SignUpEvent.passwordChanged(password: 'flutter_12345')),
         skip: 0,
-        wait: const Duration(milliseconds: 300),
+        wait: const Duration(milliseconds: 500),
         expect: <SignUpState>[SignUpState.empty()],
       );
     });
@@ -97,6 +97,7 @@ Future<void> main() async {
             const SignUpEvent.submitted(email: kMockEmail, password: kMockPassword),
           );
         },
+        wait: const Duration(milliseconds: 500),
         expect: <SignUpState>[
           SignUpState.signingUp(),
           SignUpState.emailSent(user: authenticatedUser)
@@ -117,6 +118,7 @@ Future<void> main() async {
             const SignUpEvent.submitted(email: kMockEmail, password: kMockPassword),
           );
         },
+        wait: const Duration(milliseconds: 500),
         expect: <SignUpState>[
           SignUpState.signingUp(),
           SignUpState.failure(exceptionRaised: exception)

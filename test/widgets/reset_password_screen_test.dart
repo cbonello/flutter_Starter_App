@@ -15,6 +15,8 @@ import 'package:flutter_test/flutter_test.dart';
 import '../mock/repositories.dart';
 import '../mock/services.dart';
 
+const String kMockEmail = 'john.doe@yahoo.com';
+
 void main() {
   final LocalStorageService localStorageServiceMock = MockLocalStorageService();
   final AuthenticationRepository authRepositoryMock = MockAuthenticationRepository();
@@ -90,7 +92,7 @@ void main() {
 
         await tester.enterText(
           find.byKey(AppWidgetKeys.keys['PasswordResetEmailField']),
-          'john.doe@gmail.com',
+          kMockEmail,
         );
         await tester.pumpAndSettle();
 

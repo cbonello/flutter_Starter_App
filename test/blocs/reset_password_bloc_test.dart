@@ -33,7 +33,7 @@ Future<void> main() async {
           bloc.add(const ResetPasswordEvent.emailChanged(email: 'abcd@'));
         },
         skip: 0,
-        wait: const Duration(milliseconds: 300),
+        wait: const Duration(milliseconds: 500),
         expect: <ResetPasswordState>[
           ResetPasswordState.empty(),
           ResetPasswordState.empty(isEmailValid: false, email: 'abcd@'),
@@ -46,7 +46,7 @@ Future<void> main() async {
         act: (ResetPasswordBloc bloc) async =>
             bloc.add(const ResetPasswordEvent.emailChanged(email: kMockEmail)),
         skip: 0,
-        wait: const Duration(milliseconds: 300),
+        wait: const Duration(milliseconds: 500),
         expect: <ResetPasswordState>[
           ResetPasswordState.empty(),
           ResetPasswordState.empty(email: kMockEmail),
@@ -60,6 +60,7 @@ Future<void> main() async {
         build: () async => ResetPasswordBloc(authRepository: authRepositoryMock),
         act: (ResetPasswordBloc bloc) async =>
             bloc.add(const ResetPasswordEvent.resetPressed(email: kMockEmail)),
+        wait: const Duration(milliseconds: 500),
         expect: <ResetPasswordState>[
           ResetPasswordState.resetting(),
           ResetPasswordState.success(email: kMockEmail),
@@ -75,6 +76,7 @@ Future<void> main() async {
         },
         act: (ResetPasswordBloc bloc) async =>
             bloc.add(const ResetPasswordEvent.resetPressed(email: kMockEmail)),
+        wait: const Duration(milliseconds: 500),
         expect: <ResetPasswordState>[
           ResetPasswordState.resetting(),
           ResetPasswordState.failure(exceptionRaised: exception)

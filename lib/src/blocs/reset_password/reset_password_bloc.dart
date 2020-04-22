@@ -23,9 +23,9 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
   ResetPasswordState get initialState => ResetPasswordState.empty();
 
   @override
-  Stream<ResetPasswordState> transformEvents(
+  Stream<Transition<ResetPasswordEvent, ResetPasswordState>> transformEvents(
     Stream<ResetPasswordEvent> events,
-    Stream<ResetPasswordState> Function(ResetPasswordEvent event) next,
+    TransitionFunction<ResetPasswordEvent, ResetPasswordState> transitionFn,
   ) {
     final Stream<ResetPasswordEvent> nonDebounceStream =
         events.where((ResetPasswordEvent event) => event is! _EmailChanged);
@@ -34,7 +34,7 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
         .debounceTime(const Duration(milliseconds: 300));
     return super.transformEvents(
       nonDebounceStream.mergeWith(<Stream<ResetPasswordEvent>>[debounceStream]),
-      next,
+      transitionFn,
     );
   }
 

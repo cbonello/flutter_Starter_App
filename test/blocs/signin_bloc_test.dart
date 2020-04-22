@@ -45,7 +45,7 @@ Future<void> main() async {
           bloc.add(const SignInEvent.emailChanged(email: 'abcd@'));
         },
         skip: 0,
-        wait: const Duration(milliseconds: 300),
+        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[
           SignInState.empty(),
           SignInState.empty(isEmailValid: false),
@@ -61,7 +61,7 @@ Future<void> main() async {
         act: (SignInBloc bloc) async =>
             bloc.add(const SignInEvent.emailChanged(email: 'abcd@efgh.com')),
         skip: 0,
-        wait: const Duration(milliseconds: 300),
+        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[SignInState.empty()],
       );
     });
@@ -76,7 +76,7 @@ Future<void> main() async {
         act: (SignInBloc bloc) async =>
             bloc.add(const SignInEvent.passwordChanged(password: '')),
         skip: 0,
-        wait: const Duration(milliseconds: 300),
+        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[
           SignInState.empty(),
           SignInState.empty(isPasswordValid: false)
@@ -92,7 +92,7 @@ Future<void> main() async {
         act: (SignInBloc bloc) async =>
             bloc.add(const SignInEvent.passwordChanged(password: '12345')),
         skip: 0,
-        wait: const Duration(milliseconds: 300),
+        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[SignInState.empty()],
       );
     });
@@ -117,6 +117,7 @@ Future<void> main() async {
           email: kMockEmail,
           password: kMockPassword,
         )),
+        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[
           SignInState.signingIn(),
           SignInState.success(user: authenticatedUser)
@@ -140,6 +141,7 @@ Future<void> main() async {
           email: kMockEmail,
           password: kMockPassword,
         )),
+        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[
           SignInState.signingIn(),
           SignInState.failure(exceptionRaised: exception)
@@ -162,6 +164,7 @@ Future<void> main() async {
           );
         },
         act: (SignInBloc bloc) async => bloc.add(const SignInEvent.googlePressed()),
+        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[SignInState.success(user: authenticatedUser)],
       );
 
@@ -177,6 +180,7 @@ Future<void> main() async {
           );
         },
         act: (SignInBloc bloc) async => bloc.add(const SignInEvent.googlePressed()),
+        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[
           SignInState.failure(exceptionRaised: AppException.from(exception))
         ],

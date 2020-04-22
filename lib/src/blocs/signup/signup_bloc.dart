@@ -23,9 +23,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpState get initialState => SignUpState.empty();
 
   @override
-  Stream<SignUpState> transformEvents(
+  Stream<Transition<SignUpEvent, SignUpState>> transformEvents(
     Stream<SignUpEvent> events,
-    Stream<SignUpState> Function(SignUpEvent event) next,
+    TransitionFunction<SignUpEvent, SignUpState> transitionFn,
   ) {
     final Stream<SignUpEvent> observableStream = events;
 
@@ -39,7 +39,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     }).debounceTime(const Duration(milliseconds: 300));
     return super.transformEvents(
       nonDebounceStream.mergeWith(<Stream<SignUpEvent>>[debounceStream]),
-      next,
+      transitionFn,
     );
   }
 
