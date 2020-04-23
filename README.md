@@ -11,7 +11,7 @@ it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https:/
 - Sign Up.
 - Password reset.
 - Email verification.
-- Google Analytics.
+- Firebase Analytics.
 - Flutter web support.
 
 ## Setup
@@ -19,7 +19,7 @@ it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https:/
 [`lib/src/configuration.dart`](./lib/src/configuration.dart) allows you to quickly enable/disable options. 
 
 - `kUseGoogleASignIn`: Google Sign-In; not supported for Flutter web as of now.
-- `kUseGoogleAnalytics`: Google Analytics; not supported for Flutter web as of now.
+- `kUseFirebaseAnalytics`: Firebase Analytics; not supported for Flutter web as of now.
 - `kUseFlutterBlocDelegate`: Flutter_bloc delegates.
 - `kUseDevicePreview`: Great `Device Preview` package from [Aloïs Deniel](https://aloisdeniel.github.com/).
 
@@ -74,10 +74,11 @@ Here are a few resources to get you started if you are new to Flutter:
 
 ## Resources
 
+- Stack Overflow, [How to change package name in flutter?](https://stackoverflow.com/questions/51534616/how-to-change-package-name-in-flutter#answer-51550358)
 - Felix Angelov, [flutter_bloc: Flutter Firebase Login Tutorial](https://bloclibrary.dev/#/flutterfirebaselogintutorial)
 - Remi Rousselet, [Getting Started: Creating Your Flutter Project](https://dash-overflow.net/articles/getting_started/)
 - Ryan Edge, [Dash Tips: Using Bloc with Freezed](https://chimon.hashnode.dev/dash-tips-using-bloc-with-freezed-ck8s5s89000mnhps1zf62m14n)
-- Dane Mackier, [Firebase Analytics and Metrics in Flutter](https://www.filledstacks.com/post/firebase-analytics-and-metrics-in-flutter/)
+- Gaspard Merten, [The Flutter Guide to Firebase Analytics](https://medium.com/flutter-community/the-flutter-guide-to-firebase-analytics-9b99c6e27a6)
 - Sam Debruyn, [Easy localization in Flutter with continuous integration](https://debruyn.dev/2019/easy-localization-in-flutter-with-continuous-integration/)
 
 ## Created & Maintained by

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 const bool kUseGoogleASignIn = true;
-const bool kUseGoogleAnalytics = true;
+const bool kUseFirebaseAnalytics = true;
 const bool kUseFlutterBlocDelegate = false;
 const bool kUseDevicePreview = false;
 

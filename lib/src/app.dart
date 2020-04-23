@@ -64,7 +64,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           themeMode: mediaQuery?.platformBrightness == Brightness.dark
               ? ThemeMode.dark
               : ThemeMode.light,
-          navigatorObservers: kIsWeb == false && kUseGoogleAnalytics
+          navigatorObservers: kIsWeb == false && kUseFirebaseAnalytics
               ? <NavigatorObserver>[widget._analyticsService.getAnalyticsObserver()]
               : null,
         ),

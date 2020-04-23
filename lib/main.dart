@@ -17,7 +17,7 @@ Future<void> main() async {
   final LocalStorageService localStorageService = await LocalStorageService.getInstance();
   final AuthenticationRepository authRepository = AuthenticationRepository();
   final AnalyticsService analyticsService = AnalyticsService(
-    useGoogleAnalytics: kIsWeb == false && kUseGoogleAnalytics,
+    useGoogleAnalytics: kIsWeb == false && kUseFirebaseAnalytics,
   );
 
   if (kUseFlutterBlocDelegate) {
