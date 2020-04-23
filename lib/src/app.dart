@@ -52,8 +52,8 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         debugShowCheckedModeBanner: false,
         locale: kUseDevicePreview ? DevicePreview.of(context)?.locale : null,
         builder: kUseDevicePreview ? DevicePreview.appBuilder : null,
-        localizationsDelegates: <LocalizationsDelegate<dynamic>>[
-          const AppLocalizationsDelegate(),
+        localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+          AppLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
