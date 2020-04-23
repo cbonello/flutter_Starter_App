@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return MaterialAppBarData(
               actions: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.exit_to_app),
+                  icon: const Icon(Icons.exit_to_app),
                   onPressed: () {
                     BlocProvider.of<AuthenticationBloc>(context).add(
                       const AuthenticationEvent.signedOut(),
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: _incrementCounter,
               tooltip: context.l10n().msgIncrement,
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
             ),
           );
         },

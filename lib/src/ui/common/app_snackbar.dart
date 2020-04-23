@@ -18,7 +18,7 @@ class AppSnackBar {
   static SnackBar createInfo({@required String title, @required String message}) {
     return SnackBar(
       content: ListTile(
-        leading: Icon(Icons.info_outline, size: 48.0, color: Colors.green),
+        leading: const Icon(Icons.info_outline, size: 48.0, color: Colors.green),
         title: Text(title),
         subtitle: Text(message),
       ),
@@ -28,7 +28,7 @@ class AppSnackBar {
   static SnackBar createError({@required String title, @required String message}) {
     return SnackBar(
       content: ListTile(
-        leading: Icon(Icons.error_outline, size: 48.0, color: Colors.red),
+        leading: const Icon(Icons.error_outline, size: 48.0, color: Colors.red),
         title: Text(title),
         subtitle: Text(message),
       ),

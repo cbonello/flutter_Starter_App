@@ -232,7 +232,10 @@ class SignUpFormState extends State<SignUpForm> {
                         children: <Widget>[
                           Text(
                             context.l10n().msgAlreadyHaveAccount,
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                           const SizedBox(width: 10),
                           Text(

@@ -40,8 +40,8 @@ void main() {
               ),
             ],
             child: MaterialApp(
-              localizationsDelegates: <LocalizationsDelegate<dynamic>>[
-                const AppLocalizationsDelegate(),
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                AppLocalizationsDelegate(),
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
@@ -77,8 +77,8 @@ void main() {
               ),
             ],
             child: MaterialApp(
-              localizationsDelegates: <LocalizationsDelegate<dynamic>>[
-                const AppLocalizationsDelegate(),
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                AppLocalizationsDelegate(),
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
