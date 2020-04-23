@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/src/utils/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,7 +64,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           themeMode: mediaQuery?.platformBrightness == Brightness.dark
               ? ThemeMode.dark
               : ThemeMode.light,
-          navigatorObservers: kUseGoogleAnalytics
+          navigatorObservers: kIsWeb == false && kUseGoogleAnalytics
               ? <NavigatorObserver>[widget._analyticsService.getAnalyticsObserver()]
               : null,
         ),
