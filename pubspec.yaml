@@ -41,6 +41,7 @@ dev_dependencies:
   intl_translation: ^0.17.0
   lint: ^1.1.0
   test: any
+  test_coverage: ^0.4.0
 
 flutter:
   uses-material-design: true
