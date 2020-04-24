@@ -4,10 +4,10 @@
 [![codecov](https://codecov.io/gh/cbonello/flutter_Starter_App/branch/master/graph/badge.svg)](https://codecov.io/gh/cbonello/flutter_Starter_App)
 [![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
-A Flutter starter project (tested on Android only). Project contains splash, sign in, sign up, password reset and home screens.
+A Flutter starter project that contains splash, sign in, sign up, password reset and email verification.
 it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https://pub.dev/packages/flutter_bloc) library) for state management.
 
-**Project was only tested on Android!**
+**Project was only tested on Android and the web.**
 
 ## Features
 
@@ -22,31 +22,31 @@ it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https:/
 
 [`lib/src/configuration.dart`](./lib/src/configuration.dart) allows you to quickly enable/disable options. 
 
-- `kUseGoogleASignIn`: Google Sign-In; not supported for Flutter web as of now.
-- `kUseFirebaseAnalytics`: Firebase Analytics; not supported for Flutter web as of now.
-- `kUseFlutterBlocDelegate`: Flutter_bloc delegates.
-- `kUseDevicePreview`: Great `Device Preview` package from [Aloïs Deniel](https://aloisdeniel.github.com/).
+- `kUseGoogleASignIn`: [Google Sign-In](https://pub.dev/packages/google_sign_in); not supported for Flutter web as of now.
+- `kUseFirebaseAnalytics`: [Firebase Analytics](https://pub.dev/packages/firebase_analytics); not supported for Flutter web as of now.
+- `kUseFlutterBlocDelegate`: Flutter_bloc [delegates](https://bloclibrary.dev/#/flutterfirebaselogintutorial?id=bloc-delegate).
+- `kUseDevicePreview`: [Device Preview](https://pub.dev/packages/device_preview) package.
 
-### Android App
+### Steps
 
 1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com) and add and Android app to the project. Please follow the installation instructions from the [Firebase Auth package](https://pub.dev/packages/firebase_auth).
-1. In the Firebase console, enable Email/Password authentication on your project by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
-1. In the Firebase console, enable Google authentication on your project by doing: **Authentication > SIGN-IN METHOD > Google > Enable > SAVE**
+1. In the Firebase console, enable Email/Password authentication by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
+1. In the Firebase console, enable Google authentication by doing: **Authentication > SIGN-IN METHOD > Google > Enable > SAVE**
 1. In the Firebase console, update the email address verification template by doing: **Authentication > TEMPLATES > Email address verification**
 1. In the Firebase console, update the password reset template by doing: **Authentication > TEMPLATES > Password reset**
 
-### Flutter Web
+### Additional Steps for Flutter Web
 
 **Important:**
-- You need the latest version of the Flutter SDK from the beta channel to compile this project. See
+You need the latest version of the Flutter SDK from the beta channel to compile this project. See
 [Building a web application with Flutter](https://flutter.dev/docs/get-started/web).
 
-1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com) and add a web app to the project.
-1. Rename ```web/SAMPLE_firebase.js``` as ```web/firebase.js``` and update its content with the Firebase SDK snippet
+1. Add web support by running:
+```bash
+flutter config --enable-web
+```
+2. Rename ```web/SAMPLE_firebase.js``` as ```web/firebase.js``` and update its content with the Firebase SDK snippet
 from the Firebase Console (see [Resources](#Resources)).
-1. In the Firebase console, enable Email/Password authentication on your project by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
-1. In the Firebase console, update the email address verification template by doing: **Authentication > TEMPLATES > Email address verification**
-1. In the Firebase console, update the password reset template by doing: **Authentication > TEMPLATES > Password reset**
 <!-- 1. Follow the instructions from [google_sign_in_web README](https://pub.dev/packages/google_sign_in_web) and include your OAuth ID to ```web/index.html```. -->
 <!-- - [Flutter Web Google Sign In](https://stackoverflow.com/questions/60250342/flutter-web-google-sign-in) -->
 
@@ -76,23 +76,21 @@ Here are a few resources to get you started if you are new to Flutter:
 - [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
 
-## Resources
+## General Resources
 
 - Stack Overflow, [How to change package name in flutter?](https://stackoverflow.com/questions/51534616/how-to-change-package-name-in-flutter#answer-51550358)
 - Felix Angelov, [flutter_bloc: Flutter Firebase Login Tutorial](https://bloclibrary.dev/#/flutterfirebaselogintutorial)
 - Remi Rousselet, [Getting Started: Creating Your Flutter Project](https://dash-overflow.net/articles/getting_started/)
 - Ryan Edge, [Dash Tips: Using Bloc with Freezed](https://chimon.hashnode.dev/dash-tips-using-bloc-with-freezed-ck8s5s89000mnhps1zf62m14n)
-- Gaspard Merten, [The Flutter Guide to Firebase Analytics](https://medium.com/flutter-community/the-flutter-guide-to-firebase-analytics-9b99c6e27a6)
+- Adam Cooper, [Continuous Integration for Flutter with GitHub Actions](https://admcpr.com/continuous-integration-for-flutter-with-github-actions/)
 - Sam Debruyn, [Easy localization in Flutter with continuous integration](https://debruyn.dev/2019/easy-localization-in-flutter-with-continuous-integration/)
+- Gaspard Merten, [The Flutter Guide to Firebase Analytics](https://medium.com/flutter-community/the-flutter-guide-to-firebase-analytics-9b99c6e27a6)
 
 ## Created & Maintained by
 
 [Christophe Bonello](https://github.com/cbonello)
 ([LinkedIn](https://www.linkedin.com/in/christophe-bonello))
 ([Twitter](https://twitter.com/chbonello))
-
-[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://opensource.org/licenses/MIT)
-[![License](https://img.shields.io/badge/license-MIT-purple)](https://github.com/cbonello/amiidex/blob/master/LICENSE)
 
 ## Contribution Guidelines
 
