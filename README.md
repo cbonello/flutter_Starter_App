@@ -1,5 +1,9 @@
 # Flutter Starter App (BLoC pattern)
 
+[![build](https://github.com/cbonello/flutter_Starter_App/workflows/Dart%20CI/badge.svg)](https://github.com/cbonello/flutter_Starter_App/actions)
+[![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
+<!-- [!Coverage](https://raw.githubusercontent.com/cbonello/flutter_Starter_App/master/coverage_badge.svg?sanitize=true) -->
+
 A Flutter starter project (tested on Android only). Project contains splash, sign in, sign up, password reset and home screens.
 it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https://pub.dev/packages/flutter_bloc) library) for state management.
 
