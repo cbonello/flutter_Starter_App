@@ -4,6 +4,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../blocs/authentication/authentication_bloc.dart';
 import '../../configuration.dart';
+import '../../keys.dart';
 import '../../utils/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return MaterialAppBarData(
               actions: <Widget>[
                 IconButton(
+                  key: AppWidgetKeys.keys['HomeSignOutButton'],
                   icon: const Icon(Icons.exit_to_app),
                   onPressed: () {
                     BlocProvider.of<AuthenticationBloc>(context).add(
@@ -54,14 +56,14 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(context.l10n().msgYouHavePushedTheButton),
-              Text('$_counter', key: const Key('HomeCounterField')),
+              Text('$_counter', key: AppWidgetKeys.keys['HomeCounterField']),
             ],
           ),
         ),
         android: (BuildContext context) {
           return MaterialScaffoldData(
             floatingActionButton: FloatingActionButton(
-              key: const Key('HomeFAB'),
+              key: AppWidgetKeys.keys['HomeFAB'],
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: _incrementCounter,
               tooltip: context.l10n().msgIncrement,

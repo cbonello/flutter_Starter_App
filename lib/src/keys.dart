@@ -17,5 +17,8 @@ class AppWidgetKeys {
     'SignUpTOSCheckbox': const Key('SignUpTOSCheckbox'),
     'SignUpSubmitButton': const Key('SignUpSubmitButton'),
     'SignUpSignInButton': const Key('SignUpSignInButton'),
+    'HomeSignOutButton': const Key('HomeSignOutButton'),
+    'HomeCounterField': const Key('HomeCounterField'),
+    'HomeFAB': const Key('HomeFAB'),
   };
 }
