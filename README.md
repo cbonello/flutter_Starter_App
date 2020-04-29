@@ -86,6 +86,7 @@ Here are a few resources to get you started if you are new to Flutter:
 - Adam Cooper, [Continuous Integration for Flutter with GitHub Actions](https://admcpr.com/continuous-integration-for-flutter-with-github-actions/)
 - Sam Debruyn, [Easy localization in Flutter with continuous integration](https://debruyn.dev/2019/easy-localization-in-flutter-with-continuous-integration/)
 - Gaspard Merten, [The Flutter Guide to Firebase Analytics](https://medium.com/flutter-community/the-flutter-guide-to-firebase-analytics-9b99c6e27a6)
+- thehappyharis, [Progressive Web App (PWA) in Flutter Web](https://www.youtube.com/watch?v=SvDXytrX1Wc)
 
 ## Created & Maintained by
 
