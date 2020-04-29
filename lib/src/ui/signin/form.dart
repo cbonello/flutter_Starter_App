@@ -188,7 +188,7 @@ class SignInFormState extends State<SignInForm> {
                         ),
                       ],
                     ),
-                    if (kIsWeb == false && kUseGoogleASignIn) ...<Widget>[
+                    if (kUseGoogleASignIn) ...<Widget>[
                       Container(
                         width: double.infinity,
                         child: Padding(

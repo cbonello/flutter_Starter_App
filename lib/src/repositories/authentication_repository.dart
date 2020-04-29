@@ -19,7 +19,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
     FirebaseAuth firebaseAuth,
     GoogleSignIn googleSignin,
   })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignin ?? GoogleSignIn();
+        _googleSignIn = googleSignin ?? GoogleSignIn(scopes: <String>['email']);
 
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;

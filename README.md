@@ -41,21 +41,22 @@ it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https:/
 You need the latest version of the Flutter SDK from the beta channel to compile this project. See
 [Building a web application with Flutter](https://flutter.dev/docs/get-started/web).
 
-1. Add web support by running:
+1. Add web support by running (restart your IDE aftert running the command):
 ```bash
 flutter config --enable-web
 ```
 2. Rename ```web/SAMPLE_firebase.js``` as ```web/firebase.js``` and update its content with the Firebase SDK snippet
 from the Firebase Console (see [Resources](#Resources)).
-<!-- 1. Follow the instructions from [google_sign_in_web README](https://pub.dev/packages/google_sign_in_web) and include your OAuth ID to ```web/index.html```. -->
-<!-- - [Flutter Web Google Sign In](https://stackoverflow.com/questions/60250342/flutter-web-google-sign-in) -->
+1. Follow the instructions from [google_sign_in_web README](https://pub.dev/packages/google_sign_in_web) and include your OAuth ID to ```web/index.html```, line 41.
+1. Check this [stackoverflow thread](https://stackoverflow.com/questions/59480956/browser-or-app-may-not-be-secure-try-using-a-different-browser-error-with-fl) if you encounter the “Browser or app may not be secure. Try using a different browser.” error with Google Sign-In.
 
 #### Resources
 
+- [Add Firebase to your JavaScript project](https://firebase.google.com/docs/web/setup#from-the-cdn)
 - [firebase_auth README](https://pub.dev/packages/firebase_auth)
 - [firebase_auth_web README](https://github.com/FirebaseExtended/flutterfire/blob/master/packages/firebase_auth/firebase_auth_web/README.md)
-- [Add Firebase to your JavaScript project](https://firebase.google.com/docs/web/setup#from-the-cdn)
-<!-- - [google_sign_in_web README](https://pub.dev/packages/google_sign_in_web) -->
+- [google_sign_in_web README](https://pub.dev/packages/google_sign_in_web)
+- thehappyharis, [Flutter Web: Google Sign In](https://www.youtube.com/watch?time_continue=752&v=E8kgHqEz6fs&feature=emb_logo)
 
 ## Screenshots
 
