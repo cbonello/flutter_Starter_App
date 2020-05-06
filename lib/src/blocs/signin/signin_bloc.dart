@@ -15,14 +15,14 @@ part 'signin_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   SignInBloc({
-    @required AuthenticationRepository authRepository,
+    @required AuthenticationRepositoryInterface authRepository,
     @required AnalyticsService analyticsService,
   })  : assert(authRepository != null),
         _authRepository = authRepository,
         assert(analyticsService != null),
         _analyticsService = analyticsService;
 
-  final AuthenticationRepository _authRepository;
+  final AuthenticationRepositoryInterface _authRepository;
   final AnalyticsService _analyticsService;
 
   @override

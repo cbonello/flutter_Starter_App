@@ -14,10 +14,10 @@ part 'reset_password_event.dart';
 part 'reset_password_state.dart';
 
 class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
-  ResetPasswordBloc({@required AuthenticationRepository authRepository})
+  ResetPasswordBloc({@required AuthenticationRepositoryInterface authRepository})
       : _authRepository = authRepository;
 
-  final AuthenticationRepository _authRepository;
+  final AuthenticationRepositoryInterface _authRepository;
 
   @override
   ResetPasswordState get initialState => ResetPasswordState.empty();

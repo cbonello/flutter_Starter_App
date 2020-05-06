@@ -14,7 +14,7 @@ part 'authentication_state.dart';
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc({
     @required LocalStorageService localStorageService,
-    @required AuthenticationRepository authRepository,
+    @required AuthenticationRepositoryInterface authRepository,
     @required AnalyticsService analyticsService,
   })  : assert(localStorageService != null),
         _localStorageService = localStorageService,
@@ -24,7 +24,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         _analyticsService = analyticsService;
 
   final LocalStorageService _localStorageService;
-  final AuthenticationRepository _authRepository;
+  final AuthenticationRepositoryInterface _authRepository;
   final AnalyticsService _analyticsService;
 
   @override
