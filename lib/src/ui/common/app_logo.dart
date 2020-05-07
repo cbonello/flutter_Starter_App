@@ -24,7 +24,7 @@ class AppLogo extends StatelessWidget {
         ),
         const SizedBox(width: 10.0),
         Expanded(
-          child: Text(kAppName, style: Theme.of(context).textTheme.title),
+          child: Text(kAppName, style: Theme.of(context).textTheme.headline6),
         ),
       ],
     );
