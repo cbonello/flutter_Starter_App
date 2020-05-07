@@ -29,67 +29,37 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   SignInState get initialState => SignInState.empty();
 
   @override
-  Stream<Transition<SignInEvent, SignInState>> transformEvents(
-    Stream<SignInEvent> events,
-    TransitionFunction<SignInEvent, SignInState> transitionFn,
-  ) {
-    final Stream<SignInEvent> nonDebounceStream = events.where((SignInEvent event) {
-      return event is! _EmailChanged && event is! _PasswordChanged;
-    });
-    final Stream<SignInEvent> debounceStream = events.where((SignInEvent event) {
-      return event is _EmailChanged || event is _PasswordChanged;
-    }).debounceTime(const Duration(milliseconds: 300));
-    return super.transformEvents(
-      nonDebounceStream.mergeWith(<Stream<SignInEvent>>[debounceStream]),
-      transitionFn,
-    );
-  }
-
-  @override
   Stream<SignInState> mapEventToState(SignInEvent event) async* {
     yield* event.when(
       emailChanged: (String email) => _mapEmailChangedToState(email),
       passwordChanged: (String password) => _mapPasswordChangedToState(password),
-      emailAndPasswordPressed: (String email, String password) =>
-          _mapSignInWithEmailAndPasswordToState(
-        email: email,
-        password: password,
-      ),
+      emailAndPasswordPressed: () => _mapSignInWithEmailAndPasswordToState(),
       googlePressed: () => _mapSignInWithGoogleToState(),
     );
   }
 
   Stream<SignInState> _mapEmailChangedToState(String email) async* {
-    yield state.update(
-      isEmailValid: isValidEmail(email),
-      isPasswordValid: state.isPasswordValid,
-      user: state.user,
-    );
+    yield state.copyWith(email: email, user: null, exceptionRaised: null);
   }
 
   Stream<SignInState> _mapPasswordChangedToState(String password) async* {
-    yield state.update(
-      isEmailValid: state.isEmailValid,
-      isPasswordValid: password.isNotEmpty,
-      user: state.user,
-    );
+    yield state.copyWith(password: password, user: null, exceptionRaised: null);
   }
 
-  Stream<SignInState> _mapSignInWithEmailAndPasswordToState({
-    String email,
-    String password,
-  }) async* {
-    yield SignInState.signingIn();
+  Stream<SignInState> _mapSignInWithEmailAndPasswordToState() async* {
+    yield state.copyWith(isSubmitting: true);
     try {
       final FirebaseUser user = await _authRepository.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: state.email,
+        password: state.password,
       );
       await _analyticsService.logSignIn('signInWithEmailAndPassword');
-      yield SignInState.success(user: user);
+      yield state.copyWith(isSubmitting: false, user: user);
     } catch (exception) {
       await _authRepository.signOut();
-      yield SignInState.failure(
+      yield state.copyWith(
+        isSubmitting: false,
+        user: null,
         exceptionRaised: AppException.from(exception as Exception),
       );
     }
@@ -98,11 +68,12 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   Stream<SignInState> _mapSignInWithGoogleToState() async* {
     try {
       final FirebaseUser user = await _authRepository.signInWithGoogle();
-      // await _analyticsService.logSignIn('signInWithGoogle');
-      yield SignInState.success(user: user);
+      await _analyticsService.logSignIn('signInWithGoogle');
+      yield state.copyWith(user: user);
     } catch (exception) {
       await _authRepository.signOut();
-      yield SignInState.failure(
+      yield state.copyWith(
+        user: null,
         exceptionRaised: AppException.from(exception as Exception),
       );
     }

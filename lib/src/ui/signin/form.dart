@@ -13,6 +13,7 @@ import '../../repositories/authentication_repository.dart';
 import '../../services/analytics.dart';
 import '../../utils/app_localizations.dart';
 import '../../utils/theme.dart';
+import '../../utils/validators.dart';
 import '../common/index.dart';
 import '../reset_password/screen.dart';
 import '../signup/screen.dart';
@@ -88,17 +89,9 @@ class SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     return BlocConsumer<SignInBloc, SignInState>(
       listener: (BuildContext context, SignInState state) async {
-        if (state.exceptionRaised != null) {
-          final SnackBar error = AppSnackBar.createError(
-            title: context.l10n().msgSignInFailure,
-            message: state.exceptionRaised.message(context),
-          );
-          Scaffold.of(context).removeCurrentSnackBar();
-          Scaffold.of(context).showSnackBar(error);
-        } else if (state.isSubmitting) {
+        if (state.isSubmitting) {
           Scaffold.of(context).showSnackBar(_signingInSnackBar);
-        } else if (state.isSuccess) {
-          assert(state.user != null);
+        } else if (state.user != null) {
           context
               .bloc<AuthenticationBloc>()
               .add(AuthenticationEvent.signedIn(user: state.user));
@@ -106,6 +99,13 @@ class SignInFormState extends State<SignInForm> {
           try {
             Navigator.of(context).popUntil((dynamic route) => route.isFirst as bool);
           } catch (_) {}
+        } else if (state.exceptionRaised != null) {
+          final SnackBar error = AppSnackBar.createError(
+            title: context.l10n().msgSignInFailure,
+            message: state.exceptionRaised.message(context),
+          );
+          Scaffold.of(context).removeCurrentSnackBar();
+          Scaffold.of(context).showSnackBar(error);
         }
       },
       builder: (BuildContext context, SignInState state) {
@@ -137,10 +137,10 @@ class SignInFormState extends State<SignInForm> {
                       },
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
-                      validator: (_) =>
-                          _emailController.text.isNotEmpty && !state.isEmailValid
-                              ? context.l10n().msgEnterValidEmail
-                              : null,
+                      validator: (_) => _emailController.text.trim().isNotEmpty &&
+                              !Validators.isValidEmail(state.email)
+                          ? context.l10n().msgEnterValidEmail
+                          : null,
                     ),
                     const SizedBox(height: 10.0),
                     AppPassworFormField(
@@ -154,10 +154,10 @@ class SignInFormState extends State<SignInForm> {
                     GradientButton(
                       key: AppWidgetKeys.keys['SignInSubmitButton'],
                       gradient: AppTheme.widgetGradient,
-                      onPressed: isSignInButtonEnabled(state) ? _onFormSubmitted : null,
+                      onPressed: _isSignInButtonEnabled(state) ? _onFormSubmitted : null,
                       child: Text(
                         context.l10n().msgSignIn,
-                        style: isSignInButtonEnabled(state)
+                        style: _isSignInButtonEnabled(state)
                             ? AppTheme.buttonEnabledTextStyle
                             : AppTheme.buttonDisabledTextStyle,
                       ),
@@ -278,31 +278,23 @@ class SignInFormState extends State<SignInForm> {
     );
   }
 
-  bool get isPopulated =>
-      _emailController.text.trim().isNotEmpty &&
-      _passwordController.text.trim().isNotEmpty;
-
-  bool isSignInButtonEnabled(SignInState state) {
-    return state.isFormValid && isPopulated && !state.isSubmitting;
-  }
-
   void _onEmailChanged() {
     _signInBloc.add(SignInEvent.emailChanged(email: _emailController.text.trim()));
     setState(() {});
   }
 
   void _onPasswordChanged() {
-    _signInBloc
-        .add(SignInEvent.passwordChanged(password: _passwordController.text.trim()));
+    _signInBloc.add(
+      SignInEvent.passwordChanged(password: _passwordController.text.trim()),
+    );
     setState(() {});
   }
 
+  bool _isSignInButtonEnabled(SignInState state) {
+    return state.isPopulated() && state.isValid() && !state.isSubmitting;
+  }
+
   void _onFormSubmitted() {
-    _signInBloc.add(
-      SignInEvent.emailAndPasswordPressed(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      ),
-    );
+    _signInBloc.add(const SignInEvent.emailAndPasswordPressed());
   }
 }

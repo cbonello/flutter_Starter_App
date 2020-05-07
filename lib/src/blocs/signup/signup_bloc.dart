@@ -57,7 +57,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   Stream<SignUpState> _mapEmailChangedToState(String email) async* {
     yield state.update(
-      isEmailValid: isValidEmail(email),
+      isEmailValid: Validators.isValidEmail(email),
       isPasswordValid: state.isPasswordValid,
       user: state.user,
     );
@@ -66,7 +66,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   Stream<SignUpState> _mapPasswordChangedToState(String password) async* {
     yield state.update(
       isEmailValid: state.isEmailValid,
-      isPasswordValid: isValidPassword(password),
+      isPasswordValid: Validators.isValidPassword(password),
       user: state.user,
     );
   }

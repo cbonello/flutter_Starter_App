@@ -6,10 +6,7 @@ abstract class SignInEvent with _$SignInEvent {
 
   const factory SignInEvent.passwordChanged({String password}) = _PasswordChanged;
 
-  const factory SignInEvent.emailAndPasswordPressed({
-    String email,
-    String password,
-  }) = _EmailAndPasswordPressed;
+  const factory SignInEvent.emailAndPasswordPressed() = _EmailAndPasswordPressed;
 
   const factory SignInEvent.googlePressed() = _GooglePressed;
 }

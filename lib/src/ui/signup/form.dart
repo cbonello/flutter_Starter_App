@@ -166,10 +166,12 @@ class SignUpFormState extends State<SignUpForm> {
                       controller: _passwordController,
                       validator: (_) {
                         if (_passwordController.text.isNotEmpty) {
-                          if (!isValidPasswordLength(_passwordController.text)) {
+                          if (!Validators.isValidPasswordLength(
+                              _passwordController.text)) {
                             return context.l10n().msgWeakTooShort('$kMinPasswordLength');
                           }
-                          if (!isValidPasswordStrength(_passwordController.text)) {
+                          if (!Validators.isValidPasswordStrength(
+                              _passwordController.text)) {
                             return context.l10n().msgWeakPassword;
                           }
                         }

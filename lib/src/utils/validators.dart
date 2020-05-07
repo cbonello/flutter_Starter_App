@@ -3,16 +3,17 @@ import 'package:password_strength/password_strength.dart';
 
 import '../configuration.dart';
 
-bool isValidName(String name) => name.trim().isNotEmpty;
+class Validators {
+  static bool isValidName(String name) => name.trim().isNotEmpty;
 
-bool isValidEmail(String email) =>
-    email.trim().isNotEmpty && EmailValidator.validate(email);
+  static bool isValidEmail(String email) => EmailValidator.validate(email);
 
-bool isValidPassword(String password) =>
-    isValidPasswordLength(password) && isValidPasswordStrength(password);
+  static bool isValidPassword(String password) =>
+      isValidPasswordLength(password) && isValidPasswordStrength(password);
 
-bool isValidPasswordLength(String password) =>
-    password.trim().length >= kMinPasswordLength;
+  static bool isValidPasswordLength(String password) =>
+      password.length >= kMinPasswordLength;
 
-bool isValidPasswordStrength(String password) =>
-    estimatePasswordStrength(password) >= kMinPasswordStrength;
+  static bool isValidPasswordStrength(String password) =>
+      estimatePasswordStrength(password) >= kMinPasswordStrength;
+}

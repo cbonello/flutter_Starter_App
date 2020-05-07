@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/src/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_auth/src/configuration.dart';
@@ -11,7 +12,9 @@ import 'package:flutter_auth/src/utils/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 
+import '../mock/firebase_auth.dart';
 import '../mock/repositories.dart';
 import '../mock/services.dart';
 
@@ -22,6 +25,7 @@ void main() {
   final LocalStorageService localStorageServiceMock = MockLocalStorageService();
   final AuthenticationRepository authRepositoryMock = MockAuthenticationRepository();
   final AnalyticsService analyticsServiceMock = MockAnalyticsService();
+  final FirebaseUser authenticatedUser = MockFirebaseUser();
 
   group('Sign-in screen', () {
     testWidgets(
@@ -57,9 +61,9 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        final Finder buttonFinder = find.byKey(AppWidgetKeys.keys['SignInSubmitButton']);
-        expect(buttonFinder, findsOneWidget);
-        expect(tester.widget<GradientButton>(buttonFinder).enabled, isFalse);
+        final Finder submitButton = find.byKey(AppWidgetKeys.keys['SignInSubmitButton']);
+        expect(submitButton, findsOneWidget);
+        expect(tester.widget<GradientButton>(submitButton).enabled, isFalse);
       },
     );
 
@@ -106,9 +110,72 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        final Finder buttonFinder = find.byKey(AppWidgetKeys.keys['SignInSubmitButton']);
-        expect(buttonFinder, findsOneWidget);
-        expect(tester.widget<GradientButton>(buttonFinder).enabled, isTrue);
+        final Finder submitButton = find.byKey(AppWidgetKeys.keys['SignInSubmitButton']);
+        expect(submitButton, findsOneWidget);
+        expect(tester.widget<GradientButton>(submitButton).enabled, isTrue);
+      },
+    );
+
+    testWidgets(
+      'home screen should be displayed after a ssuccessful sign-ins',
+      (WidgetTester tester) async {
+        when(authRepositoryMock.signInWithCurrentUser()).thenAnswer((_) => null);
+        when(localStorageServiceMock.setAuthenticatedUserID(any)).thenAnswer((_) {
+          return Future<bool>.value(true);
+        });
+
+        when(authRepositoryMock.signInWithEmailAndPassword(
+          email: kMockEmail,
+          password: kMockPassword,
+        )).thenAnswer((_) {
+          return Future<FirebaseUser>.value(authenticatedUser);
+        });
+
+        await tester.pumpWidget(
+          MultiBlocProvider(
+            providers: <BlocProvider<dynamic>>[
+              BlocProvider<AuthenticationBloc>(
+                create: (BuildContext _) {
+                  return AuthenticationBloc(
+                    localStorageService: localStorageServiceMock,
+                    authRepository: authRepositoryMock,
+                    analyticsService: analyticsServiceMock,
+                  );
+                },
+              ),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: kSupportedLanguages,
+              home: SignInScreen(
+                authRepository: authRepositoryMock,
+                analyticsService: analyticsServiceMock,
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.enterText(
+          find.byKey(AppWidgetKeys.keys['SignInEmailField']),
+          kMockEmail,
+        );
+        await tester.enterText(
+          find.byKey(AppWidgetKeys.keys['SignInPasswordField']),
+          kMockPassword,
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.byKey(AppWidgetKeys.keys['SignInSubmitButton']));
+        await tester.pumpAndSettle();
+
+        // final Finder signOutButton = find.byKey(AppWidgetKeys.keys['HomeSignOutButton']);
+        // expect(signOutButton, findsOneWidget);
       },
     );
 
@@ -148,10 +215,10 @@ void main() {
         await tester.tap(find.byKey(AppWidgetKeys.keys['SignInForgotPasswordButton']));
         await tester.pumpAndSettle();
 
-        final Finder buttonFinder = find.byKey(
+        final Finder submitButton = find.byKey(
           AppWidgetKeys.keys['PasswordResetSubmitButton'],
         );
-        expect(buttonFinder, findsOneWidget);
+        expect(submitButton, findsOneWidget);
       },
     );
 
@@ -191,10 +258,8 @@ void main() {
         await tester.tap(find.byKey(AppWidgetKeys.keys['SignInSignUpButton']));
         await tester.pumpAndSettle();
 
-        final Finder buttonFinder = find.byKey(
-          AppWidgetKeys.keys['SignUpSubmitButton'],
-        );
-        expect(buttonFinder, findsOneWidget);
+        final Finder submitButton = find.byKey(AppWidgetKeys.keys['SignUpSubmitButton']);
+        expect(submitButton, findsOneWidget);
       },
     );
   });

@@ -49,7 +49,7 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
   }
 
   Stream<ResetPasswordState> _mapEmailChangedToState(String email) async* {
-    yield state.update(isEmailValid: isValidEmail(email), email: email);
+    yield state.update(isEmailValid: Validators.isValidEmail(email), email: email);
   }
 
   Stream<ResetPasswordState> _mapResetPressedToState(String email) async* {
