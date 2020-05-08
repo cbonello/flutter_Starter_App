@@ -196,7 +196,7 @@ Future<void> main() async {
         'successful login',
         build: () async {
           when(authRepositoryMock.signInWithGoogle(
-            newUserHandler: captureAnyNamed('newUserHandler'),
+            newUserHandler: anyNamed('newUserHandler'),
           )).thenAnswer((_) {
             return Future<FirebaseUser>.value(authenticatedUser);
           });
@@ -217,7 +217,7 @@ Future<void> main() async {
         'exception thrown by authentication repository',
         build: () async {
           when(authRepositoryMock.signInWithGoogle(
-            newUserHandler: captureAnyNamed('newUserHandler'),
+            newUserHandler: anyNamed('newUserHandler'),
           )).thenThrow(exception);
           return SignInBloc(
             authRepository: authRepositoryMock,
