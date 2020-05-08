@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_auth/src/utils/validators.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
@@ -64,14 +65,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
   Widget build(BuildContext context) {
     return BlocConsumer<ResetPasswordBloc, ResetPasswordState>(
       listener: (BuildContext context, ResetPasswordState state) async {
-        if (state.exceptionRaised != null) {
-          final SnackBar error = AppSnackBar.createError(
-            title: context.l10n().msgPasswordResetFailure,
-            message: state.exceptionRaised.message(context),
-          );
-          Scaffold.of(context).removeCurrentSnackBar();
-          Scaffold.of(context).showSnackBar(error);
-        } else if (state.isSubmitting) {
+        if (state.isSubmitting) {
           Scaffold.of(context).showSnackBar(_resettingSnackBar);
         } else if (state.isResetEmailSent) {
           Scaffold.of(context).removeCurrentSnackBar();
@@ -91,6 +85,13 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
               ],
             ),
           );
+        } else if (state.exceptionRaised != null) {
+          final SnackBar error = AppSnackBar.createError(
+            title: context.l10n().msgPasswordResetFailure,
+            message: state.exceptionRaised.message(context),
+          );
+          Scaffold.of(context).removeCurrentSnackBar();
+          Scaffold.of(context).showSnackBar(error);
         }
       },
       builder: (BuildContext context, ResetPasswordState state) {
@@ -113,19 +114,19 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
-                      validator: (_) =>
-                          _emailController.text.isNotEmpty && !state.isEmailValid
-                              ? context.l10n().msgEnterValidEmail
-                              : null,
+                      validator: (_) => _emailController.text.trim().isNotEmpty &&
+                              !Validators.isValidEmail(state.email)
+                          ? context.l10n().msgEnterValidEmail
+                          : null,
                     ),
                     const SizedBox(height: 15.0),
                     GradientButton(
                       key: AppWidgetKeys.keys['PasswordResetSubmitButton'],
                       gradient: AppTheme.widgetGradient,
-                      onPressed: isubmitButtonEnabled(state) ? _onFormSubmitted : null,
+                      onPressed: _isubmitButtonEnabled(state) ? _onFormSubmitted : null,
                       child: Text(
                         context.l10n().msgSubmit,
-                        style: isubmitButtonEnabled(state)
+                        style: _isubmitButtonEnabled(state)
                             ? AppTheme.buttonEnabledTextStyle
                             : AppTheme.buttonDisabledTextStyle,
                       ),
@@ -141,12 +142,6 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
     );
   }
 
-  bool get isPopulated => _emailController.text.trim().isNotEmpty;
-
-  bool isubmitButtonEnabled(ResetPasswordState state) {
-    return state.isFormValid && isPopulated && !state.isSubmitting;
-  }
-
   void _onEmailChanged() {
     _resetPasswordBloc.add(
       ResetPasswordEvent.emailChanged(email: _emailController.text.trim()),
@@ -155,8 +150,10 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
   }
 
   void _onFormSubmitted() {
-    _resetPasswordBloc.add(
-      ResetPasswordEvent.resetPressed(email: _emailController.text.trim()),
-    );
+    _resetPasswordBloc.add(const ResetPasswordEvent.resetPressed());
+  }
+
+  bool _isubmitButtonEnabled(ResetPasswordState state) {
+    return state.isPopulated() && state.isValid() && !state.isSubmitting;
   }
 }

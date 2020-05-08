@@ -8,7 +8,9 @@ import 'package:flutter_auth/src/utils/exceptions.dart';
 
 import '../mock/repositories.dart';
 
-const String kMockEmail = 'john.doe@yahoo.com';
+const String kMockInvalidEmail = 'john.doe@ya';
+const String kMockValidEmail = 'john.doe@yahoo.com';
+const String kMockPassword = 'password1234';
 
 Future<void> main() async {
   group('ResetPassword Bloc:', () {
@@ -27,30 +29,34 @@ Future<void> main() async {
     group('EmailChanged:', () {
       blocTest<ResetPasswordBloc, ResetPasswordEvent, ResetPasswordState>(
         'invalid email',
-        build: () async => ResetPasswordBloc(authRepository: authRepositoryMock)
-          ..add(const ResetPasswordEvent.emailChanged(email: 'abcd')),
+        build: () async => ResetPasswordBloc(authRepository: authRepositoryMock),
         act: (ResetPasswordBloc bloc) async {
-          bloc.add(const ResetPasswordEvent.emailChanged(email: 'abcd@'));
+          bloc.add(const ResetPasswordEvent.emailChanged(email: kMockInvalidEmail));
         },
         skip: 0,
-        wait: const Duration(milliseconds: 500),
         expect: <ResetPasswordState>[
           ResetPasswordState.empty(),
-          ResetPasswordState.empty(isEmailValid: false, email: 'abcd@'),
+          const ResetPasswordState(email: kMockInvalidEmail),
         ],
+        verify: (ResetPasswordBloc bloc) async {
+          expect(bloc.state.isValidEmail(), false);
+        },
       );
 
       blocTest<ResetPasswordBloc, ResetPasswordEvent, ResetPasswordState>(
         'valid email',
         build: () async => ResetPasswordBloc(authRepository: authRepositoryMock),
-        act: (ResetPasswordBloc bloc) async =>
-            bloc.add(const ResetPasswordEvent.emailChanged(email: kMockEmail)),
+        act: (ResetPasswordBloc bloc) async {
+          bloc.add(const ResetPasswordEvent.emailChanged(email: kMockValidEmail));
+        },
         skip: 0,
-        wait: const Duration(milliseconds: 500),
         expect: <ResetPasswordState>[
           ResetPasswordState.empty(),
-          ResetPasswordState.empty(email: kMockEmail),
+          const ResetPasswordState(email: kMockValidEmail),
         ],
+        verify: (ResetPasswordBloc bloc) async {
+          expect(bloc.state.isValidEmail(), true);
+        },
       );
     });
 
@@ -58,28 +64,37 @@ Future<void> main() async {
       blocTest<ResetPasswordBloc, ResetPasswordEvent, ResetPasswordState>(
         'successful reset',
         build: () async => ResetPasswordBloc(authRepository: authRepositoryMock),
-        act: (ResetPasswordBloc bloc) async =>
-            bloc.add(const ResetPasswordEvent.resetPressed(email: kMockEmail)),
-        wait: const Duration(milliseconds: 500),
+        act: (ResetPasswordBloc bloc) async {
+          bloc.add(const ResetPasswordEvent.emailChanged(email: kMockValidEmail));
+          bloc.add(const ResetPasswordEvent.resetPressed());
+        },
+        skip: 0,
         expect: <ResetPasswordState>[
-          ResetPasswordState.resetting(),
-          ResetPasswordState.success(email: kMockEmail),
+          ResetPasswordState.empty(),
+          const ResetPasswordState(email: kMockValidEmail),
+          const ResetPasswordState(email: kMockValidEmail, isSubmitting: true),
+          const ResetPasswordState(email: kMockValidEmail, isResetEmailSent: true),
         ],
       );
 
       blocTest<ResetPasswordBloc, ResetPasswordEvent, ResetPasswordState>(
         'exception thrown by authentication repository',
         build: () async {
-          when(authRepositoryMock.sendPasswordResetEmail(email: kMockEmail))
-              .thenThrow(exception);
+          when(authRepositoryMock.sendPasswordResetEmail(
+            email: anyNamed('email'),
+          )).thenThrow(exception);
           return ResetPasswordBloc(authRepository: authRepositoryMock);
         },
-        act: (ResetPasswordBloc bloc) async =>
-            bloc.add(const ResetPasswordEvent.resetPressed(email: kMockEmail)),
-        wait: const Duration(milliseconds: 500),
+        act: (ResetPasswordBloc bloc) async {
+          bloc.add(const ResetPasswordEvent.emailChanged(email: kMockValidEmail));
+          bloc.add(const ResetPasswordEvent.resetPressed());
+        },
+        skip: 0,
         expect: <ResetPasswordState>[
-          ResetPasswordState.resetting(),
-          ResetPasswordState.failure(exceptionRaised: exception)
+          ResetPasswordState.empty(),
+          const ResetPasswordState(email: kMockValidEmail),
+          const ResetPasswordState(email: kMockValidEmail, isSubmitting: true),
+          const ResetPasswordState(email: kMockValidEmail, exceptionRaised: exception),
         ],
       );
     });

@@ -2,53 +2,19 @@ part of 'reset_password_bloc.dart';
 
 @freezed
 abstract class ResetPasswordState implements _$ResetPasswordState {
-  ResetPasswordState._();
+  const ResetPasswordState._();
 
-  factory ResetPasswordState.empty({
-    @Default(true) bool isEmailValid,
+  const factory ResetPasswordState({
+    @Default('') String email,
     @Default(false) bool isSubmitting,
     @Default(false) bool isResetEmailSent,
-    @nullable String email,
     @nullable AppException exceptionRaised,
-  }) = _Empty;
+  }) = _ResetPasswordState;
 
-  factory ResetPasswordState.resetting({
-    @Default(true) bool isEmailValid,
-    @Default(true) bool isSubmitting,
-    @Default(false) bool isResetEmailSent,
-    @nullable String email,
-    @nullable AppException exceptionRaised,
-  }) = _Resetting;
+  factory ResetPasswordState.empty() => const ResetPasswordState();
 
-  factory ResetPasswordState.failure({
-    @Default(true) bool isEmailValid,
-    @Default(false) bool isSubmitting,
-    @Default(false) bool isResetEmailSent,
-    @nullable String email,
-    AppException exceptionRaised,
-  }) = _Failure;
-
-  factory ResetPasswordState.success({
-    @Default(true) bool isEmailValid,
-    @Default(false) bool isSubmitting,
-    @Default(true) bool isResetEmailSent,
-    String email,
-    @nullable AppException exceptionRaised,
-  }) = _Success;
-
-  @late
-  bool get isFormValid => isEmailValid;
-
-  @late
-  bool get isFailure => exceptionRaised != null;
-
-  ResetPasswordState update({@required bool isEmailValid, @required String email}) {
-    return copyWith(
-      isEmailValid: isEmailValid,
-      isSubmitting: false,
-      isResetEmailSent: false,
-      email: email,
-      exceptionRaised: null,
-    );
-  }
+  // Space characters are allowed in passwords.
+  bool isPopulated() => email.trim().isNotEmpty;
+  bool isValidEmail() => Validators.isValidEmail(email);
+  bool isValid() => isValidEmail();
 }

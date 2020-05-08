@@ -4,5 +4,5 @@ part of 'reset_password_bloc.dart';
 abstract class ResetPasswordEvent with _$ResetPasswordEvent {
   const factory ResetPasswordEvent.emailChanged({String email}) = _EmailChanged;
 
-  const factory ResetPasswordEvent.resetPressed({String email}) = _ResetPressed;
+  const factory ResetPasswordEvent.resetPressed() = _ResetPressed;
 }

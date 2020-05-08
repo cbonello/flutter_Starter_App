@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../repositories/authentication_repository.dart';
 import '../../utils/exceptions.dart';
@@ -23,42 +22,28 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
   ResetPasswordState get initialState => ResetPasswordState.empty();
 
   @override
-  Stream<Transition<ResetPasswordEvent, ResetPasswordState>> transformEvents(
-    Stream<ResetPasswordEvent> events,
-    TransitionFunction<ResetPasswordEvent, ResetPasswordState> transitionFn,
-  ) {
-    final Stream<ResetPasswordEvent> nonDebounceStream =
-        events.where((ResetPasswordEvent event) => event is! _EmailChanged);
-    final Stream<ResetPasswordEvent> debounceStream = events
-        .where((ResetPasswordEvent event) => event is _EmailChanged)
-        .debounceTime(const Duration(milliseconds: 300));
-    return super.transformEvents(
-      nonDebounceStream.mergeWith(<Stream<ResetPasswordEvent>>[debounceStream]),
-      transitionFn,
-    );
-  }
-
-  @override
   Stream<ResetPasswordState> mapEventToState(
     ResetPasswordEvent event,
   ) async* {
     yield* event.when(
       emailChanged: (String email) => _mapEmailChangedToState(email),
-      resetPressed: (String email) => _mapResetPressedToState(email),
+      resetPressed: () => _mapResetPressedToState(),
     );
   }
 
   Stream<ResetPasswordState> _mapEmailChangedToState(String email) async* {
-    yield state.update(isEmailValid: Validators.isValidEmail(email), email: email);
+    yield state.copyWith(email: email, exceptionRaised: null);
   }
 
-  Stream<ResetPasswordState> _mapResetPressedToState(String email) async* {
-    yield ResetPasswordState.resetting();
+  Stream<ResetPasswordState> _mapResetPressedToState() async* {
+    yield state.copyWith(isSubmitting: true);
     try {
-      await _authRepository.sendPasswordResetEmail(email: email);
-      yield ResetPasswordState.success(email: email);
+      await _authRepository.sendPasswordResetEmail(email: state.email);
+      yield state.copyWith(isSubmitting: false, isResetEmailSent: true);
     } catch (exception) {
-      yield ResetPasswordState.failure(
+      yield state.copyWith(
+        isSubmitting: false,
+        isResetEmailSent: false,
         exceptionRaised: AppException.from(exception as Exception),
       );
     }
