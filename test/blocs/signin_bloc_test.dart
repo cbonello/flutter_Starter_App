@@ -46,7 +46,6 @@ Future<void> main() async {
           bloc.add(const SignInEvent.emailChanged(email: kMockInvalidEmail));
         },
         skip: 0,
-        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[
           SignInState.empty(),
           const SignInState(email: kMockInvalidEmail),
@@ -66,7 +65,6 @@ Future<void> main() async {
         act: (SignInBloc bloc) async =>
             bloc.add(const SignInEvent.emailChanged(email: kMockValidEmail)),
         skip: 0,
-        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[
           SignInState.empty(),
           const SignInState(email: kMockValidEmail),
@@ -88,7 +86,6 @@ Future<void> main() async {
         act: (SignInBloc bloc) async =>
             bloc.add(const SignInEvent.passwordChanged(password: '')),
         skip: 0,
-        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[SignInState.empty()],
         verify: (SignInBloc bloc) async {
           expect(bloc.state.isValidEmail(), false);
@@ -105,7 +102,6 @@ Future<void> main() async {
         act: (SignInBloc bloc) async =>
             bloc.add(const SignInEvent.passwordChanged(password: kMockPassword)),
         skip: 0,
-        wait: const Duration(milliseconds: 500),
         expect: <SignInState>[
           SignInState.empty(),
           const SignInState(password: kMockPassword),
