@@ -10,7 +10,8 @@ import 'package:flutter_auth/src/utils/exceptions.dart';
 import '../mock/firebase_auth.dart';
 import '../mock/repositories.dart';
 
-const String kMockEmail = 'john.doe@yahoo.com';
+const String kMockInvalidEmail = 'john.doe@ya';
+const String kMockValidEmail = 'john.doe@yahoo.com';
 const String kMockPassword = 'password1234';
 
 Future<void> main() async {
@@ -31,27 +32,36 @@ Future<void> main() async {
     group('EmailChanged:', () {
       blocTest<SignUpBloc, SignUpEvent, SignUpState>(
         'invalid email',
-        build: () async => SignUpBloc(authRepository: authRepositoryMock)
-          ..add(const SignUpEvent.emailChanged(email: 'abcd')),
+        build: () async => SignUpBloc(authRepository: authRepositoryMock),
         act: (SignUpBloc bloc) async {
-          bloc.add(const SignUpEvent.emailChanged(email: 'abcd@'));
+          bloc.add(const SignUpEvent.emailChanged(email: kMockInvalidEmail));
         },
         skip: 0,
-        wait: const Duration(milliseconds: 500),
         expect: <SignUpState>[
           SignUpState.empty(),
-          SignUpState.empty(isEmailValid: false),
+          const SignUpState(email: kMockInvalidEmail),
         ],
+        verify: (SignUpBloc bloc) async {
+          expect(bloc.state.isValidEmail(), false);
+          expect(bloc.state.isValidPassword(), false);
+        },
       );
 
       blocTest<SignUpBloc, SignUpEvent, SignUpState>(
         'valid email',
         build: () async => SignUpBloc(authRepository: authRepositoryMock),
-        act: (SignUpBloc bloc) async =>
-            bloc.add(const SignUpEvent.emailChanged(email: 'abcd@efgh.com')),
+        act: (SignUpBloc bloc) async {
+          bloc.add(const SignUpEvent.emailChanged(email: kMockValidEmail));
+        },
         skip: 0,
-        wait: const Duration(milliseconds: 500),
-        expect: <SignUpState>[SignUpState.empty()],
+        expect: <SignUpState>[
+          SignUpState.empty(),
+          const SignUpState(email: kMockValidEmail),
+        ],
+        verify: (SignUpBloc bloc) async {
+          expect(bloc.state.isValidEmail(), true);
+          expect(bloc.state.isValidPassword(), false);
+        },
       );
     });
 
@@ -59,24 +69,49 @@ Future<void> main() async {
       blocTest<SignUpBloc, SignUpEvent, SignUpState>(
         'invalid password',
         build: () async => SignUpBloc(authRepository: authRepositoryMock),
-        act: (SignUpBloc bloc) async =>
-            bloc.add(const SignUpEvent.passwordChanged(password: '')),
+        act: (SignUpBloc bloc) async {
+          bloc.add(const SignUpEvent.passwordChanged(password: ''));
+        },
         skip: 0,
-        wait: const Duration(milliseconds: 500),
-        expect: <SignUpState>[
-          SignUpState.empty(),
-          SignUpState.empty(isPasswordValid: false)
-        ],
+        expect: <SignUpState>[SignUpState.empty()],
+        verify: (SignUpBloc bloc) async {
+          expect(bloc.state.isValidEmail(), false);
+          expect(bloc.state.isValidPassword(), false);
+        },
       );
 
       blocTest<SignUpBloc, SignUpEvent, SignUpState>(
         'valid password',
         build: () async => SignUpBloc(authRepository: authRepositoryMock),
-        act: (SignUpBloc bloc) async =>
-            bloc.add(const SignUpEvent.passwordChanged(password: 'flutter_12345')),
+        act: (SignUpBloc bloc) async {
+          bloc.add(const SignUpEvent.passwordChanged(password: kMockPassword));
+        },
         skip: 0,
-        wait: const Duration(milliseconds: 500),
-        expect: <SignUpState>[SignUpState.empty()],
+        expect: <SignUpState>[
+          SignUpState.empty(),
+          const SignUpState(password: kMockPassword),
+        ],
+        verify: (SignUpBloc bloc) async {
+          expect(bloc.state.isValidEmail(), false);
+          expect(bloc.state.isValidPassword(), true);
+        },
+      );
+    });
+
+    group('tosChanged:', () {
+      blocTest<SignUpBloc, SignUpEvent, SignUpState>(
+        'toggle ToS acceptance',
+        build: () async => SignUpBloc(authRepository: authRepositoryMock),
+        act: (SignUpBloc bloc) async {
+          bloc.add(const SignUpEvent.tosChanged(tos: true));
+          bloc.add(const SignUpEvent.tosChanged(tos: false));
+        },
+        skip: 0,
+        expect: <SignUpState>[
+          SignUpState.empty(),
+          const SignUpState(tosAccepted: true),
+          const SignUpState(tosAccepted: false),
+        ],
       );
     });
 
@@ -85,7 +120,7 @@ Future<void> main() async {
         'Sign up successfully',
         build: () async {
           when(authRepositoryMock.signUp(
-            email: kMockEmail,
+            email: kMockValidEmail,
             password: kMockPassword,
           )).thenAnswer((_) {
             return Future<FirebaseUser>.value(authenticatedUser);
@@ -93,14 +128,34 @@ Future<void> main() async {
           return SignUpBloc(authRepository: authRepositoryMock);
         },
         act: (SignUpBloc bloc) async {
-          bloc.add(
-            const SignUpEvent.submitted(email: kMockEmail, password: kMockPassword),
-          );
+          bloc.add(const SignUpEvent.emailChanged(email: kMockValidEmail));
+          bloc.add(const SignUpEvent.passwordChanged(password: kMockPassword));
+          bloc.add(const SignUpEvent.tosChanged(tos: true));
+          bloc.add(const SignUpEvent.submitted());
         },
-        wait: const Duration(milliseconds: 500),
+        skip: 0,
         expect: <SignUpState>[
-          SignUpState.signingUp(),
-          SignUpState.emailSent(user: authenticatedUser)
+          SignUpState.empty(),
+          const SignUpState(email: kMockValidEmail),
+          const SignUpState(email: kMockValidEmail, password: kMockPassword),
+          const SignUpState(
+            email: kMockValidEmail,
+            password: kMockPassword,
+            tosAccepted: true,
+          ),
+          const SignUpState(
+            email: kMockValidEmail,
+            password: kMockPassword,
+            tosAccepted: true,
+            isSubmitting: true,
+          ),
+          const SignUpState(
+            email: kMockValidEmail,
+            password: kMockPassword,
+            tosAccepted: true,
+            isSubmitting: false,
+            isVerificationEmailSent: true,
+          ),
         ],
       );
 
@@ -108,20 +163,40 @@ Future<void> main() async {
         'Sign up (exception thrown by authentication repository)',
         build: () async {
           when(authRepositoryMock.signUp(
-            email: kMockEmail,
-            password: kMockPassword,
+            email: anyNamed('email'),
+            password: anyNamed('password'),
           )).thenThrow(exception);
           return SignUpBloc(authRepository: authRepositoryMock);
         },
         act: (SignUpBloc bloc) async {
-          bloc.add(
-            const SignUpEvent.submitted(email: kMockEmail, password: kMockPassword),
-          );
+          bloc.add(const SignUpEvent.emailChanged(email: kMockValidEmail));
+          bloc.add(const SignUpEvent.passwordChanged(password: kMockPassword));
+          bloc.add(const SignUpEvent.tosChanged(tos: true));
+          bloc.add(const SignUpEvent.submitted());
         },
-        wait: const Duration(milliseconds: 500),
+        skip: 0,
         expect: <SignUpState>[
-          SignUpState.signingUp(),
-          SignUpState.failure(exceptionRaised: exception)
+          SignUpState.empty(),
+          const SignUpState(email: kMockValidEmail),
+          const SignUpState(email: kMockValidEmail, password: kMockPassword),
+          const SignUpState(
+            email: kMockValidEmail,
+            password: kMockPassword,
+            tosAccepted: true,
+          ),
+          const SignUpState(
+            email: kMockValidEmail,
+            password: kMockPassword,
+            tosAccepted: true,
+            isSubmitting: true,
+          ),
+          const SignUpState(
+            email: kMockValidEmail,
+            password: kMockPassword,
+            tosAccepted: true,
+            isSubmitting: false,
+            exceptionRaised: exception,
+          ),
         ],
       );
     });

@@ -6,8 +6,7 @@ abstract class SignUpEvent with _$SignUpEvent {
 
   const factory SignUpEvent.passwordChanged({String password}) = _PasswordChanged;
 
-  const factory SignUpEvent.submitted({
-    String email,
-    String password,
-  }) = _Submitted;
+  const factory SignUpEvent.tosChanged({bool tos}) = _ToSChanged;
+
+  const factory SignUpEvent.submitted() = _Submitted;
 }

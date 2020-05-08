@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../repositories/authentication_repository.dart';
 import '../../utils/exceptions.dart';
@@ -23,67 +21,50 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpState get initialState => SignUpState.empty();
 
   @override
-  Stream<Transition<SignUpEvent, SignUpState>> transformEvents(
-    Stream<SignUpEvent> events,
-    TransitionFunction<SignUpEvent, SignUpState> transitionFn,
-  ) {
-    final Stream<SignUpEvent> observableStream = events;
-
-    final Stream<SignUpEvent> nonDebounceStream =
-        observableStream.where((SignUpEvent event) {
-      return event is! _EmailChanged && event is! _PasswordChanged;
-    });
-    final Stream<SignUpEvent> debounceStream =
-        observableStream.where((SignUpEvent event) {
-      return event is _EmailChanged || event is _PasswordChanged;
-    }).debounceTime(const Duration(milliseconds: 300));
-    return super.transformEvents(
-      nonDebounceStream.mergeWith(<Stream<SignUpEvent>>[debounceStream]),
-      transitionFn,
-    );
-  }
-
-  @override
   Stream<SignUpState> mapEventToState(
     SignUpEvent event,
   ) async* {
     yield* event.when(
       emailChanged: (String email) => _mapEmailChangedToState(email),
       passwordChanged: (String password) => _mapPasswordChangedToState(password),
-      submitted: (String email, String password) =>
-          _mapFormSubmittedToState(email, password),
+      tosChanged: (bool tos) => _mapToSChangedToState(tos),
+      submitted: () => _mapFormSubmittedToState(),
     );
   }
 
   Stream<SignUpState> _mapEmailChangedToState(String email) async* {
-    yield state.update(
-      isEmailValid: Validators.isValidEmail(email),
-      isPasswordValid: state.isPasswordValid,
-      user: state.user,
+    yield state.copyWith(
+      email: email,
+      isVerificationEmailSent: false,
+      exceptionRaised: null,
     );
   }
 
   Stream<SignUpState> _mapPasswordChangedToState(String password) async* {
-    yield state.update(
-      isEmailValid: state.isEmailValid,
-      isPasswordValid: Validators.isValidPassword(password),
-      user: state.user,
+    yield state.copyWith(
+      password: password,
+      isVerificationEmailSent: false,
+      exceptionRaised: null,
     );
   }
 
-  Stream<SignUpState> _mapFormSubmittedToState(
-    String email,
-    String password,
-  ) async* {
-    yield SignUpState.signingUp();
+  Stream<SignUpState> _mapToSChangedToState(bool tos) async* {
+    yield state.copyWith(
+      tosAccepted: tos,
+      isVerificationEmailSent: false,
+      exceptionRaised: null,
+    );
+  }
+
+  Stream<SignUpState> _mapFormSubmittedToState() async* {
+    yield state.copyWith(isSubmitting: true);
     try {
-      final FirebaseUser user = await _authRepository.signUp(
-        email: email,
-        password: password,
-      );
-      yield SignUpState.emailSent(user: user);
+      await _authRepository.signUp(email: state.email, password: state.password);
+      yield state.copyWith(isSubmitting: false, isVerificationEmailSent: true);
     } catch (exception) {
-      yield SignUpState.failure(
+      yield state.copyWith(
+        isSubmitting: false,
+        isVerificationEmailSent: false,
         exceptionRaised: AppException.from(exception as Exception),
       );
     }

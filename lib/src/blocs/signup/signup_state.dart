@@ -2,62 +2,22 @@ part of 'signup_bloc.dart';
 
 @freezed
 abstract class SignUpState implements _$SignUpState {
-  SignUpState._();
+  const SignUpState._();
 
-  factory SignUpState.empty({
-    @Default(true) bool isEmailValid,
-    @Default(true) bool isPasswordValid,
+  const factory SignUpState({
+    @Default('') String email,
+    @Default('') String password,
+    @Default(false) bool tosAccepted,
     @Default(false) bool isSubmitting,
     @Default(false) bool isVerificationEmailSent,
-    @nullable FirebaseUser user,
     @nullable AppException exceptionRaised,
-  }) = _Empty;
+  }) = _SignUpState;
 
-  factory SignUpState.signingUp({
-    @Default(true) bool isEmailValid,
-    @Default(true) bool isPasswordValid,
-    @Default(true) bool isSubmitting,
-    @Default(false) bool isVerificationEmailSent,
-    @nullable FirebaseUser user,
-    @nullable AppException exceptionRaised,
-  }) = _Loading;
+  factory SignUpState.empty() => const SignUpState();
 
-  factory SignUpState.failure({
-    @Default(true) bool isEmailValid,
-    @Default(true) bool isPasswordValid,
-    @Default(false) bool isSubmitting,
-    @Default(false) bool isVerificationEmailSent,
-    @nullable FirebaseUser user,
-    AppException exceptionRaised,
-  }) = _Failure;
-
-  factory SignUpState.emailSent({
-    @Default(true) bool isEmailValid,
-    @Default(true) bool isPasswordValid,
-    @Default(false) bool isSubmitting,
-    @Default(true) bool isVerificationEmailSent,
-    FirebaseUser user,
-    @nullable AppException exceptionRaised,
-  }) = _Success;
-
-  @late
-  bool get isFormValid => isEmailValid && isPasswordValid;
-
-  @late
-  bool get isFailure => exceptionRaised != null;
-
-  SignUpState update({
-    bool isEmailValid,
-    bool isPasswordValid,
-    FirebaseUser user,
-  }) {
-    return copyWith(
-      isEmailValid: isEmailValid,
-      isPasswordValid: isPasswordValid,
-      isSubmitting: false,
-      isVerificationEmailSent: false,
-      user: user,
-      exceptionRaised: null,
-    );
-  }
+  // Space characters are allowed in passwords.
+  bool isPopulated() => email.trim().isNotEmpty && password.isNotEmpty && tosAccepted;
+  bool isValidEmail() => Validators.isValidEmail(email);
+  bool isValidPassword() => Validators.isValidPassword(password);
+  bool isValid() => isValidEmail() && isValidPassword() && tosAccepted;
 }

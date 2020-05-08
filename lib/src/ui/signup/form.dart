@@ -90,14 +90,7 @@ class SignUpFormState extends State<SignUpForm> {
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpBloc, SignUpState>(
       listener: (BuildContext context, SignUpState state) async {
-        if (state.isFailure) {
-          final SnackBar error = AppSnackBar.createError(
-            title: context.l10n().msgSignUpFailure,
-            message: state.exceptionRaised.message(context),
-          );
-          Scaffold.of(context).removeCurrentSnackBar();
-          Scaffold.of(context).showSnackBar(error);
-        } else if (state.isSubmitting) {
+        if (state.isSubmitting) {
           Scaffold.of(context).showSnackBar(_signingUpSnackBar);
         } else if (state.isVerificationEmailSent) {
           Scaffold.of(context).removeCurrentSnackBar();
@@ -106,7 +99,7 @@ class SignUpFormState extends State<SignUpForm> {
             builder: (_) => PlatformAlertDialog(
               title: Text(context.l10n().msgAccountVerification),
               content: Text(
-                context.l10n().msgAccountVerificationExplanation(state.user.email),
+                context.l10n().msgAccountVerificationExplanation(state.email),
               ),
               actions: <Widget>[
                 PlatformDialogAction(
@@ -121,6 +114,13 @@ class SignUpFormState extends State<SignUpForm> {
               ],
             ),
           );
+        } else if (state.exceptionRaised != null) {
+          final SnackBar error = AppSnackBar.createError(
+            title: context.l10n().msgSignUpFailure,
+            message: state.exceptionRaised.message(context),
+          );
+          Scaffold.of(context).removeCurrentSnackBar();
+          Scaffold.of(context).showSnackBar(error);
         }
       },
       builder: (BuildContext context, SignUpState state) {
@@ -138,28 +138,23 @@ class SignUpFormState extends State<SignUpForm> {
                     AppLogo(scaleFactor: widget.logoScaleFactor),
                     const Spacer(),
                     AppTextFormField(
-                      key: AppWidgetKeys.keys['SignUpEmailField'],
-                      labelText: context.l10n().msgEmail,
-                      textInputAction: TextInputAction.next,
-                      focusNode: _emailFocus,
-                      onFieldSubmitted: (_) {
-                        fieldFocusChangeCallback(
-                          context,
-                          _emailFocus,
-                          _passwordFocus,
-                        );
-                      },
-                      keyboardType: TextInputType.emailAddress,
-                      controller: _emailController,
-                      validator: (_) {
-                        if (_emailController.text.isNotEmpty) {
-                          if (state.isEmailValid == false) {
-                            return context.l10n().msgEnterValidEmail;
-                          }
-                        }
-                        return null;
-                      },
-                    ),
+                        key: AppWidgetKeys.keys['SignUpEmailField'],
+                        labelText: context.l10n().msgEmail,
+                        textInputAction: TextInputAction.next,
+                        focusNode: _emailFocus,
+                        onFieldSubmitted: (_) {
+                          fieldFocusChangeCallback(
+                            context,
+                            _emailFocus,
+                            _passwordFocus,
+                          );
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        controller: _emailController,
+                        validator: (_) => _emailController.text.trim().isNotEmpty &&
+                                !state.isValidEmail()
+                            ? context.l10n().msgEnterValidEmail
+                            : null),
                     const SizedBox(height: 10.0),
                     AppPassworFormField(
                       key: AppWidgetKeys.keys['SignUpPasswordField'],
@@ -171,7 +166,8 @@ class SignUpFormState extends State<SignUpForm> {
                             return context.l10n().msgWeakTooShort('$kMinPasswordLength');
                           }
                           if (!Validators.isValidPasswordStrength(
-                              _passwordController.text)) {
+                            _passwordController.text,
+                          )) {
                             return context.l10n().msgWeakPassword;
                           }
                         }
@@ -206,10 +202,10 @@ class SignUpFormState extends State<SignUpForm> {
                           key: AppWidgetKeys.keys['SignUpSubmitButton'],
                           gradient: AppTheme.widgetGradient,
                           onPressed:
-                              isSignUpButtonEnabled(state) ? _onFormSubmitted : null,
+                              _isSignUpButtonEnabled(state) ? _onFormSubmitted : null,
                           child: Text(
                             context.l10n().msgSignUp,
-                            style: isSignUpButtonEnabled(state)
+                            style: _isSignUpButtonEnabled(state)
                                 ? AppTheme.buttonEnabledTextStyle
                                 : AppTheme.buttonDisabledTextStyle,
                           ),
@@ -262,36 +258,26 @@ class SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  bool get isPopulated =>
-      _emailController.text.trim().isNotEmpty &&
-      _passwordController.text.trim().isNotEmpty &&
-      _agreedToTOSAndPolicy;
-
-  bool isSignUpButtonEnabled(SignUpState state) {
-    return state.isFormValid && isPopulated && !state.isSubmitting;
-  }
-
   void _onEmailChanged() {
     _signUpBloc.add(SignUpEvent.emailChanged(email: _emailController.text.trim()));
     setState(() {});
   }
 
   void _onPasswordChanged() {
-    _signUpBloc
-        .add(SignUpEvent.passwordChanged(password: _passwordController.text.trim()));
+    _signUpBloc.add(SignUpEvent.passwordChanged(password: _passwordController.text));
     setState(() {});
   }
 
   void _onTOSChanged(bool newValue) {
+    _signUpBloc.add(SignUpEvent.tosChanged(tos: newValue));
     setState(() => _agreedToTOSAndPolicy = newValue);
   }
 
+  bool _isSignUpButtonEnabled(SignUpState state) {
+    return state.isPopulated() && state.isValid() && !state.isSubmitting;
+  }
+
   void _onFormSubmitted() {
-    _signUpBloc.add(
-      SignUpEvent.submitted(
-        email: _emailController.text,
-        password: _passwordController.text,
-      ),
-    );
+    _signUpBloc.add(const SignUpEvent.submitted());
   }
 }

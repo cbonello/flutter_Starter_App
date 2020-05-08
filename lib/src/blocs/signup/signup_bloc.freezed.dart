@@ -24,11 +24,14 @@ class _$SignUpEventTearOff {
     );
   }
 
-  _Submitted submitted({String email, String password}) {
-    return _Submitted(
-      email: email,
-      password: password,
+  _ToSChanged tosChanged({bool tos}) {
+    return _ToSChanged(
+      tos: tos,
     );
+  }
+
+  _Submitted submitted() {
+    return const _Submitted();
   }
 }
 
@@ -40,25 +43,29 @@ mixin _$SignUpEvent {
   Result when<Result extends Object>({
     @required Result emailChanged(String email),
     @required Result passwordChanged(String password),
-    @required Result submitted(String email, String password),
+    @required Result tosChanged(bool tos),
+    @required Result submitted(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result emailChanged(String email),
     Result passwordChanged(String password),
-    Result submitted(String email, String password),
+    Result tosChanged(bool tos),
+    Result submitted(),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result emailChanged(_EmailChanged value),
     @required Result passwordChanged(_PasswordChanged value),
+    @required Result tosChanged(_ToSChanged value),
     @required Result submitted(_Submitted value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result emailChanged(_EmailChanged value),
     Result passwordChanged(_PasswordChanged value),
+    Result tosChanged(_ToSChanged value),
     Result submitted(_Submitted value),
     @required Result orElse(),
   });
@@ -144,10 +151,12 @@ class _$_EmailChanged with DiagnosticableTreeMixin implements _EmailChanged {
   Result when<Result extends Object>({
     @required Result emailChanged(String email),
     @required Result passwordChanged(String password),
-    @required Result submitted(String email, String password),
+    @required Result tosChanged(bool tos),
+    @required Result submitted(),
   }) {
     assert(emailChanged != null);
     assert(passwordChanged != null);
+    assert(tosChanged != null);
     assert(submitted != null);
     return emailChanged(email);
   }
@@ -157,7 +166,8 @@ class _$_EmailChanged with DiagnosticableTreeMixin implements _EmailChanged {
   Result maybeWhen<Result extends Object>({
     Result emailChanged(String email),
     Result passwordChanged(String password),
-    Result submitted(String email, String password),
+    Result tosChanged(bool tos),
+    Result submitted(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -172,10 +182,12 @@ class _$_EmailChanged with DiagnosticableTreeMixin implements _EmailChanged {
   Result map<Result extends Object>({
     @required Result emailChanged(_EmailChanged value),
     @required Result passwordChanged(_PasswordChanged value),
+    @required Result tosChanged(_ToSChanged value),
     @required Result submitted(_Submitted value),
   }) {
     assert(emailChanged != null);
     assert(passwordChanged != null);
+    assert(tosChanged != null);
     assert(submitted != null);
     return emailChanged(this);
   }
@@ -185,6 +197,7 @@ class _$_EmailChanged with DiagnosticableTreeMixin implements _EmailChanged {
   Result maybeMap<Result extends Object>({
     Result emailChanged(_EmailChanged value),
     Result passwordChanged(_PasswordChanged value),
+    Result tosChanged(_ToSChanged value),
     Result submitted(_Submitted value),
     @required Result orElse(),
   }) {
@@ -273,10 +286,12 @@ class _$_PasswordChanged
   Result when<Result extends Object>({
     @required Result emailChanged(String email),
     @required Result passwordChanged(String password),
-    @required Result submitted(String email, String password),
+    @required Result tosChanged(bool tos),
+    @required Result submitted(),
   }) {
     assert(emailChanged != null);
     assert(passwordChanged != null);
+    assert(tosChanged != null);
     assert(submitted != null);
     return passwordChanged(password);
   }
@@ -286,7 +301,8 @@ class _$_PasswordChanged
   Result maybeWhen<Result extends Object>({
     Result emailChanged(String email),
     Result passwordChanged(String password),
-    Result submitted(String email, String password),
+    Result tosChanged(bool tos),
+    Result submitted(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -301,10 +317,12 @@ class _$_PasswordChanged
   Result map<Result extends Object>({
     @required Result emailChanged(_EmailChanged value),
     @required Result passwordChanged(_PasswordChanged value),
+    @required Result tosChanged(_ToSChanged value),
     @required Result submitted(_Submitted value),
   }) {
     assert(emailChanged != null);
     assert(passwordChanged != null);
+    assert(tosChanged != null);
     assert(submitted != null);
     return passwordChanged(this);
   }
@@ -314,6 +332,7 @@ class _$_PasswordChanged
   Result maybeMap<Result extends Object>({
     Result emailChanged(_EmailChanged value),
     Result passwordChanged(_PasswordChanged value),
+    Result tosChanged(_ToSChanged value),
     Result submitted(_Submitted value),
     @required Result orElse(),
   }) {
@@ -332,87 +351,80 @@ abstract class _PasswordChanged implements SignUpEvent {
   _$PasswordChangedCopyWith<_PasswordChanged> get copyWith;
 }
 
-abstract class _$SubmittedCopyWith<$Res> {
-  factory _$SubmittedCopyWith(
-          _Submitted value, $Res Function(_Submitted) then) =
-      __$SubmittedCopyWithImpl<$Res>;
-  $Res call({String email, String password});
+abstract class _$ToSChangedCopyWith<$Res> {
+  factory _$ToSChangedCopyWith(
+          _ToSChanged value, $Res Function(_ToSChanged) then) =
+      __$ToSChangedCopyWithImpl<$Res>;
+  $Res call({bool tos});
 }
 
-class __$SubmittedCopyWithImpl<$Res> extends _$SignUpEventCopyWithImpl<$Res>
-    implements _$SubmittedCopyWith<$Res> {
-  __$SubmittedCopyWithImpl(_Submitted _value, $Res Function(_Submitted) _then)
-      : super(_value, (v) => _then(v as _Submitted));
+class __$ToSChangedCopyWithImpl<$Res> extends _$SignUpEventCopyWithImpl<$Res>
+    implements _$ToSChangedCopyWith<$Res> {
+  __$ToSChangedCopyWithImpl(
+      _ToSChanged _value, $Res Function(_ToSChanged) _then)
+      : super(_value, (v) => _then(v as _ToSChanged));
 
   @override
-  _Submitted get _value => super._value as _Submitted;
+  _ToSChanged get _value => super._value as _ToSChanged;
 
   @override
   $Res call({
-    Object email = freezed,
-    Object password = freezed,
+    Object tos = freezed,
   }) {
-    return _then(_Submitted(
-      email: email == freezed ? _value.email : email as String,
-      password: password == freezed ? _value.password : password as String,
+    return _then(_ToSChanged(
+      tos: tos == freezed ? _value.tos : tos as bool,
     ));
   }
 }
 
-class _$_Submitted with DiagnosticableTreeMixin implements _Submitted {
-  const _$_Submitted({this.email, this.password});
+class _$_ToSChanged with DiagnosticableTreeMixin implements _ToSChanged {
+  const _$_ToSChanged({this.tos});
 
   @override
-  final String email;
-  @override
-  final String password;
+  final bool tos;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignUpEvent.submitted(email: $email, password: $password)';
+    return 'SignUpEvent.tosChanged(tos: $tos)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'SignUpEvent.submitted'))
-      ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('password', password));
+      ..add(DiagnosticsProperty('type', 'SignUpEvent.tosChanged'))
+      ..add(DiagnosticsProperty('tos', tos));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Submitted &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.password, password) ||
-                const DeepCollectionEquality()
-                    .equals(other.password, password)));
+        (other is _ToSChanged &&
+            (identical(other.tos, tos) ||
+                const DeepCollectionEquality().equals(other.tos, tos)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(password);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(tos);
 
   @override
-  _$SubmittedCopyWith<_Submitted> get copyWith =>
-      __$SubmittedCopyWithImpl<_Submitted>(this, _$identity);
+  _$ToSChangedCopyWith<_ToSChanged> get copyWith =>
+      __$ToSChangedCopyWithImpl<_ToSChanged>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result emailChanged(String email),
     @required Result passwordChanged(String password),
-    @required Result submitted(String email, String password),
+    @required Result tosChanged(bool tos),
+    @required Result submitted(),
   }) {
     assert(emailChanged != null);
     assert(passwordChanged != null);
+    assert(tosChanged != null);
     assert(submitted != null);
-    return submitted(email, password);
+    return tosChanged(tos);
   }
 
   @override
@@ -420,12 +432,13 @@ class _$_Submitted with DiagnosticableTreeMixin implements _Submitted {
   Result maybeWhen<Result extends Object>({
     Result emailChanged(String email),
     Result passwordChanged(String password),
-    Result submitted(String email, String password),
+    Result tosChanged(bool tos),
+    Result submitted(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (submitted != null) {
-      return submitted(email, password);
+    if (tosChanged != null) {
+      return tosChanged(tos);
     }
     return orElse();
   }
@@ -435,10 +448,119 @@ class _$_Submitted with DiagnosticableTreeMixin implements _Submitted {
   Result map<Result extends Object>({
     @required Result emailChanged(_EmailChanged value),
     @required Result passwordChanged(_PasswordChanged value),
+    @required Result tosChanged(_ToSChanged value),
     @required Result submitted(_Submitted value),
   }) {
     assert(emailChanged != null);
     assert(passwordChanged != null);
+    assert(tosChanged != null);
+    assert(submitted != null);
+    return tosChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result emailChanged(_EmailChanged value),
+    Result passwordChanged(_PasswordChanged value),
+    Result tosChanged(_ToSChanged value),
+    Result submitted(_Submitted value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (tosChanged != null) {
+      return tosChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ToSChanged implements SignUpEvent {
+  const factory _ToSChanged({bool tos}) = _$_ToSChanged;
+
+  bool get tos;
+  _$ToSChangedCopyWith<_ToSChanged> get copyWith;
+}
+
+abstract class _$SubmittedCopyWith<$Res> {
+  factory _$SubmittedCopyWith(
+          _Submitted value, $Res Function(_Submitted) then) =
+      __$SubmittedCopyWithImpl<$Res>;
+}
+
+class __$SubmittedCopyWithImpl<$Res> extends _$SignUpEventCopyWithImpl<$Res>
+    implements _$SubmittedCopyWith<$Res> {
+  __$SubmittedCopyWithImpl(_Submitted _value, $Res Function(_Submitted) _then)
+      : super(_value, (v) => _then(v as _Submitted));
+
+  @override
+  _Submitted get _value => super._value as _Submitted;
+}
+
+class _$_Submitted with DiagnosticableTreeMixin implements _Submitted {
+  const _$_Submitted();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'SignUpEvent.submitted()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'SignUpEvent.submitted'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Submitted);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result emailChanged(String email),
+    @required Result passwordChanged(String password),
+    @required Result tosChanged(bool tos),
+    @required Result submitted(),
+  }) {
+    assert(emailChanged != null);
+    assert(passwordChanged != null);
+    assert(tosChanged != null);
+    assert(submitted != null);
+    return submitted();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result emailChanged(String email),
+    Result passwordChanged(String password),
+    Result tosChanged(bool tos),
+    Result submitted(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (submitted != null) {
+      return submitted();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result emailChanged(_EmailChanged value),
+    @required Result passwordChanged(_PasswordChanged value),
+    @required Result tosChanged(_ToSChanged value),
+    @required Result submitted(_Submitted value),
+  }) {
+    assert(emailChanged != null);
+    assert(passwordChanged != null);
+    assert(tosChanged != null);
     assert(submitted != null);
     return submitted(this);
   }
@@ -448,6 +570,7 @@ class _$_Submitted with DiagnosticableTreeMixin implements _Submitted {
   Result maybeMap<Result extends Object>({
     Result emailChanged(_EmailChanged value),
     Result passwordChanged(_PasswordChanged value),
+    Result tosChanged(_ToSChanged value),
     Result submitted(_Submitted value),
     @required Result orElse(),
   }) {
@@ -460,80 +583,25 @@ class _$_Submitted with DiagnosticableTreeMixin implements _Submitted {
 }
 
 abstract class _Submitted implements SignUpEvent {
-  const factory _Submitted({String email, String password}) = _$_Submitted;
-
-  String get email;
-  String get password;
-  _$SubmittedCopyWith<_Submitted> get copyWith;
+  const factory _Submitted() = _$_Submitted;
 }
 
 class _$SignUpStateTearOff {
   const _$SignUpStateTearOff();
 
-  _Empty empty(
-      {bool isEmailValid = true,
-      bool isPasswordValid = true,
+  _SignUpState call(
+      {String email = '',
+      String password = '',
+      bool tosAccepted = false,
       bool isSubmitting = false,
       bool isVerificationEmailSent = false,
-      @nullable FirebaseUser user,
       @nullable AppException exceptionRaised}) {
-    return _Empty(
-      isEmailValid: isEmailValid,
-      isPasswordValid: isPasswordValid,
+    return _SignUpState(
+      email: email,
+      password: password,
+      tosAccepted: tosAccepted,
       isSubmitting: isSubmitting,
       isVerificationEmailSent: isVerificationEmailSent,
-      user: user,
-      exceptionRaised: exceptionRaised,
-    );
-  }
-
-  _Loading signingUp(
-      {bool isEmailValid = true,
-      bool isPasswordValid = true,
-      bool isSubmitting = true,
-      bool isVerificationEmailSent = false,
-      @nullable FirebaseUser user,
-      @nullable AppException exceptionRaised}) {
-    return _Loading(
-      isEmailValid: isEmailValid,
-      isPasswordValid: isPasswordValid,
-      isSubmitting: isSubmitting,
-      isVerificationEmailSent: isVerificationEmailSent,
-      user: user,
-      exceptionRaised: exceptionRaised,
-    );
-  }
-
-  _Failure failure(
-      {bool isEmailValid = true,
-      bool isPasswordValid = true,
-      bool isSubmitting = false,
-      bool isVerificationEmailSent = false,
-      @nullable FirebaseUser user,
-      AppException exceptionRaised}) {
-    return _Failure(
-      isEmailValid: isEmailValid,
-      isPasswordValid: isPasswordValid,
-      isSubmitting: isSubmitting,
-      isVerificationEmailSent: isVerificationEmailSent,
-      user: user,
-      exceptionRaised: exceptionRaised,
-    );
-  }
-
-  _Success emailSent(
-      {bool isEmailValid = true,
-      bool isPasswordValid = true,
-      bool isSubmitting = false,
-      bool isVerificationEmailSent = true,
-      FirebaseUser user,
-      @nullable AppException exceptionRaised}) {
-    return _Success(
-      isEmailValid: isEmailValid,
-      isPasswordValid: isPasswordValid,
-      isSubmitting: isSubmitting,
-      isVerificationEmailSent: isVerificationEmailSent,
-      user: user,
       exceptionRaised: exceptionRaised,
     );
   }
@@ -543,97 +611,13 @@ class _$SignUpStateTearOff {
 const $SignUpState = _$SignUpStateTearOff();
 
 mixin _$SignUpState {
-  bool get isEmailValid;
-  bool get isPasswordValid;
+  String get email;
+  String get password;
+  bool get tosAccepted;
   bool get isSubmitting;
   bool get isVerificationEmailSent;
   @nullable
-  FirebaseUser get user;
-  @nullable
   AppException get exceptionRaised;
-
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required
-        Result empty(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            @nullable AppException exceptionRaised),
-    @required
-        Result signingUp(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            @nullable AppException exceptionRaised),
-    @required
-        Result failure(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            AppException exceptionRaised),
-    @required
-        Result emailSent(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            FirebaseUser user,
-            @nullable AppException exceptionRaised),
-  });
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result empty(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    Result signingUp(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    Result failure(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        AppException exceptionRaised),
-    Result emailSent(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    @required Result orElse(),
-  });
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result empty(_Empty value),
-    @required Result signingUp(_Loading value),
-    @required Result failure(_Failure value),
-    @required Result emailSent(_Success value),
-  });
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result empty(_Empty value),
-    Result signingUp(_Loading value),
-    Result failure(_Failure value),
-    Result emailSent(_Success value),
-    @required Result orElse(),
-  });
 
   $SignUpStateCopyWith<SignUpState> get copyWith;
 }
@@ -643,11 +627,11 @@ abstract class $SignUpStateCopyWith<$Res> {
           SignUpState value, $Res Function(SignUpState) then) =
       _$SignUpStateCopyWithImpl<$Res>;
   $Res call(
-      {bool isEmailValid,
-      bool isPasswordValid,
+      {String email,
+      String password,
+      bool tosAccepted,
       bool isSubmitting,
       bool isVerificationEmailSent,
-      @nullable FirebaseUser user,
       @nullable AppException exceptionRaised});
 }
 
@@ -660,25 +644,23 @@ class _$SignUpStateCopyWithImpl<$Res> implements $SignUpStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object isEmailValid = freezed,
-    Object isPasswordValid = freezed,
+    Object email = freezed,
+    Object password = freezed,
+    Object tosAccepted = freezed,
     Object isSubmitting = freezed,
     Object isVerificationEmailSent = freezed,
-    Object user = freezed,
     Object exceptionRaised = freezed,
   }) {
     return _then(_value.copyWith(
-      isEmailValid:
-          isEmailValid == freezed ? _value.isEmailValid : isEmailValid as bool,
-      isPasswordValid: isPasswordValid == freezed
-          ? _value.isPasswordValid
-          : isPasswordValid as bool,
+      email: email == freezed ? _value.email : email as String,
+      password: password == freezed ? _value.password : password as String,
+      tosAccepted:
+          tosAccepted == freezed ? _value.tosAccepted : tosAccepted as bool,
       isSubmitting:
           isSubmitting == freezed ? _value.isSubmitting : isSubmitting as bool,
       isVerificationEmailSent: isVerificationEmailSent == freezed
           ? _value.isVerificationEmailSent
           : isVerificationEmailSent as bool,
-      user: user == freezed ? _value.user : user as FirebaseUser,
       exceptionRaised: exceptionRaised == freezed
           ? _value.exceptionRaised
           : exceptionRaised as AppException,
@@ -686,48 +668,49 @@ class _$SignUpStateCopyWithImpl<$Res> implements $SignUpStateCopyWith<$Res> {
   }
 }
 
-abstract class _$EmptyCopyWith<$Res> implements $SignUpStateCopyWith<$Res> {
-  factory _$EmptyCopyWith(_Empty value, $Res Function(_Empty) then) =
-      __$EmptyCopyWithImpl<$Res>;
+abstract class _$SignUpStateCopyWith<$Res>
+    implements $SignUpStateCopyWith<$Res> {
+  factory _$SignUpStateCopyWith(
+          _SignUpState value, $Res Function(_SignUpState) then) =
+      __$SignUpStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {bool isEmailValid,
-      bool isPasswordValid,
+      {String email,
+      String password,
+      bool tosAccepted,
       bool isSubmitting,
       bool isVerificationEmailSent,
-      @nullable FirebaseUser user,
       @nullable AppException exceptionRaised});
 }
 
-class __$EmptyCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
-    implements _$EmptyCopyWith<$Res> {
-  __$EmptyCopyWithImpl(_Empty _value, $Res Function(_Empty) _then)
-      : super(_value, (v) => _then(v as _Empty));
+class __$SignUpStateCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
+    implements _$SignUpStateCopyWith<$Res> {
+  __$SignUpStateCopyWithImpl(
+      _SignUpState _value, $Res Function(_SignUpState) _then)
+      : super(_value, (v) => _then(v as _SignUpState));
 
   @override
-  _Empty get _value => super._value as _Empty;
+  _SignUpState get _value => super._value as _SignUpState;
 
   @override
   $Res call({
-    Object isEmailValid = freezed,
-    Object isPasswordValid = freezed,
+    Object email = freezed,
+    Object password = freezed,
+    Object tosAccepted = freezed,
     Object isSubmitting = freezed,
     Object isVerificationEmailSent = freezed,
-    Object user = freezed,
     Object exceptionRaised = freezed,
   }) {
-    return _then(_Empty(
-      isEmailValid:
-          isEmailValid == freezed ? _value.isEmailValid : isEmailValid as bool,
-      isPasswordValid: isPasswordValid == freezed
-          ? _value.isPasswordValid
-          : isPasswordValid as bool,
+    return _then(_SignUpState(
+      email: email == freezed ? _value.email : email as String,
+      password: password == freezed ? _value.password : password as String,
+      tosAccepted:
+          tosAccepted == freezed ? _value.tosAccepted : tosAccepted as bool,
       isSubmitting:
           isSubmitting == freezed ? _value.isSubmitting : isSubmitting as bool,
       isVerificationEmailSent: isVerificationEmailSent == freezed
           ? _value.isVerificationEmailSent
           : isVerificationEmailSent as bool,
-      user: user == freezed ? _value.user : user as FirebaseUser,
       exceptionRaised: exceptionRaised == freezed
           ? _value.exceptionRaised
           : exceptionRaised as AppException,
@@ -735,26 +718,30 @@ class __$EmptyCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
   }
 }
 
-class _$_Empty extends _Empty with DiagnosticableTreeMixin {
-  _$_Empty(
-      {this.isEmailValid = true,
-      this.isPasswordValid = true,
+class _$_SignUpState extends _SignUpState with DiagnosticableTreeMixin {
+  const _$_SignUpState(
+      {this.email = '',
+      this.password = '',
+      this.tosAccepted = false,
       this.isSubmitting = false,
       this.isVerificationEmailSent = false,
-      @nullable this.user,
       @nullable this.exceptionRaised})
-      : assert(isEmailValid != null),
-        assert(isPasswordValid != null),
+      : assert(email != null),
+        assert(password != null),
+        assert(tosAccepted != null),
         assert(isSubmitting != null),
         assert(isVerificationEmailSent != null),
         super._();
 
-  @JsonKey(defaultValue: true)
+  @JsonKey(defaultValue: '')
   @override
-  final bool isEmailValid;
-  @JsonKey(defaultValue: true)
+  final String email;
+  @JsonKey(defaultValue: '')
   @override
-  final bool isPasswordValid;
+  final String password;
+  @JsonKey(defaultValue: false)
+  @override
+  final bool tosAccepted;
   @JsonKey(defaultValue: false)
   @override
   final bool isSubmitting;
@@ -763,66 +750,39 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
   final bool isVerificationEmailSent;
   @override
   @nullable
-  final FirebaseUser user;
-  @override
-  @nullable
   final AppException exceptionRaised;
-
-  bool _didisFormValid = false;
-  bool _isFormValid;
-
-  @override
-  bool get isFormValid {
-    if (_didisFormValid == false) {
-      _didisFormValid = true;
-      _isFormValid = isEmailValid && isPasswordValid;
-    }
-    return _isFormValid;
-  }
-
-  bool _didisFailure = false;
-  bool _isFailure;
-
-  @override
-  bool get isFailure {
-    if (_didisFailure == false) {
-      _didisFailure = true;
-      _isFailure = exceptionRaised != null;
-    }
-    return _isFailure;
-  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignUpState.empty(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isVerificationEmailSent: $isVerificationEmailSent, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
+    return 'SignUpState(email: $email, password: $password, tosAccepted: $tosAccepted, isSubmitting: $isSubmitting, isVerificationEmailSent: $isVerificationEmailSent, exceptionRaised: $exceptionRaised)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'SignUpState.empty'))
-      ..add(DiagnosticsProperty('isEmailValid', isEmailValid))
-      ..add(DiagnosticsProperty('isPasswordValid', isPasswordValid))
+      ..add(DiagnosticsProperty('type', 'SignUpState'))
+      ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('password', password))
+      ..add(DiagnosticsProperty('tosAccepted', tosAccepted))
       ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
       ..add(DiagnosticsProperty(
           'isVerificationEmailSent', isVerificationEmailSent))
-      ..add(DiagnosticsProperty('user', user))
-      ..add(DiagnosticsProperty('exceptionRaised', exceptionRaised))
-      ..add(DiagnosticsProperty('isFormValid', isFormValid))
-      ..add(DiagnosticsProperty('isFailure', isFailure));
+      ..add(DiagnosticsProperty('exceptionRaised', exceptionRaised));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Empty &&
-            (identical(other.isEmailValid, isEmailValid) ||
+        (other is _SignUpState &&
+            (identical(other.email, email) ||
+                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.password, password) ||
                 const DeepCollectionEquality()
-                    .equals(other.isEmailValid, isEmailValid)) &&
-            (identical(other.isPasswordValid, isPasswordValid) ||
+                    .equals(other.password, password)) &&
+            (identical(other.tosAccepted, tosAccepted) ||
                 const DeepCollectionEquality()
-                    .equals(other.isPasswordValid, isPasswordValid)) &&
+                    .equals(other.tosAccepted, tosAccepted)) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 const DeepCollectionEquality()
                     .equals(other.isSubmitting, isSubmitting)) &&
@@ -830,8 +790,6 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
                     other.isVerificationEmailSent, isVerificationEmailSent) ||
                 const DeepCollectionEquality().equals(
                     other.isVerificationEmailSent, isVerificationEmailSent)) &&
-            (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)) &&
             (identical(other.exceptionRaised, exceptionRaised) ||
                 const DeepCollectionEquality()
                     .equals(other.exceptionRaised, exceptionRaised)));
@@ -840,1084 +798,41 @@ class _$_Empty extends _Empty with DiagnosticableTreeMixin {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(isEmailValid) ^
-      const DeepCollectionEquality().hash(isPasswordValid) ^
+      const DeepCollectionEquality().hash(email) ^
+      const DeepCollectionEquality().hash(password) ^
+      const DeepCollectionEquality().hash(tosAccepted) ^
       const DeepCollectionEquality().hash(isSubmitting) ^
       const DeepCollectionEquality().hash(isVerificationEmailSent) ^
-      const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(exceptionRaised);
 
   @override
-  _$EmptyCopyWith<_Empty> get copyWith =>
-      __$EmptyCopyWithImpl<_Empty>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required
-        Result empty(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            @nullable AppException exceptionRaised),
-    @required
-        Result signingUp(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            @nullable AppException exceptionRaised),
-    @required
-        Result failure(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            AppException exceptionRaised),
-    @required
-        Result emailSent(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            FirebaseUser user,
-            @nullable AppException exceptionRaised),
-  }) {
-    assert(empty != null);
-    assert(signingUp != null);
-    assert(failure != null);
-    assert(emailSent != null);
-    return empty(isEmailValid, isPasswordValid, isSubmitting,
-        isVerificationEmailSent, user, exceptionRaised);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result empty(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    Result signingUp(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    Result failure(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        AppException exceptionRaised),
-    Result emailSent(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (empty != null) {
-      return empty(isEmailValid, isPasswordValid, isSubmitting,
-          isVerificationEmailSent, user, exceptionRaised);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result empty(_Empty value),
-    @required Result signingUp(_Loading value),
-    @required Result failure(_Failure value),
-    @required Result emailSent(_Success value),
-  }) {
-    assert(empty != null);
-    assert(signingUp != null);
-    assert(failure != null);
-    assert(emailSent != null);
-    return empty(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result empty(_Empty value),
-    Result signingUp(_Loading value),
-    Result failure(_Failure value),
-    Result emailSent(_Success value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (empty != null) {
-      return empty(this);
-    }
-    return orElse();
-  }
+  _$SignUpStateCopyWith<_SignUpState> get copyWith =>
+      __$SignUpStateCopyWithImpl<_SignUpState>(this, _$identity);
 }
 
-abstract class _Empty extends SignUpState {
-  _Empty._() : super._();
-  factory _Empty(
-      {bool isEmailValid,
-      bool isPasswordValid,
+abstract class _SignUpState extends SignUpState {
+  const _SignUpState._() : super._();
+  const factory _SignUpState(
+      {String email,
+      String password,
+      bool tosAccepted,
       bool isSubmitting,
       bool isVerificationEmailSent,
-      @nullable FirebaseUser user,
-      @nullable AppException exceptionRaised}) = _$_Empty;
+      @nullable AppException exceptionRaised}) = _$_SignUpState;
 
   @override
-  bool get isEmailValid;
+  String get email;
   @override
-  bool get isPasswordValid;
+  String get password;
+  @override
+  bool get tosAccepted;
   @override
   bool get isSubmitting;
   @override
   bool get isVerificationEmailSent;
   @override
   @nullable
-  FirebaseUser get user;
-  @override
-  @nullable
   AppException get exceptionRaised;
   @override
-  _$EmptyCopyWith<_Empty> get copyWith;
-}
-
-abstract class _$LoadingCopyWith<$Res> implements $SignUpStateCopyWith<$Res> {
-  factory _$LoadingCopyWith(_Loading value, $Res Function(_Loading) then) =
-      __$LoadingCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {bool isEmailValid,
-      bool isPasswordValid,
-      bool isSubmitting,
-      bool isVerificationEmailSent,
-      @nullable FirebaseUser user,
-      @nullable AppException exceptionRaised});
-}
-
-class __$LoadingCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
-    implements _$LoadingCopyWith<$Res> {
-  __$LoadingCopyWithImpl(_Loading _value, $Res Function(_Loading) _then)
-      : super(_value, (v) => _then(v as _Loading));
-
-  @override
-  _Loading get _value => super._value as _Loading;
-
-  @override
-  $Res call({
-    Object isEmailValid = freezed,
-    Object isPasswordValid = freezed,
-    Object isSubmitting = freezed,
-    Object isVerificationEmailSent = freezed,
-    Object user = freezed,
-    Object exceptionRaised = freezed,
-  }) {
-    return _then(_Loading(
-      isEmailValid:
-          isEmailValid == freezed ? _value.isEmailValid : isEmailValid as bool,
-      isPasswordValid: isPasswordValid == freezed
-          ? _value.isPasswordValid
-          : isPasswordValid as bool,
-      isSubmitting:
-          isSubmitting == freezed ? _value.isSubmitting : isSubmitting as bool,
-      isVerificationEmailSent: isVerificationEmailSent == freezed
-          ? _value.isVerificationEmailSent
-          : isVerificationEmailSent as bool,
-      user: user == freezed ? _value.user : user as FirebaseUser,
-      exceptionRaised: exceptionRaised == freezed
-          ? _value.exceptionRaised
-          : exceptionRaised as AppException,
-    ));
-  }
-}
-
-class _$_Loading extends _Loading with DiagnosticableTreeMixin {
-  _$_Loading(
-      {this.isEmailValid = true,
-      this.isPasswordValid = true,
-      this.isSubmitting = true,
-      this.isVerificationEmailSent = false,
-      @nullable this.user,
-      @nullable this.exceptionRaised})
-      : assert(isEmailValid != null),
-        assert(isPasswordValid != null),
-        assert(isSubmitting != null),
-        assert(isVerificationEmailSent != null),
-        super._();
-
-  @JsonKey(defaultValue: true)
-  @override
-  final bool isEmailValid;
-  @JsonKey(defaultValue: true)
-  @override
-  final bool isPasswordValid;
-  @JsonKey(defaultValue: true)
-  @override
-  final bool isSubmitting;
-  @JsonKey(defaultValue: false)
-  @override
-  final bool isVerificationEmailSent;
-  @override
-  @nullable
-  final FirebaseUser user;
-  @override
-  @nullable
-  final AppException exceptionRaised;
-
-  bool _didisFormValid = false;
-  bool _isFormValid;
-
-  @override
-  bool get isFormValid {
-    if (_didisFormValid == false) {
-      _didisFormValid = true;
-      _isFormValid = isEmailValid && isPasswordValid;
-    }
-    return _isFormValid;
-  }
-
-  bool _didisFailure = false;
-  bool _isFailure;
-
-  @override
-  bool get isFailure {
-    if (_didisFailure == false) {
-      _didisFailure = true;
-      _isFailure = exceptionRaised != null;
-    }
-    return _isFailure;
-  }
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignUpState.signingUp(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isVerificationEmailSent: $isVerificationEmailSent, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SignUpState.signingUp'))
-      ..add(DiagnosticsProperty('isEmailValid', isEmailValid))
-      ..add(DiagnosticsProperty('isPasswordValid', isPasswordValid))
-      ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
-      ..add(DiagnosticsProperty(
-          'isVerificationEmailSent', isVerificationEmailSent))
-      ..add(DiagnosticsProperty('user', user))
-      ..add(DiagnosticsProperty('exceptionRaised', exceptionRaised))
-      ..add(DiagnosticsProperty('isFormValid', isFormValid))
-      ..add(DiagnosticsProperty('isFailure', isFailure));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _Loading &&
-            (identical(other.isEmailValid, isEmailValid) ||
-                const DeepCollectionEquality()
-                    .equals(other.isEmailValid, isEmailValid)) &&
-            (identical(other.isPasswordValid, isPasswordValid) ||
-                const DeepCollectionEquality()
-                    .equals(other.isPasswordValid, isPasswordValid)) &&
-            (identical(other.isSubmitting, isSubmitting) ||
-                const DeepCollectionEquality()
-                    .equals(other.isSubmitting, isSubmitting)) &&
-            (identical(
-                    other.isVerificationEmailSent, isVerificationEmailSent) ||
-                const DeepCollectionEquality().equals(
-                    other.isVerificationEmailSent, isVerificationEmailSent)) &&
-            (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)) &&
-            (identical(other.exceptionRaised, exceptionRaised) ||
-                const DeepCollectionEquality()
-                    .equals(other.exceptionRaised, exceptionRaised)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(isEmailValid) ^
-      const DeepCollectionEquality().hash(isPasswordValid) ^
-      const DeepCollectionEquality().hash(isSubmitting) ^
-      const DeepCollectionEquality().hash(isVerificationEmailSent) ^
-      const DeepCollectionEquality().hash(user) ^
-      const DeepCollectionEquality().hash(exceptionRaised);
-
-  @override
-  _$LoadingCopyWith<_Loading> get copyWith =>
-      __$LoadingCopyWithImpl<_Loading>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required
-        Result empty(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            @nullable AppException exceptionRaised),
-    @required
-        Result signingUp(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            @nullable AppException exceptionRaised),
-    @required
-        Result failure(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            AppException exceptionRaised),
-    @required
-        Result emailSent(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            FirebaseUser user,
-            @nullable AppException exceptionRaised),
-  }) {
-    assert(empty != null);
-    assert(signingUp != null);
-    assert(failure != null);
-    assert(emailSent != null);
-    return signingUp(isEmailValid, isPasswordValid, isSubmitting,
-        isVerificationEmailSent, user, exceptionRaised);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result empty(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    Result signingUp(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    Result failure(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        AppException exceptionRaised),
-    Result emailSent(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (signingUp != null) {
-      return signingUp(isEmailValid, isPasswordValid, isSubmitting,
-          isVerificationEmailSent, user, exceptionRaised);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result empty(_Empty value),
-    @required Result signingUp(_Loading value),
-    @required Result failure(_Failure value),
-    @required Result emailSent(_Success value),
-  }) {
-    assert(empty != null);
-    assert(signingUp != null);
-    assert(failure != null);
-    assert(emailSent != null);
-    return signingUp(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result empty(_Empty value),
-    Result signingUp(_Loading value),
-    Result failure(_Failure value),
-    Result emailSent(_Success value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (signingUp != null) {
-      return signingUp(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Loading extends SignUpState {
-  _Loading._() : super._();
-  factory _Loading(
-      {bool isEmailValid,
-      bool isPasswordValid,
-      bool isSubmitting,
-      bool isVerificationEmailSent,
-      @nullable FirebaseUser user,
-      @nullable AppException exceptionRaised}) = _$_Loading;
-
-  @override
-  bool get isEmailValid;
-  @override
-  bool get isPasswordValid;
-  @override
-  bool get isSubmitting;
-  @override
-  bool get isVerificationEmailSent;
-  @override
-  @nullable
-  FirebaseUser get user;
-  @override
-  @nullable
-  AppException get exceptionRaised;
-  @override
-  _$LoadingCopyWith<_Loading> get copyWith;
-}
-
-abstract class _$FailureCopyWith<$Res> implements $SignUpStateCopyWith<$Res> {
-  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) then) =
-      __$FailureCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {bool isEmailValid,
-      bool isPasswordValid,
-      bool isSubmitting,
-      bool isVerificationEmailSent,
-      @nullable FirebaseUser user,
-      AppException exceptionRaised});
-}
-
-class __$FailureCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
-    implements _$FailureCopyWith<$Res> {
-  __$FailureCopyWithImpl(_Failure _value, $Res Function(_Failure) _then)
-      : super(_value, (v) => _then(v as _Failure));
-
-  @override
-  _Failure get _value => super._value as _Failure;
-
-  @override
-  $Res call({
-    Object isEmailValid = freezed,
-    Object isPasswordValid = freezed,
-    Object isSubmitting = freezed,
-    Object isVerificationEmailSent = freezed,
-    Object user = freezed,
-    Object exceptionRaised = freezed,
-  }) {
-    return _then(_Failure(
-      isEmailValid:
-          isEmailValid == freezed ? _value.isEmailValid : isEmailValid as bool,
-      isPasswordValid: isPasswordValid == freezed
-          ? _value.isPasswordValid
-          : isPasswordValid as bool,
-      isSubmitting:
-          isSubmitting == freezed ? _value.isSubmitting : isSubmitting as bool,
-      isVerificationEmailSent: isVerificationEmailSent == freezed
-          ? _value.isVerificationEmailSent
-          : isVerificationEmailSent as bool,
-      user: user == freezed ? _value.user : user as FirebaseUser,
-      exceptionRaised: exceptionRaised == freezed
-          ? _value.exceptionRaised
-          : exceptionRaised as AppException,
-    ));
-  }
-}
-
-class _$_Failure extends _Failure with DiagnosticableTreeMixin {
-  _$_Failure(
-      {this.isEmailValid = true,
-      this.isPasswordValid = true,
-      this.isSubmitting = false,
-      this.isVerificationEmailSent = false,
-      @nullable this.user,
-      this.exceptionRaised})
-      : assert(isEmailValid != null),
-        assert(isPasswordValid != null),
-        assert(isSubmitting != null),
-        assert(isVerificationEmailSent != null),
-        super._();
-
-  @JsonKey(defaultValue: true)
-  @override
-  final bool isEmailValid;
-  @JsonKey(defaultValue: true)
-  @override
-  final bool isPasswordValid;
-  @JsonKey(defaultValue: false)
-  @override
-  final bool isSubmitting;
-  @JsonKey(defaultValue: false)
-  @override
-  final bool isVerificationEmailSent;
-  @override
-  @nullable
-  final FirebaseUser user;
-  @override
-  final AppException exceptionRaised;
-
-  bool _didisFormValid = false;
-  bool _isFormValid;
-
-  @override
-  bool get isFormValid {
-    if (_didisFormValid == false) {
-      _didisFormValid = true;
-      _isFormValid = isEmailValid && isPasswordValid;
-    }
-    return _isFormValid;
-  }
-
-  bool _didisFailure = false;
-  bool _isFailure;
-
-  @override
-  bool get isFailure {
-    if (_didisFailure == false) {
-      _didisFailure = true;
-      _isFailure = exceptionRaised != null;
-    }
-    return _isFailure;
-  }
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignUpState.failure(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isVerificationEmailSent: $isVerificationEmailSent, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SignUpState.failure'))
-      ..add(DiagnosticsProperty('isEmailValid', isEmailValid))
-      ..add(DiagnosticsProperty('isPasswordValid', isPasswordValid))
-      ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
-      ..add(DiagnosticsProperty(
-          'isVerificationEmailSent', isVerificationEmailSent))
-      ..add(DiagnosticsProperty('user', user))
-      ..add(DiagnosticsProperty('exceptionRaised', exceptionRaised))
-      ..add(DiagnosticsProperty('isFormValid', isFormValid))
-      ..add(DiagnosticsProperty('isFailure', isFailure));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _Failure &&
-            (identical(other.isEmailValid, isEmailValid) ||
-                const DeepCollectionEquality()
-                    .equals(other.isEmailValid, isEmailValid)) &&
-            (identical(other.isPasswordValid, isPasswordValid) ||
-                const DeepCollectionEquality()
-                    .equals(other.isPasswordValid, isPasswordValid)) &&
-            (identical(other.isSubmitting, isSubmitting) ||
-                const DeepCollectionEquality()
-                    .equals(other.isSubmitting, isSubmitting)) &&
-            (identical(
-                    other.isVerificationEmailSent, isVerificationEmailSent) ||
-                const DeepCollectionEquality().equals(
-                    other.isVerificationEmailSent, isVerificationEmailSent)) &&
-            (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)) &&
-            (identical(other.exceptionRaised, exceptionRaised) ||
-                const DeepCollectionEquality()
-                    .equals(other.exceptionRaised, exceptionRaised)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(isEmailValid) ^
-      const DeepCollectionEquality().hash(isPasswordValid) ^
-      const DeepCollectionEquality().hash(isSubmitting) ^
-      const DeepCollectionEquality().hash(isVerificationEmailSent) ^
-      const DeepCollectionEquality().hash(user) ^
-      const DeepCollectionEquality().hash(exceptionRaised);
-
-  @override
-  _$FailureCopyWith<_Failure> get copyWith =>
-      __$FailureCopyWithImpl<_Failure>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required
-        Result empty(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            @nullable AppException exceptionRaised),
-    @required
-        Result signingUp(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            @nullable AppException exceptionRaised),
-    @required
-        Result failure(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            AppException exceptionRaised),
-    @required
-        Result emailSent(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            FirebaseUser user,
-            @nullable AppException exceptionRaised),
-  }) {
-    assert(empty != null);
-    assert(signingUp != null);
-    assert(failure != null);
-    assert(emailSent != null);
-    return failure(isEmailValid, isPasswordValid, isSubmitting,
-        isVerificationEmailSent, user, exceptionRaised);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result empty(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    Result signingUp(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    Result failure(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        AppException exceptionRaised),
-    Result emailSent(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (failure != null) {
-      return failure(isEmailValid, isPasswordValid, isSubmitting,
-          isVerificationEmailSent, user, exceptionRaised);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result empty(_Empty value),
-    @required Result signingUp(_Loading value),
-    @required Result failure(_Failure value),
-    @required Result emailSent(_Success value),
-  }) {
-    assert(empty != null);
-    assert(signingUp != null);
-    assert(failure != null);
-    assert(emailSent != null);
-    return failure(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result empty(_Empty value),
-    Result signingUp(_Loading value),
-    Result failure(_Failure value),
-    Result emailSent(_Success value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (failure != null) {
-      return failure(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Failure extends SignUpState {
-  _Failure._() : super._();
-  factory _Failure(
-      {bool isEmailValid,
-      bool isPasswordValid,
-      bool isSubmitting,
-      bool isVerificationEmailSent,
-      @nullable FirebaseUser user,
-      AppException exceptionRaised}) = _$_Failure;
-
-  @override
-  bool get isEmailValid;
-  @override
-  bool get isPasswordValid;
-  @override
-  bool get isSubmitting;
-  @override
-  bool get isVerificationEmailSent;
-  @override
-  @nullable
-  FirebaseUser get user;
-  @override
-  AppException get exceptionRaised;
-  @override
-  _$FailureCopyWith<_Failure> get copyWith;
-}
-
-abstract class _$SuccessCopyWith<$Res> implements $SignUpStateCopyWith<$Res> {
-  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) then) =
-      __$SuccessCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {bool isEmailValid,
-      bool isPasswordValid,
-      bool isSubmitting,
-      bool isVerificationEmailSent,
-      FirebaseUser user,
-      @nullable AppException exceptionRaised});
-}
-
-class __$SuccessCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
-    implements _$SuccessCopyWith<$Res> {
-  __$SuccessCopyWithImpl(_Success _value, $Res Function(_Success) _then)
-      : super(_value, (v) => _then(v as _Success));
-
-  @override
-  _Success get _value => super._value as _Success;
-
-  @override
-  $Res call({
-    Object isEmailValid = freezed,
-    Object isPasswordValid = freezed,
-    Object isSubmitting = freezed,
-    Object isVerificationEmailSent = freezed,
-    Object user = freezed,
-    Object exceptionRaised = freezed,
-  }) {
-    return _then(_Success(
-      isEmailValid:
-          isEmailValid == freezed ? _value.isEmailValid : isEmailValid as bool,
-      isPasswordValid: isPasswordValid == freezed
-          ? _value.isPasswordValid
-          : isPasswordValid as bool,
-      isSubmitting:
-          isSubmitting == freezed ? _value.isSubmitting : isSubmitting as bool,
-      isVerificationEmailSent: isVerificationEmailSent == freezed
-          ? _value.isVerificationEmailSent
-          : isVerificationEmailSent as bool,
-      user: user == freezed ? _value.user : user as FirebaseUser,
-      exceptionRaised: exceptionRaised == freezed
-          ? _value.exceptionRaised
-          : exceptionRaised as AppException,
-    ));
-  }
-}
-
-class _$_Success extends _Success with DiagnosticableTreeMixin {
-  _$_Success(
-      {this.isEmailValid = true,
-      this.isPasswordValid = true,
-      this.isSubmitting = false,
-      this.isVerificationEmailSent = true,
-      this.user,
-      @nullable this.exceptionRaised})
-      : assert(isEmailValid != null),
-        assert(isPasswordValid != null),
-        assert(isSubmitting != null),
-        assert(isVerificationEmailSent != null),
-        super._();
-
-  @JsonKey(defaultValue: true)
-  @override
-  final bool isEmailValid;
-  @JsonKey(defaultValue: true)
-  @override
-  final bool isPasswordValid;
-  @JsonKey(defaultValue: false)
-  @override
-  final bool isSubmitting;
-  @JsonKey(defaultValue: true)
-  @override
-  final bool isVerificationEmailSent;
-  @override
-  final FirebaseUser user;
-  @override
-  @nullable
-  final AppException exceptionRaised;
-
-  bool _didisFormValid = false;
-  bool _isFormValid;
-
-  @override
-  bool get isFormValid {
-    if (_didisFormValid == false) {
-      _didisFormValid = true;
-      _isFormValid = isEmailValid && isPasswordValid;
-    }
-    return _isFormValid;
-  }
-
-  bool _didisFailure = false;
-  bool _isFailure;
-
-  @override
-  bool get isFailure {
-    if (_didisFailure == false) {
-      _didisFailure = true;
-      _isFailure = exceptionRaised != null;
-    }
-    return _isFailure;
-  }
-
-  @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignUpState.emailSent(isEmailValid: $isEmailValid, isPasswordValid: $isPasswordValid, isSubmitting: $isSubmitting, isVerificationEmailSent: $isVerificationEmailSent, user: $user, exceptionRaised: $exceptionRaised, isFormValid: $isFormValid, isFailure: $isFailure)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SignUpState.emailSent'))
-      ..add(DiagnosticsProperty('isEmailValid', isEmailValid))
-      ..add(DiagnosticsProperty('isPasswordValid', isPasswordValid))
-      ..add(DiagnosticsProperty('isSubmitting', isSubmitting))
-      ..add(DiagnosticsProperty(
-          'isVerificationEmailSent', isVerificationEmailSent))
-      ..add(DiagnosticsProperty('user', user))
-      ..add(DiagnosticsProperty('exceptionRaised', exceptionRaised))
-      ..add(DiagnosticsProperty('isFormValid', isFormValid))
-      ..add(DiagnosticsProperty('isFailure', isFailure));
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _Success &&
-            (identical(other.isEmailValid, isEmailValid) ||
-                const DeepCollectionEquality()
-                    .equals(other.isEmailValid, isEmailValid)) &&
-            (identical(other.isPasswordValid, isPasswordValid) ||
-                const DeepCollectionEquality()
-                    .equals(other.isPasswordValid, isPasswordValid)) &&
-            (identical(other.isSubmitting, isSubmitting) ||
-                const DeepCollectionEquality()
-                    .equals(other.isSubmitting, isSubmitting)) &&
-            (identical(
-                    other.isVerificationEmailSent, isVerificationEmailSent) ||
-                const DeepCollectionEquality().equals(
-                    other.isVerificationEmailSent, isVerificationEmailSent)) &&
-            (identical(other.user, user) ||
-                const DeepCollectionEquality().equals(other.user, user)) &&
-            (identical(other.exceptionRaised, exceptionRaised) ||
-                const DeepCollectionEquality()
-                    .equals(other.exceptionRaised, exceptionRaised)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(isEmailValid) ^
-      const DeepCollectionEquality().hash(isPasswordValid) ^
-      const DeepCollectionEquality().hash(isSubmitting) ^
-      const DeepCollectionEquality().hash(isVerificationEmailSent) ^
-      const DeepCollectionEquality().hash(user) ^
-      const DeepCollectionEquality().hash(exceptionRaised);
-
-  @override
-  _$SuccessCopyWith<_Success> get copyWith =>
-      __$SuccessCopyWithImpl<_Success>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required
-        Result empty(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            @nullable AppException exceptionRaised),
-    @required
-        Result signingUp(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            @nullable AppException exceptionRaised),
-    @required
-        Result failure(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            @nullable FirebaseUser user,
-            AppException exceptionRaised),
-    @required
-        Result emailSent(
-            bool isEmailValid,
-            bool isPasswordValid,
-            bool isSubmitting,
-            bool isVerificationEmailSent,
-            FirebaseUser user,
-            @nullable AppException exceptionRaised),
-  }) {
-    assert(empty != null);
-    assert(signingUp != null);
-    assert(failure != null);
-    assert(emailSent != null);
-    return emailSent(isEmailValid, isPasswordValid, isSubmitting,
-        isVerificationEmailSent, user, exceptionRaised);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result empty(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    Result signingUp(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    Result failure(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        @nullable FirebaseUser user,
-        AppException exceptionRaised),
-    Result emailSent(
-        bool isEmailValid,
-        bool isPasswordValid,
-        bool isSubmitting,
-        bool isVerificationEmailSent,
-        FirebaseUser user,
-        @nullable AppException exceptionRaised),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (emailSent != null) {
-      return emailSent(isEmailValid, isPasswordValid, isSubmitting,
-          isVerificationEmailSent, user, exceptionRaised);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result empty(_Empty value),
-    @required Result signingUp(_Loading value),
-    @required Result failure(_Failure value),
-    @required Result emailSent(_Success value),
-  }) {
-    assert(empty != null);
-    assert(signingUp != null);
-    assert(failure != null);
-    assert(emailSent != null);
-    return emailSent(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result empty(_Empty value),
-    Result signingUp(_Loading value),
-    Result failure(_Failure value),
-    Result emailSent(_Success value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (emailSent != null) {
-      return emailSent(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Success extends SignUpState {
-  _Success._() : super._();
-  factory _Success(
-      {bool isEmailValid,
-      bool isPasswordValid,
-      bool isSubmitting,
-      bool isVerificationEmailSent,
-      FirebaseUser user,
-      @nullable AppException exceptionRaised}) = _$_Success;
-
-  @override
-  bool get isEmailValid;
-  @override
-  bool get isPasswordValid;
-  @override
-  bool get isSubmitting;
-  @override
-  bool get isVerificationEmailSent;
-  @override
-  FirebaseUser get user;
-  @override
-  @nullable
-  AppException get exceptionRaised;
-  @override
-  _$SuccessCopyWith<_Success> get copyWith;
+  _$SignUpStateCopyWith<_SignUpState> get copyWith;
 }
