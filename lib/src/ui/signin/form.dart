@@ -284,8 +284,9 @@ class SignInFormState extends State<SignInForm> {
   }
 
   void _onPasswordChanged() {
+    // trim() is not called since we allow whitespace characters in passwords.
     _signInBloc.add(
-      SignInEvent.passwordChanged(password: _passwordController.text.trim()),
+      SignInEvent.passwordChanged(password: _passwordController.text),
     );
     setState(() {});
   }
