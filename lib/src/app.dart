@@ -39,48 +39,39 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final MediaQueryData mediaQuery = MediaQuery.of(context, nullOk: true);
 
-    return GestureDetector(
-      // See https://flutterigniter.com/dismiss-keyboard-form-lose-focus/
-      onTap: () {
-        final FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
-      child: PlatformApp(
-        onGenerateTitle: (BuildContext context) => kAppName,
-        debugShowCheckedModeBanner: false,
-        locale: kUseDevicePreview ? DevicePreview.of(context)?.locale : null,
-        builder: kUseDevicePreview ? DevicePreview.appBuilder : null,
-        localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-          AppLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: kSupportedLanguages,
-        android: (BuildContext context) => MaterialAppData(
-          theme: AppTheme.theme(Brightness.light),
-          themeMode: mediaQuery?.platformBrightness == Brightness.dark
-              ? ThemeMode.dark
-              : ThemeMode.light,
-          navigatorObservers: kIsWeb == false && kUseFirebaseAnalytics
-              ? <NavigatorObserver>[widget._analyticsService.getAnalyticsObserver()]
-              : null,
+    return PlatformApp(
+      onGenerateTitle: (BuildContext context) => kAppName,
+      debugShowCheckedModeBanner: false,
+      locale: kUseDevicePreview ? DevicePreview.of(context)?.locale : null,
+      builder: kUseDevicePreview ? DevicePreview.appBuilder : null,
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+        AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: kSupportedLanguages,
+      android: (BuildContext context) => MaterialAppData(
+        theme: AppTheme.theme(Brightness.light),
+        themeMode: mediaQuery?.platformBrightness == Brightness.dark
+            ? ThemeMode.dark
+            : ThemeMode.light,
+        navigatorObservers: kIsWeb == false && kUseFirebaseAnalytics
+            ? <NavigatorObserver>[widget._analyticsService.getAnalyticsObserver()]
+            : null,
+      ),
+      ios: (_) => CupertinoAppData(
+        theme: CupertinoThemeData(
+          brightness: mediaQuery.platformBrightness,
         ),
-        ios: (_) => CupertinoAppData(
-          theme: CupertinoThemeData(
-            brightness: mediaQuery.platformBrightness,
-          ),
-        ),
-        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (BuildContext context, AuthenticationState state) => state.when(
-            uninitialized: () => SplashScreen(),
-            authenticated: (_) => HomeScreen(),
-            unauthenticated: () => SignInScreen(
-              authRepository: widget._authRepository,
-              analyticsService: widget._analyticsService,
-            ),
+      ),
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (BuildContext context, AuthenticationState state) => state.when(
+          uninitialized: () => SplashScreen(),
+          authenticated: (_) => HomeScreen(),
+          unauthenticated: () => SignInScreen(
+            authRepository: widget._authRepository,
+            analyticsService: widget._analyticsService,
           ),
         ),
       ),
