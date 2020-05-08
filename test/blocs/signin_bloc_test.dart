@@ -62,8 +62,9 @@ Future<void> main() async {
           authRepository: authRepositoryMock,
           analyticsService: analyticsServiceMock,
         ),
-        act: (SignInBloc bloc) async =>
-            bloc.add(const SignInEvent.emailChanged(email: kMockValidEmail)),
+        act: (SignInBloc bloc) async {
+          bloc.add(const SignInEvent.emailChanged(email: kMockValidEmail));
+        },
         skip: 0,
         expect: <SignInState>[
           SignInState.empty(),
@@ -83,8 +84,9 @@ Future<void> main() async {
           authRepository: authRepositoryMock,
           analyticsService: analyticsServiceMock,
         ),
-        act: (SignInBloc bloc) async =>
-            bloc.add(const SignInEvent.passwordChanged(password: '')),
+        act: (SignInBloc bloc) async {
+          bloc.add(const SignInEvent.passwordChanged(password: ''));
+        },
         skip: 0,
         expect: <SignInState>[SignInState.empty()],
         verify: (SignInBloc bloc) async {
@@ -99,8 +101,9 @@ Future<void> main() async {
           authRepository: authRepositoryMock,
           analyticsService: analyticsServiceMock,
         ),
-        act: (SignInBloc bloc) async =>
-            bloc.add(const SignInEvent.passwordChanged(password: kMockPassword)),
+        act: (SignInBloc bloc) async {
+          bloc.add(const SignInEvent.passwordChanged(password: kMockPassword));
+        },
         skip: 0,
         expect: <SignInState>[
           SignInState.empty(),
