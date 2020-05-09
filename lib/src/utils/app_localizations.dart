@@ -163,10 +163,10 @@ class AppLocalizations {
         'Toggle paswword visibility',
         name: 'msgTogglePaswwordVisibility',
       );
-  String get msgToS => Intl.message(
-        'I agree to the Terms of Services and Privacy Policy',
-        name: 'msgToS',
-      );
+  String get msgToS1 => Intl.message('I agree to the ', name: 'msgToS1');
+  String get msgToS2 => Intl.message('Terms of Services', name: 'msgToS2');
+  String get msgToS3 => Intl.message(' and ', name: 'msgToS3');
+  String get msgToS4 => Intl.message('Privacy Policy', name: 'msgToS4');
   String get msgWeakPassword => Intl.message(
         'Password is too weak',
         name: 'msgWeakPassword',

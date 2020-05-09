@@ -23,6 +23,7 @@ dependencies:
   flutter_focus_watcher: ^0.0.1
   flutter_localizations:
     sdk: flutter
+  flutter_lorem: ^1.1.0
   flutter_platform_widgets: ^0.32.0
   freezed_annotation: ^0.7.0
   google_sign_in: ^4.4.0
@@ -46,4 +47,4 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/app_logo.png
+    - assets/images/

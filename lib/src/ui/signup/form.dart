@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_focus_watcher/flutter_focus_watcher.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../blocs/signup/signup_bloc.dart';
@@ -13,6 +15,7 @@ import '../../utils/theme.dart';
 import '../../utils/validators.dart';
 import '../common/index.dart';
 import '../signin/screen.dart';
+import '../tos_privacy/screen.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -189,9 +192,57 @@ class SignUpFormState extends State<SignUpForm> {
                           onChanged: _onTOSChanged,
                         ),
                         Expanded(
-                          child: GestureDetector(
-                            onTap: () => _onTOSChanged(!_agreedToTOSAndPolicy),
-                            child: Text(context.l10n().msgToS),
+                          child: Container(
+                            height: 48.0,
+                            alignment: Alignment.centerLeft,
+                            child: IgnoreFocusWatcher(
+                              child: RichText(
+                                text: TextSpan(
+                                  children: <InlineSpan>[
+                                    TextSpan(
+                                      text: context.l10n().msgToS1,
+                                      style: Theme.of(context).textTheme.bodyText2,
+                                    ),
+                                    TextSpan(
+                                      text: context.l10n().msgToS2,
+                                      style: TextStyle(color: Colors.blue),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.push<void>(
+                                            context,
+                                            platformPageRoute<void>(
+                                              context: context,
+                                              builder: (_) => TosPrivacyScreen(
+                                                title: context.l10n().msgToS2,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                    ),
+                                    TextSpan(
+                                      text: context.l10n().msgToS3,
+                                      style: Theme.of(context).textTheme.bodyText2,
+                                    ),
+                                    TextSpan(
+                                      text: context.l10n().msgToS4,
+                                      style: TextStyle(color: Colors.blue),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.push<void>(
+                                            context,
+                                            platformPageRoute<void>(
+                                              context: context,
+                                              builder: (_) => TosPrivacyScreen(
+                                                title: context.l10n().msgToS4,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ],
