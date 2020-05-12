@@ -154,10 +154,10 @@ class SignInFormState extends State<SignInForm> {
                     GradientButton(
                       key: AppWidgetKeys.keys['SignInSubmitButton'],
                       gradient: AppTheme.widgetGradient,
-                      onPressed: _isSignInButtonEnabled(state) ? _onFormSubmitted : null,
+                      onPressed: state.isSignInButtonEnabled() ? _onFormSubmitted : null,
                       child: Text(
                         context.l10n().msgSignIn,
-                        style: _isSignInButtonEnabled(state)
+                        style: state.isSignInButtonEnabled()
                             ? AppTheme.buttonEnabledTextStyle
                             : AppTheme.buttonDisabledTextStyle,
                       ),
@@ -289,10 +289,6 @@ class SignInFormState extends State<SignInForm> {
       SignInEvent.passwordChanged(password: _passwordController.text),
     );
     setState(() {});
-  }
-
-  bool _isSignInButtonEnabled(SignInState state) {
-    return state.isPopulated() && state.isValid() && !state.isSubmitting;
   }
 
   void _onFormSubmitted() {

@@ -20,4 +20,5 @@ abstract class SignUpState implements _$SignUpState {
   bool isValidEmail() => Validators.isValidEmail(email);
   bool isValidPassword() => Validators.isValidPassword(password);
   bool isValid() => isValidEmail() && isValidPassword() && tosAccepted;
+  bool isSignUpButtonEnabled() => isPopulated() && isValid() && !isSubmitting;
 }

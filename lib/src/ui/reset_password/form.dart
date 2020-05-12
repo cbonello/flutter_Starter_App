@@ -123,10 +123,10 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
                     GradientButton(
                       key: AppWidgetKeys.keys['PasswordResetSubmitButton'],
                       gradient: AppTheme.widgetGradient,
-                      onPressed: _isubmitButtonEnabled(state) ? _onFormSubmitted : null,
+                      onPressed: state.isubmitButtonEnabled() ? _onFormSubmitted : null,
                       child: Text(
                         context.l10n().msgSubmit,
-                        style: _isubmitButtonEnabled(state)
+                        style: state.isubmitButtonEnabled()
                             ? AppTheme.buttonEnabledTextStyle
                             : AppTheme.buttonDisabledTextStyle,
                       ),
@@ -151,9 +151,5 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
 
   void _onFormSubmitted() {
     _resetPasswordBloc.add(const ResetPasswordEvent.resetPressed());
-  }
-
-  bool _isubmitButtonEnabled(ResetPasswordState state) {
-    return state.isPopulated() && state.isValid() && !state.isSubmitting;
   }
 }

@@ -253,10 +253,10 @@ class SignUpFormState extends State<SignUpForm> {
                           key: AppWidgetKeys.keys['SignUpSubmitButton'],
                           gradient: AppTheme.widgetGradient,
                           onPressed:
-                              _isSignUpButtonEnabled(state) ? _onFormSubmitted : null,
+                              state.isSignUpButtonEnabled() ? _onFormSubmitted : null,
                           child: Text(
                             context.l10n().msgSignUp,
-                            style: _isSignUpButtonEnabled(state)
+                            style: state.isSignUpButtonEnabled()
                                 ? AppTheme.buttonEnabledTextStyle
                                 : AppTheme.buttonDisabledTextStyle,
                           ),
@@ -322,10 +322,6 @@ class SignUpFormState extends State<SignUpForm> {
   void _onTOSChanged(bool newValue) {
     _signUpBloc.add(SignUpEvent.tosChanged(tos: newValue));
     setState(() => _agreedToTOSAndPolicy = newValue);
-  }
-
-  bool _isSignUpButtonEnabled(SignUpState state) {
-    return state.isPopulated() && state.isValid() && !state.isSubmitting;
   }
 
   void _onFormSubmitted() {

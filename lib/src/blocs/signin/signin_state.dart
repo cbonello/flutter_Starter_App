@@ -23,4 +23,5 @@ abstract class SignInState implements _$SignInState {
   bool isValidEmail() => Validators.isValidEmail(email);
   bool isValidPassword() => password.isNotEmpty;
   bool isValid() => isValidEmail() && isValidPassword();
+  bool isSignInButtonEnabled() => isPopulated() && isValid() && !isSubmitting;
 }

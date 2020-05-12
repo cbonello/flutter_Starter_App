@@ -17,4 +17,5 @@ abstract class ResetPasswordState implements _$ResetPasswordState {
   bool isPopulated() => email.trim().isNotEmpty;
   bool isValidEmail() => Validators.isValidEmail(email);
   bool isValid() => isValidEmail();
+  bool isubmitButtonEnabled() => isPopulated() && isValid() && !isSubmitting;
 }
