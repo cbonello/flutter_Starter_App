@@ -149,7 +149,7 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(
-          find.byKey(AppWidgetKeys.keys['PasswordResetEmailSendDialog']),
+          find.byKey(AppWidgetKeys.keys['PasswordResetEmailSentDialog']),
           findsOneWidget,
         );
       },

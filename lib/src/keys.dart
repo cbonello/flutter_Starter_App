@@ -6,7 +6,7 @@ class AppWidgetKeys {
     'SplashImage': const Key('SplashImage'),
     'PasswordResetEmailField': const Key('PasswordResetEmailField'),
     'PasswordResetSubmitButton': const Key('PasswordResetSubmitButton'),
-    'PasswordResetEmailSendDialog': const Key('PasswordResetEmailSendDialog'),
+    'PasswordResetEmailSentDialog': const Key('PasswordResetEmailSentDialog'),
     'SignInEmailField': const Key('SignInEmailField'),
     'SignInPasswordField': const Key('SignInPasswordField'),
     'SignInSubmitButton': const Key('SignInSubmitButton'),
