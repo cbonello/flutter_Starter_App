@@ -114,6 +114,62 @@ void main() {
     );
 
     testWidgets(
+      'Account verification dialog should be displayed after a successful sign-up',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(
+          MultiBlocProvider(
+            providers: <BlocProvider<dynamic>>[
+              BlocProvider<AuthenticationBloc>(
+                create: (BuildContext _) {
+                  return AuthenticationBloc(
+                    localStorageService: localStorageServiceMock,
+                    authRepository: authRepositoryMock,
+                    analyticsService: analyticsServiceMock,
+                  );
+                },
+              ),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: kSupportedLanguages,
+              home: SignUpScreen(
+                authRepository: authRepositoryMock,
+                analyticsService: analyticsServiceMock,
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.enterText(
+          find.byKey(AppWidgetKeys.keys['SignUpEmailField']),
+          kMockEmail,
+        );
+        await tester.enterText(
+          find.byKey(AppWidgetKeys.keys['SignUpPasswordField']),
+          kMockPassword,
+        );
+        await tester.tap(find.byKey(AppWidgetKeys.keys['SignUpTOSCheckbox']));
+        await tester.pumpAndSettle();
+
+        final Finder buttonFinder = find.byKey(AppWidgetKeys.keys['SignUpSubmitButton']);
+        expect(buttonFinder, findsOneWidget);
+        await tester.tap(buttonFinder);
+        await tester.pumpAndSettle();
+
+        expect(
+          find.byKey(AppWidgetKeys.keys['SignUpEmailSentDialog']),
+          findsOneWidget,
+        );
+      },
+    );
+
+    testWidgets(
       'pressing the "Sign-In" button should display the Sign-In screen',
       (WidgetTester tester) async {
         await tester.pumpWidget(

@@ -100,6 +100,7 @@ class SignUpFormState extends State<SignUpForm> {
           await showPlatformDialog<void>(
             context: context,
             builder: (_) => PlatformAlertDialog(
+              key: AppWidgetKeys.keys['SignUpEmailSentDialog'],
               title: Text(context.l10n().msgAccountVerification),
               content: Text(
                 context.l10n().msgAccountVerificationExplanation(state.email),
