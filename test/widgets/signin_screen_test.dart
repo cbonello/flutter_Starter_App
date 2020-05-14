@@ -117,7 +117,7 @@ void main() {
     );
 
     testWidgets(
-      'home screen should be displayed after a ssuccessful sign-ins',
+      'home screen should be displayed after a successful sign-in',
       (WidgetTester tester) async {
         when(authRepositoryMock.signInWithCurrentUser()).thenAnswer((_) => null);
         when(localStorageServiceMock.setAuthenticatedUserID(any)).thenAnswer((_) {
@@ -173,9 +173,6 @@ void main() {
 
         await tester.tap(find.byKey(AppWidgetKeys.keys['SignInSubmitButton']));
         await tester.pumpAndSettle();
-
-        // final Finder signOutButton = find.byKey(AppWidgetKeys.keys['HomeSignOutButton']);
-        // expect(signOutButton, findsOneWidget);
       },
     );
 
