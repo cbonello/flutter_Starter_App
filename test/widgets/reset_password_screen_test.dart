@@ -53,8 +53,9 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        final Finder buttonFinder =
-            find.byKey(AppWidgetKeys.keys['PasswordResetSubmitButton']);
+        final Finder buttonFinder = find.byKey(
+          AppWidgetKeys.keys['PasswordResetSubmitButton'],
+        );
         expect(buttonFinder, findsOneWidget);
         expect(tester.widget<GradientButton>(buttonFinder).enabled, isFalse);
       },
@@ -96,10 +97,61 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        final Finder buttonFinder =
-            find.byKey(AppWidgetKeys.keys['PasswordResetSubmitButton']);
+        final Finder buttonFinder = find.byKey(
+          AppWidgetKeys.keys['PasswordResetSubmitButton'],
+        );
         expect(buttonFinder, findsOneWidget);
         expect(tester.widget<GradientButton>(buttonFinder).enabled, isTrue);
+      },
+    );
+
+    testWidgets(
+      'Reset dialog should be displayed after email is sent',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(
+          MultiBlocProvider(
+            providers: <BlocProvider<dynamic>>[
+              BlocProvider<AuthenticationBloc>(
+                create: (BuildContext _) {
+                  return AuthenticationBloc(
+                    localStorageService: localStorageServiceMock,
+                    authRepository: authRepositoryMock,
+                    analyticsService: analyticsServiceMock,
+                  );
+                },
+              ),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: kSupportedLanguages,
+              home: ResetPasswordScreen(authRepository: authRepositoryMock),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.enterText(
+          find.byKey(AppWidgetKeys.keys['PasswordResetEmailField']),
+          kMockEmail,
+        );
+        await tester.pumpAndSettle();
+
+        final Finder buttonFinder = find.byKey(
+          AppWidgetKeys.keys['PasswordResetSubmitButton'],
+        );
+        expect(buttonFinder, findsOneWidget);
+        await tester.tap(buttonFinder);
+        await tester.pumpAndSettle();
+
+        expect(
+          find.byKey(AppWidgetKeys.keys['PasswordResetEmailSendDialog']),
+          findsOneWidget,
+        );
       },
     );
   });
