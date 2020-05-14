@@ -72,7 +72,7 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
           await showPlatformDialog<void>(
             context: context,
             builder: (_) => PlatformAlertDialog(
-              key: AppWidgetKeys.keys['PasswordResetEmailSendDialog'],
+              key: AppWidgetKeys.keys['PasswordResetEmailSentDialog'],
               title: Text(context.l10n().msgPasswordReset),
               content: Text(context.l10n().msgPasswordResetSent(state.email)),
               actions: <Widget>[

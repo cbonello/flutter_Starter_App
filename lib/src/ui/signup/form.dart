@@ -206,7 +206,7 @@ class SignUpFormState extends State<SignUpForm> {
                                     ),
                                     TextSpan(
                                       text: context.l10n().msgToS2,
-                                      style: TextStyle(color: Colors.blue),
+                                      style: const TextStyle(color: Colors.blue),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
                                           Navigator.push<void>(
@@ -226,7 +226,7 @@ class SignUpFormState extends State<SignUpForm> {
                                     ),
                                     TextSpan(
                                       text: context.l10n().msgToS4,
-                                      style: TextStyle(color: Colors.blue),
+                                      style: const TextStyle(color: Colors.blue),
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
                                           Navigator.push<void>(
