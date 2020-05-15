@@ -18,8 +18,10 @@ import '../mock/firebase_auth.dart';
 import '../mock/repositories.dart';
 import '../mock/services.dart';
 
-const String kMockEmail = 'john.doe@yahoo.com';
-const String kMockPassword = 'password1234';
+const String kMockValidEmail = 'john.doe@yahoo.com';
+const String kMockInvalidEmail = 'john.doe';
+const String kMockValidPassword = 'password1234';
+const String kMockInvalidPassword = 'pass';
 
 void main() {
   final LocalStorageService localStorageServiceMock = MockLocalStorageService();
@@ -68,7 +70,7 @@ void main() {
     );
 
     testWidgets(
-      'sign-in button should be enabled when email and password fields are set',
+      'sign-in button should be disabled when an invalid email is entered',
       (WidgetTester tester) async {
         await tester.pumpWidget(
           MultiBlocProvider(
@@ -102,11 +104,101 @@ void main() {
 
         await tester.enterText(
           find.byKey(AppWidgetKeys.keys['SignInEmailField']),
-          kMockEmail,
+          kMockInvalidEmail,
+        );
+        await tester.pumpAndSettle();
+
+        final Finder submitButton = find.byKey(AppWidgetKeys.keys['SignInSubmitButton']);
+        expect(submitButton, findsOneWidget);
+        expect(tester.widget<GradientButton>(submitButton).enabled, isFalse);
+      },
+    );
+
+    testWidgets(
+      'sign-in button should be disabled when an invalid password is entered',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(
+          MultiBlocProvider(
+            providers: <BlocProvider<dynamic>>[
+              BlocProvider<AuthenticationBloc>(
+                create: (BuildContext _) {
+                  return AuthenticationBloc(
+                    localStorageService: localStorageServiceMock,
+                    authRepository: authRepositoryMock,
+                    analyticsService: analyticsServiceMock,
+                  );
+                },
+              ),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: kSupportedLanguages,
+              home: SignInScreen(
+                authRepository: authRepositoryMock,
+                analyticsService: analyticsServiceMock,
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.enterText(
+          find.byKey(AppWidgetKeys.keys['SignInPasswordField']),
+          kMockInvalidPassword,
+        );
+        await tester.pumpAndSettle();
+
+        final Finder submitButton = find.byKey(AppWidgetKeys.keys['SignInSubmitButton']);
+        expect(submitButton, findsOneWidget);
+        expect(tester.widget<GradientButton>(submitButton).enabled, isFalse);
+      },
+    );
+
+    testWidgets(
+      'sign-in button should be enabled when valid email and password are entered',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(
+          MultiBlocProvider(
+            providers: <BlocProvider<dynamic>>[
+              BlocProvider<AuthenticationBloc>(
+                create: (BuildContext _) {
+                  return AuthenticationBloc(
+                    localStorageService: localStorageServiceMock,
+                    authRepository: authRepositoryMock,
+                    analyticsService: analyticsServiceMock,
+                  );
+                },
+              ),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: kSupportedLanguages,
+              home: SignInScreen(
+                authRepository: authRepositoryMock,
+                analyticsService: analyticsServiceMock,
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.enterText(
+          find.byKey(AppWidgetKeys.keys['SignInEmailField']),
+          kMockValidEmail,
         );
         await tester.enterText(
           find.byKey(AppWidgetKeys.keys['SignInPasswordField']),
-          kMockPassword,
+          kMockValidPassword,
         );
         await tester.pumpAndSettle();
 
@@ -125,8 +217,8 @@ void main() {
         });
 
         when(authRepositoryMock.signInWithEmailAndPassword(
-          email: kMockEmail,
-          password: kMockPassword,
+          email: kMockValidEmail,
+          password: kMockValidPassword,
         )).thenAnswer((_) {
           return Future<FirebaseUser>.value(authenticatedUser);
         });
@@ -163,11 +255,11 @@ void main() {
 
         await tester.enterText(
           find.byKey(AppWidgetKeys.keys['SignInEmailField']),
-          kMockEmail,
+          kMockValidEmail,
         );
         await tester.enterText(
           find.byKey(AppWidgetKeys.keys['SignInPasswordField']),
-          kMockPassword,
+          kMockValidPassword,
         );
         await tester.pumpAndSettle();
 

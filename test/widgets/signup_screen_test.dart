@@ -15,8 +15,10 @@ import 'package:flutter_test/flutter_test.dart';
 import '../mock/repositories.dart';
 import '../mock/services.dart';
 
-const String kMockEmail = 'john.doe@yahoo.com';
-const String kMockPassword = 'password1234';
+const String kValidMockEmail = 'john.doe@yahoo.com';
+const String kInvalidMockEmail = 'john.doe@yahoo';
+const String kMockValidPassword = 'password1234';
+const String kMockInvalidPassword = 'pass';
 
 void main() {
   final LocalStorageService localStorageServiceMock = MockLocalStorageService();
@@ -64,7 +66,7 @@ void main() {
     );
 
     testWidgets(
-      'sign-up button should be enabled when email and password fields are set',
+      'sign-up button should be disabled if an invalid email is entered',
       (WidgetTester tester) async {
         await tester.pumpWidget(
           MultiBlocProvider(
@@ -98,11 +100,101 @@ void main() {
 
         await tester.enterText(
           find.byKey(AppWidgetKeys.keys['SignUpEmailField']),
-          kMockEmail,
+          kInvalidMockEmail,
+        );
+        await tester.pumpAndSettle();
+
+        final Finder buttonFinder = find.byKey(AppWidgetKeys.keys['SignUpSubmitButton']);
+        expect(buttonFinder, findsOneWidget);
+        expect(tester.widget<GradientButton>(buttonFinder).enabled, isFalse);
+      },
+    );
+
+    testWidgets(
+      'sign-up button should be disabled if an invalid password is entered',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(
+          MultiBlocProvider(
+            providers: <BlocProvider<dynamic>>[
+              BlocProvider<AuthenticationBloc>(
+                create: (BuildContext _) {
+                  return AuthenticationBloc(
+                    localStorageService: localStorageServiceMock,
+                    authRepository: authRepositoryMock,
+                    analyticsService: analyticsServiceMock,
+                  );
+                },
+              ),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: kSupportedLanguages,
+              home: SignUpScreen(
+                authRepository: authRepositoryMock,
+                analyticsService: analyticsServiceMock,
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.enterText(
+          find.byKey(AppWidgetKeys.keys['SignUpPasswordField']),
+          kMockInvalidPassword,
+        );
+        await tester.pumpAndSettle();
+
+        final Finder buttonFinder = find.byKey(AppWidgetKeys.keys['SignUpSubmitButton']);
+        expect(buttonFinder, findsOneWidget);
+        expect(tester.widget<GradientButton>(buttonFinder).enabled, isFalse);
+      },
+    );
+
+    testWidgets(
+      'sign-up button should be enabled when valid email and password are entered',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(
+          MultiBlocProvider(
+            providers: <BlocProvider<dynamic>>[
+              BlocProvider<AuthenticationBloc>(
+                create: (BuildContext _) {
+                  return AuthenticationBloc(
+                    localStorageService: localStorageServiceMock,
+                    authRepository: authRepositoryMock,
+                    analyticsService: analyticsServiceMock,
+                  );
+                },
+              ),
+            ],
+            child: MaterialApp(
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: kSupportedLanguages,
+              home: SignUpScreen(
+                authRepository: authRepositoryMock,
+                analyticsService: analyticsServiceMock,
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.enterText(
+          find.byKey(AppWidgetKeys.keys['SignUpEmailField']),
+          kValidMockEmail,
         );
         await tester.enterText(
           find.byKey(AppWidgetKeys.keys['SignUpPasswordField']),
-          kMockPassword,
+          kMockValidPassword,
         );
         await tester.tap(find.byKey(AppWidgetKeys.keys['SignUpTOSCheckbox']));
         await tester.pumpAndSettle();
@@ -148,11 +240,11 @@ void main() {
 
         await tester.enterText(
           find.byKey(AppWidgetKeys.keys['SignUpEmailField']),
-          kMockEmail,
+          kValidMockEmail,
         );
         await tester.enterText(
           find.byKey(AppWidgetKeys.keys['SignUpPasswordField']),
-          kMockPassword,
+          kMockValidPassword,
         );
         await tester.tap(find.byKey(AppWidgetKeys.keys['SignUpTOSCheckbox']));
         await tester.pumpAndSettle();
