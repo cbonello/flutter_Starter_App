@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -13,9 +14,26 @@ import '../mock/firebase_auth.dart';
 import '../mock/repositories.dart';
 import '../mock/services.dart';
 
+const String kUserId = 'user-id';
+
 Future<void> main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  LocalStorageService localStorageService;
+  final Map<String, dynamic> sharedPrefsStore = <String, dynamic>{};
+
+  setUpAll(() async {
+    const MethodChannel('plugins.flutter.io/shared_preferences')
+        .setMockMethodCallHandler((MethodCall methodCall) async {
+      if (methodCall.method == 'getAll') {
+        return sharedPrefsStore;
+      }
+      return null;
+    });
+    localStorageService = await LocalStorageService.getInstance();
+  });
+
   group('Authentication Bloc:', () {
-    final LocalStorageService localStorageServiceMock = MockLocalStorageService();
     final AuthenticationRepository authRepositoryMock = MockAuthenticationRepository();
     final AnalyticsService analyticsServiceMock = MockAnalyticsService();
     final FirebaseUser authenticatedUser = MockFirebaseUser();
@@ -25,7 +43,7 @@ Future<void> main() async {
       blocTest<AuthenticationBloc, AuthenticationEvent, AuthenticationState>(
         'initial state is AuthenticationState.uninitialized()',
         build: () async => AuthenticationBloc(
-          localStorageService: localStorageServiceMock,
+          localStorageService: localStorageService,
           authRepository: authRepositoryMock,
           analyticsService: analyticsServiceMock,
         ),
@@ -40,7 +58,7 @@ Future<void> main() async {
         build: () async {
           when(authRepositoryMock.signInWithCurrentUser()).thenAnswer((_) => null);
           return AuthenticationBloc(
-            localStorageService: localStorageServiceMock,
+            localStorageService: localStorageService,
             authRepository: authRepositoryMock,
             analyticsService: analyticsServiceMock,
           )..add(const AuthenticationEvent.appStarted());
@@ -56,11 +74,9 @@ Future<void> main() async {
           when(authRepositoryMock.signInWithCurrentUser()).thenAnswer((_) {
             return Future<FirebaseUser>.value(authenticatedUser);
           });
-          when(localStorageServiceMock.setAuthenticatedUserID(any)).thenAnswer((_) {
-            return Future<bool>.value(true);
-          });
+          when(authenticatedUser.uid).thenReturn(kUserId);
           return AuthenticationBloc(
-            localStorageService: localStorageServiceMock,
+            localStorageService: localStorageService,
             authRepository: authRepositoryMock,
             analyticsService: analyticsServiceMock,
           )..add(const AuthenticationEvent.appStarted());
@@ -75,7 +91,7 @@ Future<void> main() async {
         build: () async {
           when(authRepositoryMock.signInWithCurrentUser()).thenThrow(exception);
           return AuthenticationBloc(
-            localStorageService: localStorageServiceMock,
+            localStorageService: localStorageService,
             authRepository: authRepositoryMock,
             analyticsService: analyticsServiceMock,
           )..add(const AuthenticationEvent.appStarted());
@@ -91,11 +107,8 @@ Future<void> main() async {
         'a user signed in',
         build: () async {
           when(authRepositoryMock.signInWithCurrentUser()).thenAnswer((_) => null);
-          when(localStorageServiceMock.setAuthenticatedUserID(any)).thenAnswer((_) {
-            return Future<bool>.value(true);
-          });
           return AuthenticationBloc(
-            localStorageService: localStorageServiceMock,
+            localStorageService: localStorageService,
             authRepository: authRepositoryMock,
             analyticsService: analyticsServiceMock,
           )
@@ -114,11 +127,8 @@ Future<void> main() async {
         'a user signed out',
         build: () async {
           when(authRepositoryMock.signInWithCurrentUser()).thenAnswer((_) => null);
-          when(localStorageServiceMock.setAuthenticatedUserID(any)).thenAnswer((_) {
-            return Future<bool>.value(true);
-          });
           return AuthenticationBloc(
-            localStorageService: localStorageServiceMock,
+            localStorageService: localStorageService,
             authRepository: authRepositoryMock,
             analyticsService: analyticsServiceMock,
           )
