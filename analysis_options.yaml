@@ -9,4 +9,5 @@ analyzer:
 
 linter:
   rules:
+    avoid_redundant_argument_values: false
     sort_unnamed_constructors_first: false

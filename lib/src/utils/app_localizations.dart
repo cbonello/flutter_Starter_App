@@ -53,7 +53,7 @@ class AppLocalizations {
       );
   String get msgCancelled => Intl.message('Cancelled', name: 'msgCancelled');
   String get msgDontHaveAccount => Intl.message(
-        'Don\'t have an account?',
+        "Don't have an account?",
         name: 'msgDontHaveAccount',
       );
   String get msgEmail => Intl.message('Email', name: 'msgEmail');
