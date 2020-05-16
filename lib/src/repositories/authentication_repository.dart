@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../configuration.dart';
 import '../utils/exceptions.dart';
 
 abstract class AuthenticationRepositoryInterface {
@@ -95,7 +95,7 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   @override
   Future<void> signOut() async {
     try {
-      if (kIsWeb == false) {
+      if (kUseGoogleASignIn) {
         await Future.wait<void>(<Future<void>>[
           _firebaseAuth.signOut(),
           _googleSignIn.signOut(),
