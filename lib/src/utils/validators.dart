@@ -4,8 +4,6 @@ import 'package:password_strength/password_strength.dart';
 import '../configuration.dart';
 
 class Validators {
-  static bool isValidName(String name) => name.trim().isNotEmpty;
-
   static bool isValidEmail(String email) => EmailValidator.validate(email);
 
   static bool isValidPassword(String password) =>
