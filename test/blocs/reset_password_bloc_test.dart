@@ -18,6 +18,10 @@ Future<void> main() async {
     const AppException exception = AppException(code: 'ERROR_SiGN_IN_CANCEL');
 
     group('Initialization:', () {
+      test('should throw an assertion error for invalid args', () {
+        expect(() => ResetPasswordBloc(authRepository: null), throwsAssertionError);
+      });
+
       blocTest<ResetPasswordBloc, ResetPasswordEvent, ResetPasswordState>(
         'initial state is ResetPasswordState.empty()',
         build: () async => ResetPasswordBloc(authRepository: authRepositoryMock),

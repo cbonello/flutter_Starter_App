@@ -40,6 +40,33 @@ Future<void> main() async {
     const AppException exception = AppException(code: 'ERROR_SiGN_IN_CANCEL');
 
     group('Initialization:', () {
+      test('should throw an assertion error for invalid args', () {
+        expect(
+          () => AuthenticationBloc(
+            localStorageService: null,
+            authRepository: authRepositoryMock,
+            analyticsService: analyticsServiceMock,
+          ),
+          throwsAssertionError,
+        );
+        expect(
+          () => AuthenticationBloc(
+            localStorageService: localStorageService,
+            authRepository: null,
+            analyticsService: analyticsServiceMock,
+          ),
+          throwsAssertionError,
+        );
+        expect(
+          () => AuthenticationBloc(
+            localStorageService: localStorageService,
+            authRepository: authRepositoryMock,
+            analyticsService: null,
+          ),
+          throwsAssertionError,
+        );
+      });
+
       blocTest<AuthenticationBloc, AuthenticationEvent, AuthenticationState>(
         'initial state is AuthenticationState.uninitialized()',
         build: () async => AuthenticationBloc(

@@ -13,7 +13,8 @@ part 'signup_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc({@required AuthenticationRepositoryInterface authRepository})
-      : _authRepository = authRepository;
+      : assert(authRepository != null),
+        _authRepository = authRepository;
 
   final AuthenticationRepositoryInterface _authRepository;
 

@@ -21,6 +21,10 @@ Future<void> main() async {
     const AppException exception = AppException(code: 'ERROR_SiGN_IN_CANCEL');
 
     group('Initialization:', () {
+      test('should throw an assertion error for invalid args', () {
+        expect(() => SignUpBloc(authRepository: null), throwsAssertionError);
+      });
+
       blocTest<SignUpBloc, SignUpEvent, SignUpState>(
         'initial state is SignUpState.empty()',
         build: () async => SignUpBloc(authRepository: authRepositoryMock),

@@ -24,6 +24,17 @@ Future<void> main() async {
     const AppException exception = AppException(code: 'ERROR_EMAIL_NOT_VERIFIED');
 
     group('Initialization:', () {
+      test('should throw an assertion error for invalid args', () {
+        expect(
+          () => SignInBloc(authRepository: null, analyticsService: analyticsServiceMock),
+          throwsAssertionError,
+        );
+        expect(
+          () => SignInBloc(authRepository: authRepositoryMock, analyticsService: null),
+          throwsAssertionError,
+        );
+      });
+
       blocTest<SignInBloc, SignInEvent, SignInState>(
         'initial state is SignInState.empty()',
         build: () async => SignInBloc(
