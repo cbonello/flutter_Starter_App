@@ -14,8 +14,8 @@ class SplashScreen extends StatelessWidget {
             widthFactor: 0.5,
             child: Image.asset(
               kAppAssetLogo,
-              fit: BoxFit.fill,
               key: AppWidgetKeys.keys['SplashImage'],
+              fit: BoxFit.fill,
             ),
           ),
         ),

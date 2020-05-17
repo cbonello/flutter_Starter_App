@@ -166,7 +166,8 @@ class SignUpFormState extends State<SignUpForm> {
                       validator: (_) {
                         if (_passwordController.text.isNotEmpty) {
                           if (!Validators.isValidPasswordLength(
-                              _passwordController.text)) {
+                            _passwordController.text,
+                          )) {
                             return context.l10n().msgWeakTooShort('$kMinPasswordLength');
                           }
                           if (!Validators.isValidPasswordStrength(
@@ -198,6 +199,7 @@ class SignUpFormState extends State<SignUpForm> {
                             alignment: Alignment.centerLeft,
                             child: IgnoreFocusWatcher(
                               child: RichText(
+                                key: AppWidgetKeys.keys['SignUpTosPrivacyButton'],
                                 text: TextSpan(
                                   children: <InlineSpan>[
                                     TextSpan(
@@ -219,6 +221,7 @@ class SignUpFormState extends State<SignUpForm> {
                                             ),
                                           );
                                         },
+                                      semanticsLabel: context.l10n().msgToS2,
                                     ),
                                     TextSpan(
                                       text: context.l10n().msgToS3,
@@ -239,6 +242,7 @@ class SignUpFormState extends State<SignUpForm> {
                                             ),
                                           );
                                         },
+                                      semanticsLabel: context.l10n().msgToS4,
                                     ),
                                   ],
                                 ),

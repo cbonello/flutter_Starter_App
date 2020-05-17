@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+import '../../keys.dart';
+
 class TosPrivacyScreen extends StatelessWidget {
   const TosPrivacyScreen({Key key, @required String title})
       : assert(title != null),
@@ -21,11 +23,13 @@ class TosPrivacyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(title: Text(_title)),
-      body: Scrollbar(
-        child: SingleChildScrollView(child: Text(lorem(paragraphs: 20, words: 2000))),
+      child: Scaffold(
+        appBar: AppBar(title: Text(_title)),
+        body: Scrollbar(
+          key: AppWidgetKeys.keys['TosPrivacy'],
+          child: SingleChildScrollView(child: Text(lorem(paragraphs: 20, words: 2000))),
+        ),
       ),
-    ));
+    );
   }
 }
