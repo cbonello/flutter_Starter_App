@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../utils/app_localizations.dart';
 
@@ -135,7 +134,7 @@ class _AppPassworFormFieldState extends State<AppPassworFormField> {
         labelText: widget._labelText ?? context.l10n().msgPassword,
         helperText: widget._helperText,
         hintText: widget._hintText,
-        suffixIcon: PlatformIconButton(
+        suffixIcon: IconButton(
           icon: Icon(
             obscurePassword ? Icons.visibility : Icons.visibility_off,
             color: Colors.black,

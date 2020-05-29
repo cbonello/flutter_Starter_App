@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../keys.dart';
 
@@ -13,8 +12,7 @@ class TosPrivacyScreen extends StatelessWidget {
   final String _title;
 
   static PageRoute<void> route(BuildContext context, String title) {
-    return platformPageRoute<void>(
-      context: context,
+    return MaterialPageRoute<void>(
       builder: (_) => TosPrivacyScreen(title: title),
       settings: const RouteSettings(name: 'TosPrivacyScreen'),
     );

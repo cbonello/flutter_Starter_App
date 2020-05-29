@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_auth/src/utils/validators.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../blocs/reset_password/reset_password_bloc.dart';
 import '../../keys.dart';
@@ -69,19 +68,19 @@ class ResetPasswordFormState extends State<ResetPasswordForm> {
           Scaffold.of(context).showSnackBar(_resettingSnackBar);
         } else if (state.isResetEmailSent) {
           Scaffold.of(context).removeCurrentSnackBar();
-          await showPlatformDialog<void>(
+          await showDialog<void>(
             context: context,
-            builder: (_) => PlatformAlertDialog(
+            builder: (_) => AlertDialog(
               key: AppWidgetKeys.keys['PasswordResetEmailSentDialog'],
               title: Text(context.l10n().msgPasswordReset),
               content: Text(context.l10n().msgPasswordResetSent(state.email)),
               actions: <Widget>[
-                PlatformDialogAction(
+                FlatButton(
                   onPressed: () {
                     Navigator.of(context).pop(); // Close dialog.
                     Navigator.of(context).pop(); // Go back to sign in screen.
                   },
-                  child: PlatformText(context.l10n().msgOk),
+                  child: Text(context.l10n().msgOk),
                 ),
               ],
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_focus_watcher/flutter_focus_watcher.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../blocs/reset_password/reset_password_bloc.dart';
 import '../../repositories/authentication_repository.dart';
@@ -18,11 +17,9 @@ class ResetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: FocusWatcher(
-        child: PlatformScaffold(
-          appBar: PlatformAppBar(title: Text(context.l10n().msgPasswordReset)),
-          android: (BuildContext context) => MaterialScaffoldData(
-            resizeToAvoidBottomInset: true,
-          ),
+        child: Scaffold(
+          appBar: AppBar(title: Text(context.l10n().msgPasswordReset)),
+          resizeToAvoidBottomInset: true,
           body: NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (OverscrollIndicatorNotification overscroll) {
               overscroll.disallowGlow();

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../blocs/authentication/authentication_bloc.dart';
 import '../../configuration.dart';
@@ -12,8 +11,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 
   static PageRoute<void> route(BuildContext context) {
-    return platformPageRoute<void>(
-      context: context,
+    return MaterialPageRoute<void>(
       builder: (_) => HomeScreen(),
       settings: const RouteSettings(name: 'HomeScreen'),
     );
@@ -32,24 +30,20 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: PlatformScaffold(
-        appBar: PlatformAppBar(
+      child: Scaffold(
+        appBar: AppBar(
           title: const Text(kAppName),
-          android: (BuildContext context) {
-            return MaterialAppBarData(
-              actions: <Widget>[
-                IconButton(
-                  key: AppWidgetKeys.keys['HomeSignOutButton'],
-                  icon: const Icon(Icons.exit_to_app),
-                  onPressed: () {
-                    BlocProvider.of<AuthenticationBloc>(context).add(
-                      const AuthenticationEvent.signedOut(),
-                    );
-                  },
-                )
-              ],
-            );
-          },
+          actions: <Widget>[
+            IconButton(
+              key: AppWidgetKeys.keys['HomeSignOutButton'],
+              icon: const Icon(Icons.exit_to_app),
+              onPressed: () {
+                BlocProvider.of<AuthenticationBloc>(context).add(
+                  const AuthenticationEvent.signedOut(),
+                );
+              },
+            )
+          ],
         ),
         body: Center(
           child: Column(
@@ -60,17 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        android: (BuildContext context) {
-          return MaterialScaffoldData(
-            floatingActionButton: FloatingActionButton(
-              key: AppWidgetKeys.keys['HomeFAB'],
-              backgroundColor: Theme.of(context).primaryColor,
-              onPressed: _incrementCounter,
-              tooltip: context.l10n().msgIncrement,
-              child: const Icon(Icons.add),
-            ),
-          );
-        },
+        floatingActionButton: FloatingActionButton(
+          key: AppWidgetKeys.keys['HomeFAB'],
+          backgroundColor: Theme.of(context).primaryColor,
+          onPressed: _incrementCounter,
+          tooltip: context.l10n().msgIncrement,
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

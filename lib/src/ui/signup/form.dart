@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_focus_watcher/flutter_focus_watcher.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../blocs/signup/signup_bloc.dart';
 import '../../configuration.dart';
@@ -97,23 +96,23 @@ class SignUpFormState extends State<SignUpForm> {
           Scaffold.of(context).showSnackBar(_signingUpSnackBar);
         } else if (state.isVerificationEmailSent) {
           Scaffold.of(context).removeCurrentSnackBar();
-          await showPlatformDialog<void>(
+          await showDialog<void>(
             context: context,
-            builder: (_) => PlatformAlertDialog(
+            builder: (_) => AlertDialog(
               key: AppWidgetKeys.keys['SignUpEmailSentDialog'],
               title: Text(context.l10n().msgAccountVerification),
               content: Text(
                 context.l10n().msgAccountVerificationExplanation(state.email),
               ),
               actions: <Widget>[
-                PlatformDialogAction(
+                FlatButton(
                   onPressed: () {
                     try {
                       Navigator.of(context)
                           .popUntil((dynamic route) => route.isFirst as bool);
                     } catch (_) {}
                   },
-                  child: PlatformText(context.l10n().msgOk),
+                  child: Text(context.l10n().msgOk),
                 ),
               ],
             ),
@@ -213,8 +212,7 @@ class SignUpFormState extends State<SignUpForm> {
                                         ..onTap = () {
                                           Navigator.push<void>(
                                             context,
-                                            platformPageRoute<void>(
-                                              context: context,
+                                            MaterialPageRoute<void>(
                                               builder: (_) => TosPrivacyScreen(
                                                 title: context.l10n().msgToS2,
                                               ),
@@ -234,8 +232,7 @@ class SignUpFormState extends State<SignUpForm> {
                                         ..onTap = () {
                                           Navigator.push<void>(
                                             context,
-                                            platformPageRoute<void>(
-                                              context: context,
+                                            MaterialPageRoute<void>(
                                               builder: (_) => TosPrivacyScreen(
                                                 title: context.l10n().msgToS4,
                                               ),
@@ -272,8 +269,7 @@ class SignUpFormState extends State<SignUpForm> {
                       onPressed: () {
                         Navigator.push<void>(
                           context,
-                          platformPageRoute<void>(
-                            context: context,
+                          MaterialPageRoute<void>(
                             builder: (_) => SignInScreen(
                               authRepository: widget._authRepository,
                               analyticsService: widget._analyticsService,

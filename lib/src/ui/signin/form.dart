@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../../blocs/authentication/authentication_bloc.dart';
 import '../../blocs/signin/signin_bloc.dart';
@@ -170,8 +169,7 @@ class SignInFormState extends State<SignInForm> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              platformPageRoute<void>(
-                                context: context,
+                              MaterialPageRoute<void>(
                                 builder: (_) => ResetPasswordScreen(
                                   authRepository: widget._authRepository,
                                 ),
@@ -237,8 +235,7 @@ class SignInFormState extends State<SignInForm> {
                       onPressed: () {
                         Navigator.push<void>(
                           context,
-                          platformPageRoute<void>(
-                            context: context,
+                          MaterialPageRoute<void>(
                             builder: (_) => SignUpScreen(
                               authRepository: widget._authRepository,
                               analyticsService: widget._analyticsService,
