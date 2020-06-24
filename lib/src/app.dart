@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +40,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     return MaterialApp(
       onGenerateTitle: (BuildContext context) => kAppName,
       debugShowCheckedModeBanner: false,
-      locale: kUseDevicePreview ? DevicePreview.of(context)?.locale : null,
-      builder: kUseDevicePreview ? DevicePreview.appBuilder : null,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,

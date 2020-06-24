@@ -25,7 +25,6 @@ it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https:/
 - `kUseGoogleASignIn`: [Google Sign-In](https://pub.dev/packages/google_sign_in); not supported for Flutter web as of now.
 - `kUseFirebaseAnalytics`: [Firebase Analytics](https://pub.dev/packages/firebase_analytics); not supported for Flutter web as of now.
 - `kUseFlutterBlocDelegate`: Flutter_bloc [delegates](https://bloclibrary.dev/#/flutterfirebaselogintutorial?id=bloc-delegate).
-- `kUseDevicePreview`: [Device Preview](https://pub.dev/packages/device_preview) package.
 
 ### Steps
 

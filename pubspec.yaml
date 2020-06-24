@@ -11,7 +11,6 @@ environment:
   flutter: ^1.17.0
 
 dependencies:
-  device_preview: ^0.4.0
   email_validator: ^1.0.0
   firebase_analytics: ^5.0.0
   firebase_auth: ^0.16.0
@@ -24,7 +23,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_lorem: ^1.1.0
-  freezed_annotation: ^0.7.0
+  freezed_annotation: ^0.11.0
   google_sign_in: ^4.4.0
   intl: ^0.16.0
   password_strength: ^0.1.0
@@ -38,7 +37,7 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  freezed: ^0.10.0
+  freezed: ^0.11.0
   intl_translation: ^0.17.0
   lint: ^1.1.0
   test: any

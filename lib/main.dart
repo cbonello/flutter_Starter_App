@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,24 +24,19 @@ Future<void> main() async {
   }
 
   runApp(
-    DevicePreview(
-      enabled: kUseDevicePreview,
-      builder: (BuildContext context) {
-        return MultiBlocProvider(
-          providers: <BlocProvider<dynamic>>[
-            BlocProvider<AuthenticationBloc>(
-              create: (BuildContext _) {
-                return AuthenticationBloc(
-                  localStorageService: localStorageService,
-                  authRepository: authRepository,
-                  analyticsService: analyticsService,
-                )..add(const AuthenticationEvent.appStarted());
-              },
-            ),
-          ],
-          child: App(authRepository: authRepository, analyticsService: analyticsService),
-        );
-      },
+    MultiBlocProvider(
+      providers: <BlocProvider<dynamic>>[
+        BlocProvider<AuthenticationBloc>(
+          create: (BuildContext _) {
+            return AuthenticationBloc(
+              localStorageService: localStorageService,
+              authRepository: authRepository,
+              analyticsService: analyticsService,
+            )..add(const AuthenticationEvent.appStarted());
+          },
+        ),
+      ],
+      child: App(authRepository: authRepository, analyticsService: analyticsService),
     ),
   );
 }
