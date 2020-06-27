@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/authentication/authentication_bloc.dart';
 import '../../configuration.dart';
 import '../../keys.dart';
 import '../../utils/app_localizations.dart';
+import '../common/index.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -31,20 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(kAppName),
-          actions: <Widget>[
-            IconButton(
-              key: AppWidgetKeys.keys['HomeSignOutButton'],
-              icon: const Icon(Icons.exit_to_app),
-              onPressed: () {
-                BlocProvider.of<AuthenticationBloc>(context).add(
-                  const AuthenticationEvent.signedOut(),
-                );
-              },
-            )
-          ],
-        ),
+        appBar: AppBar(title: const Text(kAppName)),
+        drawer: AppDrawer(),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
