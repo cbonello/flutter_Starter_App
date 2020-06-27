@@ -46,7 +46,7 @@ flutter config --enable-web
 ```
 2. Rename ```web/SAMPLE_firebase.js``` as ```web/firebase.js``` and update its content with the Firebase SDK snippet
 from the Firebase Console (see [Resources](#Resources)).
-1. Follow the instructions from [google_sign_in_web README](https://pub.dev/packages/google_sign_in_web) and include your OAuth ID to ```web/index.html```, line 41.
+1. Follow the instructions from [google_sign_in_web README](https://pub.dev/packages/google_sign_in_web) and include your OAuth ID to ```web/index.html```, line 42.
 1. Check this [stackoverflow thread](https://stackoverflow.com/questions/59480956/browser-or-app-may-not-be-secure-try-using-a-different-browser-error-with-fl) if you encounter the “Browser or app may not be secure. Try using a different browser.” error with Google Sign-In.
 
 #### Resources
