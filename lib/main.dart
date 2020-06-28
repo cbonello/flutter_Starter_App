@@ -5,9 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'src/application.dart';
 import 'src/blocs/blocs.dart';
 import 'src/configuration.dart';
-import 'src/repositories/authentication_repository.dart';
-import 'src/services/analytics.dart';
-import 'src/services/local_storage.dart';
+import 'src/repositories/repositories.dart';
+import 'src/services/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
