@@ -28,7 +28,7 @@ it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https:/
 
 ### Steps
 
-1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com) and add and Android app to the project. Please follow the installation instructions from the [Firebase Auth package](https://pub.dev/packages/firebase_auth).
+1. Create a Firebase project in the [Firebase Console](https://console.firebase.google.com) and add an Android app to the project. Please follow the installation instructions from the [Firebase Auth package](https://pub.dev/packages/firebase_auth).
 1. In the Firebase console, enable Email/Password authentication by doing: **Authentication > SIGN-IN METHOD > Email/Password > Enable > SAVE**
 1. In the Firebase console, enable Google authentication by doing: **Authentication > SIGN-IN METHOD > Google > Enable > SAVE**
 1. In the Firebase console, update the email address verification template by doing: **Authentication > TEMPLATES > Email address verification**
