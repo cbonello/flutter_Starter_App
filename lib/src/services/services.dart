@@ -1,2 +1,2 @@
-export 'analytics.dart';
-export 'local_storage.dart';
+export 'analytics_service.dart';
+export 'local_storage_service.dart';
