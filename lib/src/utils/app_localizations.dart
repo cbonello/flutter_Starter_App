@@ -159,6 +159,9 @@ class AppLocalizations {
   String get msgSigningIn => Intl.message('Signing in...', name: 'msgSigningIn');
   String get msgSigningUp => Intl.message('Signing up...', name: 'msgSigningUp');
   String get msgSubmit => Intl.message('Submit', name: 'msgSubmit');
+  String get msgThemeDark => Intl.message('Dark', name: 'msgThemeDark');
+  String get msgThemeLight => Intl.message('Light', name: 'msgThemeLight');
+  String get msgThemeSystem => Intl.message('System', name: 'msgThemeSystem');
   String get msgTogglePaswwordVisibility => Intl.message(
         'Toggle paswword visibility',
         name: 'msgTogglePaswwordVisibility',

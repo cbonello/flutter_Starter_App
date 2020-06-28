@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_auth/src/utils/validators.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/reset_password/reset_password_bloc.dart';
+import '../../blocs/blocs.dart';
 import '../../keys.dart';
-import '../../utils/app_localizations.dart';
-import '../../utils/theme.dart';
-import '../common/index.dart';
+import '../../utils/utils.dart';
+import '../common/common.dart';
 
 class ResetPasswordForm extends StatefulWidget {
   const ResetPasswordForm({

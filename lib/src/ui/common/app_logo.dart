@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../configuration.dart';
-import '../../utils/app_localizations.dart';
+import '../../utils/utils.dart';
 
 class AppLogo extends StatelessWidget {
   const AppLogo({Key key, this.scaleFactor = 1.0}) : super(key: key);

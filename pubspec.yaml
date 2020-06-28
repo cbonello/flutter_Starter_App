@@ -1,10 +1,10 @@
-name: flutter_auth
+name: flutter_starter_app
 version: 1.0.0+1
-description: Flutter starter app providing sign up, sign in and sign out functionnalities.
+description: Flutter starter app providing sign-up, sign-in and sign-out functionnalities.
 author: Christophe Bonello
 homepage: https://github.com/cbonello/
-repository: https://github.com/cbonello/flutter_auth
-issue_tracker: https://github.com/cbonello/flutter_auth/issues
+repository: https://github.com/cbonello/flutter_Starter_App
+issue_tracker: https://github.com/cbonello/flutter_Starter_App/issues
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

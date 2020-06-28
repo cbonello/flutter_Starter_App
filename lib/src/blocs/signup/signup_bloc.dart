@@ -3,9 +3,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../repositories/authentication_repository.dart';
-import '../../utils/exceptions.dart';
-import '../../utils/validators.dart';
+import '../../repositories/repositories.dart';
+import '../../utils/utils.dart';
 
 part 'signup_bloc.freezed.dart';
 part 'signup_event.dart';

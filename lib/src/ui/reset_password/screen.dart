@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_focus_watcher/flutter_focus_watcher.dart';
 
-import '../../blocs/reset_password/reset_password_bloc.dart';
-import '../../repositories/authentication_repository.dart';
-import '../../utils/app_localizations.dart';
+import '../../blocs/blocs.dart';
+import '../../repositories/repositories.dart';
+import '../../utils/utils.dart';
 import 'form.dart';
 
 class ResetPasswordScreen extends StatelessWidget {

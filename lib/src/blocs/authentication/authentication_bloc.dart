@@ -3,9 +3,8 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../repositories/authentication_repository.dart';
-import '../../services/analytics.dart';
-import '../../services/local_storage.dart';
+import '../../repositories/repositories.dart';
+import '../../services/services.dart';
 
 part 'authentication_bloc.freezed.dart';
 part 'authentication_event.dart';

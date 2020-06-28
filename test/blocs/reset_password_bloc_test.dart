@@ -2,9 +2,9 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:flutter_auth/src/blocs/reset_password/reset_password_bloc.dart';
-import 'package:flutter_auth/src/repositories/authentication_repository.dart';
-import 'package:flutter_auth/src/utils/exceptions.dart';
+import 'package:flutter_starter_app/src/blocs/blocs.dart';
+import 'package:flutter_starter_app/src/repositories/repositories.dart';
+import 'package:flutter_starter_app/src/utils/utils.dart';
 
 import '../mock/repositories.dart';
 

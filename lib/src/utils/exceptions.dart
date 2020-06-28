@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'app_localizations.dart';
+import 'utils.dart';
 
 class AppException implements Exception {
   const AppException({@required this.code});

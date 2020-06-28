@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../configuration.dart';
 import '../../keys.dart';
-import '../../utils/app_localizations.dart';
-import '../common/index.dart';
+import '../../utils/utils.dart';
+import '../common/common.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

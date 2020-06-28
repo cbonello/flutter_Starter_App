@@ -4,18 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/authentication/authentication_bloc.dart';
-import '../../blocs/signin/signin_bloc.dart';
+import '../../blocs/blocs.dart';
 import '../../configuration.dart';
 import '../../keys.dart';
-import '../../repositories/authentication_repository.dart';
-import '../../services/analytics.dart';
-import '../../utils/app_localizations.dart';
-import '../../utils/theme.dart';
-import '../../utils/validators.dart';
-import '../common/index.dart';
-import '../reset_password/screen.dart';
-import '../signup/screen.dart';
+import '../../repositories/repositories.dart';
+import '../../services/services.dart';
+import '../../utils/utils.dart';
+import '../common/common.dart';
+import '../screens.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({

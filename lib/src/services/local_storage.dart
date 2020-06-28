@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LocalStorageServiceInterface {
   String getAuthenticatedUserID();
   Future<bool> setAuthenticatedUserID(String uid);
   Future<void> deleteAuthenticatedUserID();
+  ThemeMode getPreferredTheme();
+  Future<bool> setPreferredTheme(ThemeMode mode);
 }
 
 class LocalStorageService implements LocalStorageServiceInterface {
@@ -35,5 +38,20 @@ class LocalStorageService implements LocalStorageServiceInterface {
   @override
   Future<void> deleteAuthenticatedUserID() async {
     await _preferences.remove('auth_uid');
+  }
+
+  @override
+  ThemeMode getPreferredTheme() {
+    try {
+      final int index = _preferences.getInt('preferred_theme') ?? ThemeMode.system.index;
+      return ThemeMode.values[index];
+    } catch (_) {
+      return ThemeMode.system;
+    }
+  }
+
+  @override
+  Future<bool> setPreferredTheme(ThemeMode mode) {
+    return _preferences.setInt('preferred_theme', mode.index);
   }
 }

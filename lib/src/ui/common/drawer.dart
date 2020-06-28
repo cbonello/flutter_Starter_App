@@ -2,12 +2,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/authentication/authentication_bloc.dart';
-import 'index.dart';
+import '../../blocs/blocs.dart';
+import '../../utils/utils.dart';
+import 'common.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Map<ThemeMode, String> _themeToString = <ThemeMode, String>{
+      ThemeMode.dark: context.l10n().msgThemeDark,
+      ThemeMode.light: context.l10n().msgThemeLight,
+      ThemeMode.system: context.l10n().msgThemeSystem,
+    };
+
     return Drawer(
       child: SafeArea(
         child: ListView(
@@ -30,17 +37,33 @@ class AppDrawer extends StatelessWidget {
                     ));
               },
             ),
-            // const Divider(),
-            // ListTile(
-            //   leading: const Icon(Icons.settings),
-            //   title: const Text(
-            //     'Settings',
-            //     // textScaleFactor: textScaleFactor,
-            //   ),
-            //   onTap: () {
-            //     Navigator.of(context).popAndPushNamed("/settings");
-            //   },
-            // ),
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.lightbulb_outline),
+              title: const Text('Theme'
+                  // textScaleFactor: textScaleFactor,
+                  ),
+              trailing: BlocBuilder<ThemeBloc, ThemeMode>(
+                builder: (BuildContext context, ThemeMode mode) {
+                  return DropdownButton<ThemeMode>(
+                    value: mode,
+                    elevation: 16,
+                    onChanged: (ThemeMode newValue) {
+                      final ThemeBloc themeBloc = context.bloc<ThemeBloc>();
+                      themeBloc.add(newValue);
+                    },
+                    items: ThemeMode.values.map<DropdownMenuItem<ThemeMode>>(
+                      (ThemeMode value) {
+                        return DropdownMenuItem<ThemeMode>(
+                          value: value,
+                          child: Text(_themeToString[value]),
+                        );
+                      },
+                    ).toList(),
+                  );
+                },
+              ),
+            ),
             const Divider(),
             ListTile(
               leading: const Icon(Icons.exit_to_app),
