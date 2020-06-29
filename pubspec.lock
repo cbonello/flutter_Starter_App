@@ -292,7 +292,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   flutter_driver:
     dependency: "direct dev"
     description: flutter
@@ -660,7 +660,7 @@ packages:
       name: shelf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.5"
+    version: "0.7.7"
   shelf_packages_handler:
     dependency: transitive
     description:
