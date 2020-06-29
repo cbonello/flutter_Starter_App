@@ -7,7 +7,7 @@
 A Flutter starter project that contains splash, sign in, sign up, password reset and email verification.
 it uses Firebase for authentication and the BLoC pattern ([flutter_bloc](https://pub.dev/packages/flutter_bloc) library) for state management.
 
-**Project was only tested on Android and the web.**
+**Project was only tested on Android and the web ([online demo](https://flutter-starterapp.web.app)).**
 
 ## Features
 
