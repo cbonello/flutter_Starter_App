@@ -52,8 +52,8 @@ Future<void> main() async {
           return ThemeBloc(localStorageService: localStorageService);
         },
         act: (ThemeBloc bloc) async => bloc.add(ThemeMode.system),
-        skip: 1,
-        expect: <ThemeMode>[ThemeMode.system],
+        skip: 0,
+        expect: <ThemeMode>[ThemeMode.dark, ThemeMode.system],
       );
     });
   });
