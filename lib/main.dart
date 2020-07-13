@@ -17,8 +17,8 @@ Future<void> main() async {
     useGoogleAnalytics: kIsWeb == false && kUseFirebaseAnalytics,
   );
 
-  if (kUseFlutterBlocDelegate) {
-    BlocSupervisor.delegate = SimpleBlocDelegate();
+  if (kUseFlutterBlocObserver) {
+    Bloc.observer = SimpleBlocObserver();
   }
 
   runApp(

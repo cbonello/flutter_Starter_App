@@ -10,17 +10,12 @@ class ThemeBloc extends Bloc<ThemeMode, ThemeMode> {
   ThemeBloc({
     @required LocalStorageService localStorageService,
   })  : assert(localStorageService != null),
-        _localStorageService = localStorageService;
+        _localStorageService = localStorageService,
+        _preferredTheme = localStorageService.getPreferredTheme(),
+        super(localStorageService.getPreferredTheme());
 
   final LocalStorageService _localStorageService;
   ThemeMode _preferredTheme;
-
-  @override
-  ThemeMode get initialState {
-    // ignore: join_return_with_assignment
-    _preferredTheme = _localStorageService.getPreferredTheme();
-    return _preferredTheme;
-  }
 
   @override
   Stream<ThemeMode> mapEventToState(ThemeMode theme) async* {

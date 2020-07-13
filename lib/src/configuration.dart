@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-const bool kUseGoogleASignIn = true;
-const bool kUseFirebaseAnalytics = true;
-const bool kUseFlutterBlocDelegate = false;
+const bool kUseGoogleASignIn = false;
+const bool kUseFirebaseAnalytics = false;
+const bool kUseFlutterBlocObserver = false;
 
 const String kAppName = 'Starter App';
 const String kAppAssetLogo = 'assets/images/app_logo.png';

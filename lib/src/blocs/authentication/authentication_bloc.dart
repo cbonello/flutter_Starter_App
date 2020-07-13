@@ -20,14 +20,12 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
         assert(authRepository != null),
         _authRepository = authRepository,
         assert(analyticsService != null),
-        _analyticsService = analyticsService;
+        _analyticsService = analyticsService,
+        super(const AuthenticationState.uninitialized());
 
   final LocalStorageService _localStorageService;
   final AuthenticationRepositoryInterface _authRepository;
   final AnalyticsService _analyticsService;
-
-  @override
-  AuthenticationState get initialState => const AuthenticationState.uninitialized();
 
   @override
   Stream<AuthenticationState> mapEventToState(

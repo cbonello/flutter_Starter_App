@@ -18,7 +18,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_auth_buttons: ^0.8.0
-  flutter_bloc: ^4.0.0
+  flutter_bloc: ^5.0.0
   flutter_focus_watcher: ^0.0.1
   flutter_localizations:
     sdk: flutter
@@ -31,7 +31,7 @@ dependencies:
   shared_preferences: '>=0.5.7+3 <2.0.0'
 
 dev_dependencies:
-  bloc_test: ^5.1.0
+  bloc_test: ^6.0.0
   build_runner: ^1.10.0
   flutter_driver:
     sdk: flutter

@@ -18,13 +18,11 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   })  : assert(authRepository != null),
         _authRepository = authRepository,
         assert(analyticsService != null),
-        _analyticsService = analyticsService;
+        _analyticsService = analyticsService,
+        super(SignInState.empty());
 
   final AuthenticationRepositoryInterface _authRepository;
   final AnalyticsService _analyticsService;
-
-  @override
-  SignInState get initialState => SignInState.empty();
 
   @override
   Stream<SignInState> mapEventToState(SignInEvent event) async* {
