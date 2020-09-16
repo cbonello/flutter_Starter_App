@@ -17,7 +17,7 @@ dependencies:
   firebase_core: ^0.4.0
   flutter:
     sdk: flutter
-  flutter_auth_buttons: ^0.8.0
+  flutter_auth_buttons: ^0.10.0
   flutter_bloc: ^5.0.0
   flutter_focus_watcher: ^0.0.1
   flutter_localizations:
